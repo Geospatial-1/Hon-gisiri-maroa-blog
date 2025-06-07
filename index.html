@@ -3,784 +3,841 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hon. Gisiri Maroa | Nyabasi West MCA 2027</title>
-    <meta name="description" content="Official campaign landing page for Hon. Gisiri Maroa, candidate for Nyabasi West MCA 2027. Join the movement for change, unity, and progress.">
-    <meta name="keywords" content="Gisiri Maroa, Nyabasi West, MCA 2027, Kenya, politics, campaign, poverty eradication, agriculture, youth empowerment">
-    <meta name="author" content="Hon. Gisiri Maroa Campaign Team">
-    <link rel="icon" type="image/png" href="blog/images/gisiri logo.jpg">
+    <title>Hon. Gisiri Maroa for Nyabasi West MCA | 2027 Elections</title>
+    <meta name="description" content="Official campaign page for Hon. Gisiri Maroa, candidate for Nyabasi West Ward in 2027 elections">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
     <!-- Bootstrap 5.3 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Fonts: Playfair Display & Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
     <style>
+        :root {
+            --primary: #0056b3;
+            --secondary: #e8491d;
+            --accent: #ffc107;
+            --dark: #212529;
+            --light: #f8f9fa;
+            --success: #28a745;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
-            font-family: 'Inter', 'Lato', Arial, sans-serif;
-            background: linear-gradient(120deg, #181a1b 0%, #23272b 100%);
-            background-image: url('blog/images/bg-pattern.jpg');
-            background-size: cover;
-            background-attachment: fixed;
-            min-height: 100vh;
-            color: #f5f5f5;
-            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
-        .landing-header {
-            background: rgba(26,35,62,0.98);
-            box-shadow: 0 4px 24px #1a237e18;
-            border-bottom: 4px solid #ffc107;
-            padding: 0;
-        }
-        .navbar-brand {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            font-weight: 900;
-            color: #ffc107 !important;
-            letter-spacing: 2px;
-        }
-        .nav-link {
-            color: #ffc107 !important;
-            font-weight: 700;
-            font-size: 1.1rem;
-            letter-spacing: 0.07em;
-        }
-        .nav-link:hover {
-            color: #43a047 !important;
-        }
-        .hero-section-landing {
-            padding: 0;
-            margin: 0;
-            background: transparent;
-        }
-        .hero-content {
-            background: rgba(26,35,62,0.97);
-            border-radius: 32px;
-            box-shadow: 0 8px 32px #1a237e44;
-            padding: 48px 32px 32px 32px;
-            margin-top: 48px;
-            margin-bottom: 32px;
-            max-width: 1100px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .hero-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.2rem;
-            font-weight: 900;
-            color: #ffc107;
-            letter-spacing: 0.09em;
-            margin-bottom: 12px;
-        }
-        .hero-subtitle {
-            font-size: 1.5rem;
-            color: #43a047;
-            font-weight: 700;
-            margin-bottom: 18px;
-            letter-spacing: 0.04em;
-        }
-        .hero-message {
-            font-size: 1.18rem;
-            color: #f5f5f5;
-            margin-bottom: 24px;
-            line-height: 1.7;
-            letter-spacing: 0.03em;
-        }
-        .hero-cta-btn {
-            background: #ffc107;
-            color: #181a1b;
-            font-size: 1.25rem;
-            font-weight: bold;
-            border: none;
-            border-radius: 30px;
-            padding: 16px 44px;
-            margin-top: 18px;
-            margin-bottom: 16px;
-            cursor: pointer;
-            transition: background 0.2s, color 0.2s;
-            box-shadow: 0 4px 18px rgba(67,160,71,0.13);
-            letter-spacing: 0.08em;
-        }
-        .hero-cta-btn:hover {
-            background: #43a047;
-            color: #fff;
-        }
-        .carousel-img {
-            width: 100vw;
-            max-width: 100vw;
-            height: 480px;
-            object-fit: cover;
-            border-radius: 0;
-            box-shadow: 0 4px 24px #1a237e22;
-        }
-        .carousel-inner {
-            border-radius: 0;
-        }
-        .carousel-caption {
-            background: rgba(26,35,126,0.85);
-            color: #ffc107;
-            border-radius: 0 0 18px 18px;
-            padding: 18px 24px;
-            font-family: 'Playfair Display', serif;
-            font-size: 1.25rem;
-            font-weight: 700;
-            letter-spacing: 0.05em;
-            text-shadow: 1px 1px 8px #181a1b;
-        }
-        .about-section {
-            background: rgba(26,35,62,0.97);
-            border-radius: 24px;
-            box-shadow: 0 4px 24px #1a237e44;
-            margin: 32px auto;
-            max-width: 1100px;
-            padding: 36px 32px;
-        }
-        .about-title {
-            font-family: 'Playfair Display', serif;
-            color: #ffc107;
-            font-size: 2.1rem;
-            font-weight: 800;
-            margin-bottom: 18px;
-            letter-spacing: 0.07em;
-        }
-        .about-list {
-            font-size: 1.13rem;
-            color: #f5f5f5;
-            margin-bottom: 0;
-            line-height: 1.7;
-        }
-        .about-list i {
-            color: #43a047;
-            margin-right: 8px;
-        }
-        .pillars-section {
-            background: rgba(33,33,33,0.98);
-            border-radius: 24px;
-            box-shadow: 0 4px 24px #ffc10733;
-            margin: 32px auto;
-            max-width: 1100px;
-            padding: 36px 32px;
-        }
-        .pillars-title {
-            font-family: 'Playfair Display', serif;
-            color: #ffc107;
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 18px;
-            letter-spacing: 0.07em;
-        }
-        .pillar-card {
-            background: #23272b;
-            border-left: 6px solid #43a047;
-            border-radius: 12px;
-            padding: 24px 18px;
-            margin-bottom: 18px;
-            box-shadow: 0 2px 8px #43a04711;
-            min-height: 120px;
-            display: flex;
-            align-items: flex-start;
-            gap: 18px;
-        }
-        .pillar-icon {
-            font-size: 2.2rem;
-            margin-top: 2px;
-        }
-        .pillar-content {
-            flex: 1;
-        }
-        .pillar-title {
-            font-size: 1.18rem;
-            font-weight: bold;
-            color: #ffc107;
-            margin-bottom: 6px;
-        }
-        .pillar-desc {
-            font-size: 1.05rem;
-            color: #f5f5f5;
-        }
-        .footer-landing {
-            background: #181a1b;
-            color: #ffc107;
-            text-align: center;
-            padding: 22px 0 12px 0;
-            font-size: 1.1rem;
-            margin-top: 44px;
-            letter-spacing: 0.07em;
-        }
-        .footer-landing a {
-            color: #43a047;
-            text-decoration: none;
-            margin: 0 8px;
-        }
-        .footer-landing a:hover {
-            text-decoration: underline;
-        }
-        /* Check-in overlay styles */
-        #checkinOverlay {
+        
+        .blur-overlay {
             position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            z-index: 20000;
-            background: rgba(26,35,62,0.98);
-            backdrop-filter: blur(6px);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(5px);
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 100;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
         }
-        #checkinOverlay .card {
-            background: #23272b !important;
-            color: #ffc107;
-            border-radius: 18px;
-            box-shadow: 0 8px 32px #1a237e44;
+        
+        .check-in-modal {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform: translateY(-20px);
+            opacity: 0;
+            animation: fadeIn 0.3s ease forwards;
         }
-        #checkinOverlay label, #checkinOverlay .form-label {
-            color: #ffc107;
+        
+        @keyframes fadeIn {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
-        #areaNamesScroller {
-            display: flex;
-            overflow-x: auto;
-            gap: 12px;
-            padding: 8px 0 8px 0;
-            scrollbar-width: thin;
-            scroll-behavior: smooth;
-        }
-        #areaNamesScroller::-webkit-scrollbar {
-            height: 8px;
-        }
-        #areaNamesScroller::-webkit-scrollbar-thumb {
-            background: #ffc107;
-            border-radius: 8px;
-        }
-        #areaNamesScroller {
-            scrollbar-color: #ffc107 #23272b;
-        }
-        #checkinOverlay .form-control {
-            background: #181a1b;
-            color: #ffc107;
-            border: 1.5px solid #ffc107;
-        }
-        #checkinOverlay .form-control:focus {
-            background: #23272b;
-            color: #ffc107;
-            border-color: #43a047;
-        }
-        #areaDropdownModal .list-group-item {
-            background: #23272b;
-            color: #ffc107;
-            border: none;
-        }
-        #areaDropdownModal .list-group-item.active {
-            background: #43a047;
-            color: #fff;
-        }
-        #checkinModalBtn {
-            background: #ffc107;
-            color: #181a1b;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            border: none;
-        }
-        #checkinModalBtn:hover {
-            background: #43a047;
-            color: #fff;
-        }
-        #checkinModalBarContainer h6 {
-            color: #ffc107;
-        }
-        #checkinModalTotal {
-            color: #43a047;
-            font-weight: 700;
-        }
-        .checkin-bar-section {
-            background: #23272b;
-            border-radius: 18px;
-            box-shadow: 0 4px 24px #1a237e44;
-            margin: 32px auto;
-            max-width: 1100px;
-            padding: 24px 18px;
-        }
-        .checkin-bar-section .section-title {
-            color: #ffc107;
-            font-size: 1.3rem;
+        
+        .check-in-modal h2 {
             font-family: 'Playfair Display', serif;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .check-in-modal p {
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #004494;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), #003366);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 10;
+            transition: background 0.3s ease;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
             font-weight: 700;
         }
-        .checkin-bar-section .section-content {
-            color: #f5f5f5;
+        
+        .logo span {
+            color: var(--accent);
         }
-        @media (max-width: 900px) {
-            .hero-content, .about-section, .pillars-section, .checkin-bar-section { padding: 18px 6px; }
-            .carousel-img { height: 220px; }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
         }
-        @media (max-width: 700px) {
-            .hero-title { font-size: 1.5rem; }
-            .carousel-img { height: 140px; }
-            .about-title, .pillars-title { font-size: 1.1rem; }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+        
+        .hero {
+            padding: 5rem 0;
+            background: url('blog/images/sunflower.jpg') no-repeat center center/cover;
+            position: relative;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .main-content {
+            padding: 4rem 0;
+        }
+        
+        .profile-section {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+        
+        .profile-image {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .profile-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .profile-text {
+            flex: 2;
+            min-width: 300px;
+        }
+        
+        .profile-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .profile-text p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .stats-section {
+            background-color: var(--primary);
+            color: white;
+            padding: 3rem 0;
+            margin: 3rem 0;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+        
+        .stat-label {
+            font-size: 1.2rem;
+        }
+        
+        .platform-section h2 {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 3rem;
+        }
+        
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .platform-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .platform-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .platform-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .platform-card .icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0 1.5rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-column h3 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-column ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--accent);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Dark mode styles */
+        .dark-mode {
+            background-color: #181a1b !important;
+            color: #f5f5f5 !important;
+        }
+        .dark-mode .bg-light { background-color: #23272b !important; }
+        .dark-mode header { background: linear-gradient(135deg, #101223, #0a0d1a) !important; }
+        .dark-mode footer { background: #101223 !important; color: #ffc107 !important; }
+        .dark-mode .btn-primary { background: #ffc107 !important; color: #181a1b !important; border: none;}
+        .dark-mode .btn-outline-secondary { border-color: #ffc107 !important; color: #ffc107 !important;}
+        .dark-mode .btn-outline-secondary:hover { background: #ffc107 !important; color: #181a1b !important;}
+        .dark-mode .check-in-modal { background: #23272b !important; color: #ffc107 !important; border: 1px solid #ffc107;}
+        .dark-mode select, .dark-mode input, .dark-mode textarea { background: #181a1b !important; color: #ffc107 !important; border-color: #ffc107;}
+        .dark-mode .form-label, .dark-mode label { color: #ffc107 !important;}
+        .dark-mode .stat-number { color: #ffc107 !important;}
+        .dark-mode .stat-label { color: #43a047 !important;}
+        .dark-mode .platform-card { background: #23272b !important; color: #ffc107 !important; border: 1px solid #ffc107;}
+        .dark-mode .btn-primary:hover { background: #43a047 !important; color: #fff !important;}
+        .dark-mode .hero::before { background-color: rgba(0, 0, 0, 0.7); }
+        
+        /* Voter burner animation */
+        @keyframes floatY {
+            0% { transform: translateY(0);}
+            100% { transform: translateY(-30px);}
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 0.75rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
-<body>
-    <!-- Check-in Modal Overlay -->
-    <div id="checkinOverlay">
-        <div class="card shadow-lg p-4" style="max-width:900px;width:98vw;">
-            <div class="card-body text-center">
-                <h2 class="mb-3" style="font-family:'Playfair Display',serif;font-weight:800;letter-spacing:0.09em;color:#ffc107;">
-                    <img src="blog/images/gisiri logo.jpg" alt="icon" style="width:32px;height:32px;vertical-align:middle;margin-right:8px;">
-                    Check In to Continue
-                </h2>
-                <p class="mb-4" style="font-size:1.18rem;letter-spacing:0.04em;color:#fff;">Please select your polling area to access the site.<br><span style="color:#43a047;font-weight:700;">We are growing....</span></p>
-                <div class="mb-3">
-                    <label for="areaSelectModal" class="form-label" style="font-weight:700;">Polling Area</label>
-                    <div class="position-relative" style="max-width:860px;margin:0 auto;">
-                        <div id="areaNamesScroller">
-                            <!-- Area names will be injected here -->
-                        </div>
-                        <input type="text" class="form-control mt-3" id="areaSelectModalInput" placeholder="Type or select your area..." autocomplete="off" readonly style="cursor:pointer;" />
-                        <div id="areaDropdownModal" class="list-group position-absolute w-100 shadow" style="display:none;max-height:320px;overflow-y:auto;z-index:10;"></div>
-                    </div>
+<body class="bg-light">
+    <!-- Theme Toggle Button -->
+    <button id="themeToggleBtn" class="btn btn-outline-secondary position-fixed top-0 end-0 m-3 z-3" title="Toggle theme">
+        <i id="themeToggleIcon" class="bi bi-moon-fill"></i>
+    </button>
+
+    <!-- Check-in Modal -->
+    <div class="blur-overlay" id="checkInOverlay" style="display:none;">
+        <div class="check-in-modal">
+            <h2>Welcome to Our Campaign</h2>
+            <p>
+                To better serve you, please let us know your polling area in Nyabasi West.<br>
+                <span class="text-success fw-bold">We are growing....</span>
+            </p>
+            <form id="checkInForm">
+                <div class="form-group mb-3">
+                    <label for="votingArea">Select Your Polling Area:</label>
+                    <select id="votingArea" class="form-select" required>
+                        <option value="">-- Select Area --</option>
+                        <option value="Bitorogwe">Bitorogwe</option>
+                        <option value="Chinato">Chinato</option>
+                        <option value="Gibarori">Gibarori</option>
+                        <option value="Itacho">Itacho</option>
+                        <option value="Kebare">Kebare</option>
+                        <option value="Kebarisia">Kebarisia</option>
+                        <option value="Kebaroti">Kebaroti</option>
+                        <option value="Kegonche">Kegonche</option>
+                        <option value="Kemakoba">Kemakoba</option>
+                        <option value="Kendege">Kendege</option>
+                        <option value="Kionyo">Kionyo</option>
+                        <option value="Komotobo">Komotobo</option>
+                        <option value="Kwiyegani">Kwiyegani</option>
+                        <option value="Maeta">Maeta</option>
+                        <option value="Mosaro">Mosaro</option>
+                        <option value="Musweto">Musweto</option>
+                        <option value="Ngibunyi">Ngibunyi</option>
+                        <option value="Nyabikongori">Nyabikongori</option>
+                        <option value="Nyabosongo">Nyabosongo</option>
+                        <option value="Nyaitara">Nyaitara</option>
+                        <option value="Nyametaburo/Komorama">Nyametaburo/Komorama</option>
+                        <option value="Nyamutiro">Nyamutiro</option>
+                        <option value="Nyaroha">Nyaroha</option>
+                        <option value="Remanyanki">Remanyanki</option>
+                        <option value="Sanchawa">Sanchawa</option>
+                        <option value="Senta">Senta</option>
+                        <option value="Tebesi">Tebesi</option>
+                    </select>
                 </div>
-                <button class="btn" id="checkinModalBtn">Check In</button>
-                <div id="checkinModalMsg" class="mt-3"></div>
-                <div class="mt-4" id="checkinModalBarContainer" style="display:none;">
-                    <h6 style="font-weight:700;letter-spacing:0.07em;">Check-In Results</h6>
-                    <canvas id="areaBarChartModal" height="220"></canvas>
-                    <div class="mt-2" id="checkinModalTotal"></div>
-                </div>
-            </div>
+                <button type="submit" class="btn btn-primary btn-block w-100">Check In</button>
+            </form>
         </div>
     </div>
-    <header class="landing-header">
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <div class="container">
-                <a class="navbar-brand" href="#">Hon. Gisiri Maroa</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#pillars">Pillars</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#join">Join</a></li>
-                        <li class="nav-item"><a class="nav-link" href="blog/blog.html">Blog</a></li>
+
+    <!-- Voter Reminder Burner -->
+    <div id="voterBurner" class="position-fixed end-0 z-3" style="bottom:80px;right:24px;animation: floatY 2.5s ease-in-out infinite alternate;cursor:pointer;">
+        <span class="d-inline-block bg-warning rounded-pill px-4 py-2 shadow-lg fw-bold text-dark">
+            <i class="bi bi-megaphone-fill text-success"></i>
+            Register as a Voter! <span class="d-none d-md-inline">Your vote, your future.</span>
+        </span>
+    </div>
+
+    <!-- Main Content -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Hon. Gisiri Maroa<span> | Nyabasi West</span></div>
+                <nav>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#platform">Platform</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="blog/blog.html">Blog</a></li>
                     </ul>
-                </div>
+                </nav>
             </div>
-        </nav>
+        </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero-section-landing">
-        <div class="container hero-content text-center">
-            <div class="row align-items-center">
-                <div class="col-lg-5 mb-4 mb-lg-0">
-                    <img src="blog/images/gisiri logo.jpg" alt="Hon. Gisiri Maroa" class="img-fluid rounded-circle shadow-lg" style="width: 260px; height: 260px; object-fit: cover; border: 8px solid #ffc107;" loading="lazy">
-                </div>
-                <div class="col-lg-7 text-lg-start text-center">
-                    <div class="hero-title">Hon. Gisiri Maroa</div>
-                    <div class="hero-subtitle">Nyabasi West MCA 2027 Candidate</div>
-                    <div class="hero-message">
-                        <b>Resilient. Determined. Ready for Change.</b><br>
-                        <span>
-                            I am committed to a new dawn for Nyabasi West—where every family thrives, every youth is empowered, and every farmer prospers. Together, let's build a future of dignity, opportunity, and hope for all.
-                        </span>
-                    </div>
-                    <a href="blog/blog.html" class="hero-cta-btn">
-                        <i class="bi bi-arrow-right-circle-fill"></i> Visit Our Blog
-                    </a>
-                </div>
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>A New Vision for Nyabasi West</h1>
+                <p>
+                    <span class="fw-bold">Hon. Gisiri Maroa understands the power of devolution and the needs of Nyabasi West.</span><br>
+                    <span>
+                        As a champion of grassroots leadership, I believe in bringing resources closer to the people, ensuring every ward gets its fair share, and empowering every family, youth, and farmer.<br>
+                        Together, we will harness the promise of devolution to deliver real solutions: better roads, quality healthcare, modern agriculture, and opportunities for all.<br>
+                        <span class="text-success fw-bold">Your vote is your voice. Register, participate, and let's build a future of dignity and progress for Nyabasi West!</span>
+                    </span>
+                </p>
+                <a href="#platform" class="btn btn-primary me-2">Our Action Plan</a>
+                <a href="blog/blog.html" class="btn btn-success"><i class="bi bi-journal-richtext"></i> Visit Our Blog</a>
             </div>
         </div>
     </section>
 
-    <!-- Carousel Gallery -->
-    <section id="gallery" class="container-fluid my-4 px-0">
-        <div id="carouselGisiri" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner rounded-0 shadow">
-                <div class="carousel-item active">
-                    <img src="blog/images/karokerario.jpg" class="carousel-img" alt="Gisiri Maroa with community" loading="lazy">
-                    <div class="carousel-caption d-none d-md-block">
-                        With the people, for the people.
-                    </div>
+    <section class="main-content">
+        <div class="container">
+            <div class="profile-section" id="about">
+                <div class="profile-image">
+                    <img src="blog/images/gisiri logo.png" alt="Hon. Gisiri Maroa">
                 </div>
-                <div class="carousel-item">
-                    <img src="blog/images/extension.jpg" class="carousel-img" alt="Gisiri Maroa campaign event" loading="lazy">
-                    <div class="carousel-caption d-none d-md-block">
-                        Campaigning for unity and progress.
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="blog/images/picture3.jpg" class="carousel-img" alt="Gisiri Maroa youth empowerment" loading="lazy">
-                    <div class="carousel-caption d-none d-md-block">
-                        Empowering youth for a brighter tomorrow.
+                <div class="profile-text">
+                    <h2>Your Voice in Government</h2>
+                    <p>As a lifelong resident of Nyabasi West, I understand the challenges our community faces. My experience in community organizing and public service has prepared me to be your effective representative.</p>
+                    <p>I'm running for office because I believe Nyabasi West deserves leadership that puts people first. My campaign is built on three pillars: transparency, accountability, and progress.</p>
+                    <p>With your support in 2027, we'll work together to improve infrastructure, create economic opportunities, and ensure our ward gets its fair share of resources.</p>
+                    <div class="mt-4">
+                        <a href="#contact" class="btn btn-primary me-2">Join Our Movement</a>
+                        <a href="#" class="btn btn-outline-primary">Volunteer</a>
                     </div>
                 </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselGisiri" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselGisiri" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-    </section>
 
-    <!-- Check-in Bar Section (after carousel, before about) -->
-    <section id="checkinBarSection" class="checkin-bar-section" style="display:none;">
-        <div class="section-title mb-2">We are growing....</div>
-        <div class="section-content text-center">
-            <div id="checkinTotal" class="mb-3" style="font-size:1.25rem;font-weight:700;color:#43a047;"></div>
-            <div class="d-flex justify-content-center">
-                <div style="max-width:900px;width:100%;overflow-x:auto;">
-                    <canvas id="areaBarChart" height="320"></canvas>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about-section">
-        <div class="about-title mb-3">
-            <i class="bi bi-person-badge-fill" style="color:#43a047;margin-right:10px;"></i>
-            Who is Hon. Gisiri Maroa?
-        </div>
-        <ul class="about-list list-unstyled">
-            <li><i class="bi bi-check-circle-fill"></i> Grassroots leader, community mobilizer, and champion for the people of Nyabasi West.</li>
-            <li><i class="bi bi-check-circle-fill"></i> Advocate for poverty eradication, youth empowerment, and agricultural transformation.</li>
-            <li><i class="bi bi-check-circle-fill"></i> Committed to transparency, accountability, and servant leadership.</li>
-            <li><i class="bi bi-check-circle-fill"></i> Driven by a vision of unity, dignity, and sustainable progress for all.</li>
-        </ul>
-    </section>
-
-    <!-- Pillars Section -->
-    <section id="pillars" class="pillars-section">
-        <div class="pillars-title mb-4">
-            <i class="bi bi-stars" style="color:#ffc107;margin-right:10px;"></i>
-            Our Campaign Pillars
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="pillar-card">
-                    <span class="pillar-icon"><i class="bi bi-lightning-charge-fill" style="color:#ffc107;"></i></span>
-                    <div class="pillar-content">
-                        <div class="pillar-title">Change That Matters</div>
-                        <div class="pillar-desc">
-                            Real, measurable change—better roads, quality healthcare, and action over promises.
+            <div class="stats-section">
+                <div class="container">
+                    <h2 class="text-center mb-4 text-white">Community Support</h2>
+                    <div class="stats-grid" id="statsDisplay">
+                        <div class="stat-item">
+                            <div class="stat-number" id="totalCheckIns">0</div>
+                            <div class="stat-label">Total Supporters</div>
                         </div>
-                    </div>
-                </div>
-                <div class="pillar-card">
-                    <span class="pillar-icon"><i class="bi bi-people-fill" style="color:#43a047;"></i></span>
-                    <div class="pillar-content">
-                        <div class="pillar-title">Poverty Eradication</div>
-                        <div class="pillar-desc">
-                            No family should go hungry. Targeted social programs, youth empowerment, and microfinance for every household.
+                        <div class="stat-item">
+                            <div class="stat-number" id="Bitorogwe">0</div>
+                            <div class="stat-label">Bitorogwe</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="Chinato">0</div>
+                            <div class="stat-label">Chinato</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="Gibarori">0</div>
+                            <div class="stat-label">Gibarori</div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="pillar-card">
-                    <span class="pillar-icon"><i class="bi bi-flower1" style="color:#1a237e;"></i></span>
-                    <div class="pillar-content">
-                        <div class="pillar-title">Agricultural Revolution</div>
-                        <div class="pillar-desc">
-                            Supporting farmers with training, inputs, irrigation, and market linkages for higher yields and incomes.
-                        </div>
+
+            <div class="platform-section" id="platform">
+                <h2>Our Action Plan for Nyabasi West</h2>
+                <div class="platform-grid">
+                    <div class="platform-card">
+                        <div class="icon">🏗️</div>
+                        <h3>Infrastructure Development</h3>
+                        <p>Prioritize road repairs, clean water access, and electricity upgrades across all zones of Nyabasi West.</p>
                     </div>
-                </div>
-                <div class="pillar-card">
-                    <span class="pillar-icon"><i class="bi bi-chat-dots-fill" style="color:#ff9800;"></i></span>
-                    <div class="pillar-content">
-                        <div class="pillar-title">Voter Engagement</div>
-                        <div class="pillar-desc">
-                            Your voice matters! We use scientific analysis and digital tools to listen, learn, and act on your needs.
-                        </div>
+                    <div class="platform-card">
+                        <div class="icon">👩‍🎓</div>
+                        <h3>Education & Youth</h3>
+                        <p>Invest in school facilities, vocational training programs, and youth employment initiatives.</p>
+                    </div>
+                    <div class="platform-card">
+                        <div class="icon">🏥</div>
+                        <h3>Healthcare Access</h3>
+                        <p>Expand clinic services and implement mobile health units to reach underserved areas.</p>
+                    </div>
+                    <div class="platform-card">
+                        <div class="icon">💼</div>
+                        <h3>Economic Growth</h3>
+                        <p>Support local businesses with micro-loans and create markets for agricultural products.</p>
+                    </div>
+                    <div class="platform-card">
+                        <div class="icon">🌳</div>
+                        <h3>Environmental Protection</h3>
+                        <p>Implement waste management systems and protect our natural resources.</p>
+                    </div>
+                    <div class="platform-card">
+                        <div class="icon">🏛️</div>
+                        <h3>Transparent Governance</h3>
+                        <p>Quarterly town halls and public budget reports to ensure accountability.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Join/Call to Action Section -->
-    <section id="join" class="about-section text-center">
-        <div class="about-title mb-3">
-            <i class="bi bi-people" style="color:#1a237e;margin-right:10px;"></i>
-            Join the Movement
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Campaign HQ</h3>
+                    <p>123 Unity Avenue<br>
+                    Nyabasi West<br>
+                    Phone: (123) 456-7890<br>
+                    Email: info@gisirimaroa.com</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#about">About the Candidate</a></li>
+                        <li><a href="#platform">Our Platform</a></li>
+                        <li><a href="#">Volunteer</a></li>
+                        <li><a href="#">Donate</a></li>
+                        <li><a href="blog/blog.html">Community live Updates</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+                    </div>
+                    <div class="mt-3">
+                        <a href="#" class="btn btn-primary">Join Our WhatsApp Group</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 Gisiri Maroa Campaign. All Rights Reserved.</p>
+            </div>
         </div>
-        <div class="mb-4" style="font-size:1.18rem;">
-            Be part of the change! Volunteer, share your ideas, or support Hon. Gisiri Maroa's campaign for a better Nyabasi West.
-        </div>
-        <a href="blog/blog.html" class="hero-cta-btn">
-            <i class="bi bi-arrow-right-circle-fill"></i> Go to Blog
-        </a>
-        <div class="mt-4">
-            <a href="mailto:gisirimaroa2027@gmail.com" class="me-3 text-decoration-none" style="color:#1a237e;font-weight:600;">
-                <i class="bi bi-envelope-fill"></i> Email
-            </a>
-            <a href="tel:+254700000000" class="me-3 text-decoration-none" style="color:#1a237e;font-weight:600;">
-                <i class="bi bi-telephone-fill"></i> Call
-            </a>
-            <a href="blog/blog.html" class="text-decoration-none" style="color:#43a047;font-weight:600;">
-                <i class="bi bi-globe"></i> Blog
-            </a>
-        </div>
-    </section>
-
-    <footer class="footer-landing">
-        &copy; 2024 Hon. Gisiri Maroa for Nyabasi West MCA. All Rights Reserved.<br>
-        <a href="blog/blog.html">Visit Our Blog</a>
     </footer>
 
+    <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
     <script>
-    // --- Check-in Feature Data ---
-    const pollingAreas = [
-        "Bitorogwe","Chinato","Gibarori","Itacho","Kebare","Kebarisia","Kebaroti","Kegonche","Kemakoba","Kendege","Kionyo","Komotobo","Kwiyegani","Maeta","Mosaro","Musweto","Ngibunyi","Nyabikongori","Nyabosongo","Nyaitara","Nyametaburo/Komorama","Nyamutiro","Nyaroha","Remanyanki","Sanchawa","Senta","Tebesi"
-    ].sort((a, b) => a.localeCompare(b));
-    let areaCounts = {};
-    pollingAreas.forEach(area => areaCounts[area] = 0);
-    // Use sessionStorage for per-session check-in
-    if (sessionStorage.getItem('areaCounts')) {
-        try {
-            const saved = JSON.parse(sessionStorage.getItem('areaCounts'));
-            pollingAreas.forEach(area => {
-                if (saved[area] !== undefined) areaCounts[area] = saved[area];
-            });
-        } catch {}
-    }
-
-    // --- Check-in Modal Logic ---
-    const areaInputModal = document.getElementById('areaSelectModalInput');
-    const areaDropdownModal = document.getElementById('areaDropdownModal');
-    const checkinModalBtn = document.getElementById('checkinModalBtn');
-    const checkinModalMsg = document.getElementById('checkinModalMsg');
-    const checkinOverlay = document.getElementById('checkinOverlay');
-    const checkinModalBarContainer = document.getElementById('checkinModalBarContainer');
-    const checkinModalTotal = document.getElementById('checkinModalTotal');
-    const areaNamesScroller = document.getElementById('areaNamesScroller');
-    let selectedAreaModal = "";
-
-    // Render all area names horizontally
-    function renderAreaNamesScroller() {
-        areaNamesScroller.innerHTML = '';
-        pollingAreas.forEach(area => {
-            const btn = document.createElement('button');
-            btn.type = "button";
-            btn.className = "btn btn-outline-warning btn-sm";
-            btn.style = "min-width:120px;font-weight:700;letter-spacing:0.05em;border-radius:18px;color:#ffc107;border:2px solid #ffc107;background:#23272b;";
-            btn.textContent = area;
-            btn.onclick = function() {
-                areaInputModal.value = area;
-                selectedAreaModal = area;
-                // Scroll to center the selected button
-                const rect = btn.getBoundingClientRect();
-                const parentRect = areaNamesScroller.getBoundingClientRect();
-                areaNamesScroller.scrollLeft += rect.left - parentRect.left - parentRect.width/2 + rect.width/2;
-            };
-            areaNamesScroller.appendChild(btn);
-        });
-    }
-    renderAreaNamesScroller();
-
-    // Show dropdown with slow scroll animation (2s)
-    areaInputModal.addEventListener('click', function() {
-        areaDropdownModal.innerHTML = '';
-        pollingAreas.forEach((area, idx) => {
-            const item = document.createElement('button');
-            item.type = "button";
-            item.className = "list-group-item list-group-item-action";
-            item.textContent = area;
-            item.style.transition = "background 0.2s";
-            item.onclick = function() {
-                areaInputModal.value = area;
-                selectedAreaModal = area;
-                areaDropdownModal.style.display = "none";
-            };
-            areaDropdownModal.appendChild(item);
-        });
-        areaDropdownModal.style.display = "block";
-        // Animate highlight scroll (2s total)
-        let i = 0;
-        function highlightNext() {
-            if (i > 0) areaDropdownModal.children[i-1].classList.remove('active');
-            if (i < areaDropdownModal.children.length) {
-                areaDropdownModal.children[i].classList.add('active');
-                areaDropdownModal.scrollTop = areaDropdownModal.children[i].offsetTop - areaDropdownModal.offsetTop;
-                i++;
-                setTimeout(highlightNext, 2000 / areaDropdownModal.children.length); // ~2s total
+        // Theme toggle logic
+        const themeBtn = document.getElementById('themeToggleBtn');
+        const themeIcon = document.getElementById('themeToggleIcon');
+        
+        function setTheme(mode) {
+            if (mode === 'dark') {
+                document.body.classList.add('dark-mode');
+                themeIcon.className = 'bi bi-sun-fill';
+                localStorage.setItem('theme', 'dark');
             } else {
-                setTimeout(() => {
-                    Array.from(areaDropdownModal.children).forEach(c => c.classList.remove('active'));
-                }, 400);
+                document.body.classList.remove('dark-mode');
+                themeIcon.className = 'bi bi-moon-fill';
+                localStorage.setItem('theme', 'light');
             }
         }
-        highlightNext();
-    });
-    // Allow typing to filter
-    areaInputModal.removeAttribute('readonly');
-    areaInputModal.addEventListener('input', function() {
-        const val = areaInputModal.value.toLowerCase();
-        areaDropdownModal.innerHTML = '';
-        pollingAreas.filter(a => a.toLowerCase().includes(val)).forEach(area => {
-            const item = document.createElement('button');
-            item.type = "button";
-            item.className = "list-group-item list-group-item-action";
-            item.textContent = area;
-            item.onclick = function() {
-                areaInputModal.value = area;
-                selectedAreaModal = area;
-                areaDropdownModal.style.display = "none";
-            };
-            areaDropdownModal.appendChild(item);
+        
+        // Initialize theme from localStorage or prefer-color-scheme
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme) {
+                setTheme(savedTheme);
+            } else if (prefersDark) {
+                setTheme('dark');
+            } else {
+                setTheme('light');
+            }
+        }
+        
+        initTheme();
+        
+        themeBtn.onclick = function() {
+            setTheme(document.body.classList.contains('dark-mode') ? 'light' : 'dark');
+        };
+
+        // Voter burner floating animation and click
+        const voterBurner = document.getElementById('voterBurner');
+        let burnerDirection = 1;
+        let burnerPos = 80;
+        
+        setInterval(() => {
+            if (burnerPos >= 200) burnerDirection = -1;
+            if (burnerPos <= 40) burnerDirection = 1;
+            burnerPos += burnerDirection * 2;
+            voterBurner.style.bottom = burnerPos + 'px';
+        }, 30);
+        
+        voterBurner.onclick = function() {
+            alert('Register as a voter today! Visit your nearest IEBC office or use the eCitizen portal. Your vote is your power.');
+        };
+
+        // Check-in system
+        document.addEventListener('DOMContentLoaded', function() {
+            const pollingAreas = [
+                "Bitorogwe", "Chinato", "Gibarori", "Itacho", "Kebare", "Kebarisia", 
+                "Kebaroti", "Kegonche", "Kemakoba", "Kendege", "Kionyo", "Komotobo", 
+                "Kwiyegani", "Maeta", "Mosaro", "Musweto", "Ngibunyi", "Nyabikongori", 
+                "Nyabosongo", "Nyaitara", "Nyametaburo/Komorama", "Nyamutiro", 
+                "Nyaroha", "Remanyanki", "Sanchawa", "Senta", "Tebesi"
+            ];
+            
+            const checkInOverlay = document.getElementById('checkInOverlay');
+            const checkInForm = document.getElementById('checkInForm');
+            const votingAreaSelect = document.getElementById('votingArea');
+            
+            // Check if user has already checked in
+            let hasCheckedIn = false;
+            try {
+                hasCheckedIn = localStorage.getItem('hasCheckedIn') === 'true';
+            } catch (e) {
+                console.error('LocalStorage access error:', e);
+            }
+            
+            if (!hasCheckedIn) {
+                checkInOverlay.style.display = 'flex';
+            }
+            
+            // Form submission handler
+            if (checkInForm && votingAreaSelect) {
+                checkInForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const votingArea = votingAreaSelect.value;
+                    
+                    if (votingArea && pollingAreas.includes(votingArea)) {
+                        try {
+                            localStorage.setItem('hasCheckedIn', 'true');
+                            localStorage.setItem('votingArea', votingArea);
+                        } catch (e) {
+                            console.error('Error saving to localStorage:', e);
+                        }
+                        
+                        updateCheckInStats(votingArea);
+                        
+                        // Hide modal with animation
+                        checkInOverlay.style.opacity = '0';
+                        setTimeout(() => {
+                            checkInOverlay.style.display = 'none';
+                        }, 300);
+                    } else {
+                        votingAreaSelect.focus();
+                        alert('Please select a valid polling area');
+                    }
+                });
+            }
+            
+            // Update stats if already checked in
+            if (hasCheckedIn) {
+                let votingArea = null;
+                try {
+                    votingArea = localStorage.getItem('votingArea');
+                } catch (e) {
+                    console.error('Error reading from localStorage:', e);
+                }
+                
+                if (votingArea) {
+                    updateCheckInStats(votingArea);
+                }
+            }
+            
+            // Function to update check-in statistics
+            function updateCheckInStats(area) {
+                let stats;
+                try {
+                    stats = JSON.parse(localStorage.getItem('checkInStats')) || { total: 0, areas: {} };
+                } catch (e) {
+                    stats = { total: 0, areas: {} };
+                }
+                
+                // Initialize all areas if not present
+                pollingAreas.forEach(a => { 
+                    if (typeof stats.areas[a] !== 'number') stats.areas[a] = 0; 
+                });
+                
+                // Update stats
+                stats.total += 1;
+                if (area && stats.areas[area] !== undefined) stats.areas[area] += 1;
+                
+                try {
+                    localStorage.setItem('checkInStats', JSON.stringify(stats));
+                } catch (e) {
+                    console.error('Error saving stats:', e);
+                }
+                
+                // Update UI
+                if (document.getElementById('totalCheckIns')) {
+                    document.getElementById('totalCheckIns').textContent = stats.total;
+                }
+                
+                // Update specific areas (you can add more as needed)
+                ["Bitorogwe", "Chinato", "Gibarori"].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.textContent = stats.areas[id] || 0;
+                });
+            }
+            
+            // Initialize stats on page load
+            let savedStats;
+            try {
+                savedStats = JSON.parse(localStorage.getItem('checkInStats'));
+            } catch (e) {
+                savedStats = null;
+            }
+            
+            if (savedStats) {
+                if (document.getElementById('totalCheckIns')) {
+                    document.getElementById('totalCheckIns').textContent = savedStats.total || 0;
+                }
+                
+                ["Bitorogwe", "Chinato", "Gibarori"].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.textContent = savedStats.areas[id] || 0;
+                });
+            }
         });
-        areaDropdownModal.style.display = areaDropdownModal.children.length ? "block" : "none";
-    });
-    // Hide dropdown on outside click
-    document.addEventListener('click', function(e) {
-        if (!areaDropdownModal.contains(e.target) && e.target !== areaInputModal) {
-            areaDropdownModal.style.display = "none";
-        }
-    });
-
-    // Modal Bar Chart
-    let barChartModal = null;
-    function renderBarChartModal() {
-        const ctx = document.getElementById('areaBarChartModal').getContext('2d');
-        const data = {
-            labels: pollingAreas,
-            datasets: [{
-                label: 'Check-Ins',
-                data: pollingAreas.map(a => areaCounts[a]),
-                backgroundColor: '#ffc107cc',
-                borderColor: '#43a047',
-                borderWidth: 2,
-                borderRadius: 6,
-                maxBarThickness: 36
-            }]
-        };
-        if (barChartModal) {
-            barChartModal.data = data;
-            barChartModal.update();
-        } else {
-            barChartModal = new Chart(ctx, {
-                type: 'bar',
-                data,
-                options: {
-                    indexAxis: 'y',
-                    responsive: true,
-                    plugins: {
-                        legend: { display: false },
-                        title: { display: false }
-                    },
-                    scales: {
-                        x: {
-                            beginAtZero: true,
-                            ticks: { color: '#ffc107', font: { size: 16, weight: 'bold' } }
-                        },
-                        y: {
-                            ticks: { color: '#ffc107', font: { size: 16, weight: 'bold' } }
-                        }
-                    }
-                }
-            });
-        }
-        // Show total
-        const total = pollingAreas.reduce((sum, a) => sum + areaCounts[a], 0);
-        checkinModalTotal.innerHTML = `<span style="color:#43a047;font-weight:700;">${total} already people checked in</span>`;
-    }
-    renderBarChartModal();
-
-    // Check-in logic
-    checkinModalBtn.onclick = function() {
-        const area = areaInputModal.value.trim();
-        if (!pollingAreas.includes(area)) {
-            checkinModalMsg.innerHTML = '<span class="text-danger">Please select a valid polling area.</span>';
-            return;
-        }
-        areaCounts[area] = (areaCounts[area] || 0) + 1;
-        sessionStorage.setItem('areaCounts', JSON.stringify(areaCounts));
-        sessionStorage.setItem('checkedInArea', area);
-        checkinModalMsg.innerHTML = `<span class="text-success">Thank you for checking in for <b>${area}</b>!</span>`;
-        checkinModalBarContainer.style.display = "block";
-        renderBarChartModal();
-        setTimeout(() => {
-            // Hide overlay, show main bar
-            checkinOverlay.style.display = "none";
-            document.getElementById('checkinBarSection').style.display = "";
-            renderBarChart();
-        }, 1200);
-    };
-
-    // Main page bar chart
-    let barChart = null;
-    function renderBarChart() {
-        const ctx = document.getElementById('areaBarChart').getContext('2d');
-        const data = {
-            labels: pollingAreas,
-            datasets: [{
-                label: 'Check-Ins',
-                data: pollingAreas.map(a => areaCounts[a]),
-                backgroundColor: '#ffc107cc',
-                borderColor: '#43a047',
-                borderWidth: 2,
-                borderRadius: 6,
-                maxBarThickness: 36
-            }]
-        };
-        if (barChart) {
-            barChart.data = data;
-            barChart.update();
-        } else {
-            barChart = new Chart(ctx, {
-                type: 'bar',
-                data,
-                options: {
-                    indexAxis: 'x',
-                    responsive: true,
-                    plugins: {
-                        legend: { display: false },
-                        title: { display: false }
-                    },
-                    scales: {
-                        x: {
-                            ticks: { color: '#ffc107', font: { size: 16, weight: 'bold' } }
-                        },
-                        y: {
-                            beginAtZero: true,
-                            ticks: { color: '#ffc107', font: { size: 16, weight: 'bold' } }
-                        }
-                    }
-                }
-            });
-        }
-        // Show total
-        const total = pollingAreas.reduce((sum, a) => sum + areaCounts[a], 0);
-        document.getElementById('checkinTotal').innerHTML = `${total} already people checked in`;
-    }
-    // Only show bar after check-in
-    if (sessionStorage.getItem('checkedInArea')) {
-        document.getElementById('checkinBarSection').style.display = "";
-        renderBarChart();
-        document.getElementById('checkinOverlay').style.display = "none";
-    }
-
-    // Reset check-in on session end (handled by sessionStorage)
-    // If user leaves and returns, check-in required again
-
-    // Save checked in area to prevent repeat in session
-    checkinModalBtn.addEventListener('click', function() {
-        const area = areaInputModal.value.trim();
-        if (pollingAreas.includes(area)) {
-            sessionStorage.setItem('checkedInArea', area);
-        }
-    });
-
-    // Update all blog links to relative for GitHub Pages
-    document.querySelectorAll('a[href="/Gisiri blog/blog.html/blog.html"]').forEach(a => {
-        a.setAttribute('href', 'blog/blog.html');
-    });
     </script>
 </body>
 </html>
