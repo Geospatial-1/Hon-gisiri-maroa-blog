@@ -7,648 +7,821 @@
     <meta name="description" content="Official blog for Hon. Gisiri Maroa, candidate for Nyabasi West MCA 2027. Join the movement for change, unity, and progress.">
     <meta name="keywords" content="Gisiri Maroa, Nyabasi West, MCA 2027, Kenya, politics, campaign, poverty eradication, agriculture, youth empowerment">
     <meta name="author" content="Hon. Gisiri Maroa Campaign Team">
-    <link rel="icon" type="image/png" href="blog/images/gisiri logo.jpg" id="favicon">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Hon. Gisiri Maroa for Nyabasi West MCA 2027">
+    <meta property="og:description" content="Join the movement for change, unity, and progress in Nyabasi West">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gisirimaroa2027.com">
+    <meta property="og:image" content="https://gisirimaroa2027.com/blog/images/gisiri-social-preview.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="blog/images/gisiri-logo.jpg">
+    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- Bootstrap Icons CDN for social icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Main CSS -->
     <style>
+        :root {
+            --primary-color: #1a237e;
+            --secondary-color: #ffc107;
+            --accent-color: #43a047;
+            --text-dark: #232323;
+            --text-light: #f5f5f5;
+            --bg-light: #f8f9fa;
+            --bg-dark: #121212;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
         body {
-            font-family: 'Inter', 'Lato', Arial, sans-serif;
-            background-color: #3b39be;
-            background-image: url('blog/images/bg-pattern.jpg');
-            background-size: cover;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-            color: #232323;
-            font-size: 1.18rem;
-            letter-spacing: 0.04em;
-            line-height: 1.8;
-            transition: background 0.3s, color 0.3s;
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            line-height: 1.7;
+            overflow-x: hidden;
+            transition: var(--transition);
         }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+        
+        /* Header & Navigation */
         .navbar {
-            background-color: #1a237e;
+            background-color: var(--primary-color);
+            padding: 15px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
         }
+        
+        .navbar.scrolled {
+            padding: 10px 0;
+            background-color: rgba(26, 35, 126, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        
         .navbar-brand {
             font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            font-weight: bold;
-            color: #ffc107 !important;
-            letter-spacing: 2px;
-        }
-        .nav-link, .navbar .btn {
-            color: #1a237e !important;
-            font-weight: 700;
-            font-size: 1.18rem;
-            margin-right: 12px;
-            border-radius: 4px;
-            letter-spacing: 0.08em;
-            transition: background 0.2s, color 0.2s;
-        }
-        .nav-link:hover, .navbar .btn:hover {
-            background-color: #ffc107;
-            color: #1a237e !important;
-        }
-        .theme-toggle-btn {
-            background: #ffc107;
-            color: #1a237e;
-            border: none;
-            border-radius: 20px;
-            padding: 7px 22px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-left: 10px;
-            letter-spacing: 0.08em;
-            cursor: pointer;
-            transition: background 0.2s, color 0.2s;
-        }
-        .theme-toggle-btn:hover {
-            background: #1a237e;
-            color: #ffc107;
-        }
-        .hero-section {
-            background: linear-gradient(90deg, #1a237e 60%, #43a047 100%);
-            color: #fff;
-            padding: 0 0 40px 0;
-            text-align: center;
-            position: relative;
-        }
-        .hero-img-container {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--secondary-color) !important;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            padding-top: 48px;
-            padding-bottom: 24px;
         }
+        
+        .navbar-brand img {
+            height: 40px;
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+        
+        .nav-link {
+            color: white !important;
+            font-weight: 500;
+            padding: 8px 15px !important;
+            margin: 0 5px;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-color) !important;
+            background-color: var(--secondary-color);
+        }
+        
+        .navbar-toggler {
+            border: none;
+            color: white;
+        }
+        
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #303f9f 100%);
+            color: white;
+            padding: 180px 0 100px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('blog/images/pattern.png') repeat;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
         .hero-img {
-            width: 220px;
-            height: 220px;
+            width: 200px;
+            height: 200px;
             object-fit: cover;
             border-radius: 50%;
-            border: 8px solid #ffc107;
-            box-shadow: 0 8px 32px rgba(26,35,126,0.18);
-            margin-bottom: 18px;
-            background: #fff;
+            border: 5px solid var(--secondary-color);
+            box-shadow: var(--card-shadow);
+            margin-bottom: 20px;
         }
-        .hero-img-large {
-            width: 320px;
-            height: 320px;
-        }
-        @media (max-width: 900px) {
-            .hero-img-large {
-                width: 200px;
-                height: 200px;
-            }
-        }
-        @media (max-width: 700px) {
-            .hero-img-large {
-                width: 120px;
-                height: 120px;
-            }
-        }
+        
         .hero-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.2rem;
-            font-weight: 900;
-            letter-spacing: 0.12em;
-            color: #ffc107;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 8px #1a237e55;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
-        .hero-message {
-            font-size: 1.7rem;
-            font-weight: 700;
-            color: #fffde7;
-            margin-bottom: 22px;
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 30px;
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
-            text-shadow: 1px 1px 6px #1a237e99;
-            letter-spacing: 0.06em;
-            line-height: 2.1;
         }
-        .hero-cta-btn {
-            background: #ffc107;
-            color: #1a237e;
-            font-size: 1.35rem;
-            font-weight: bold;
-            border: none;
-            border-radius: 30px;
-            padding: 18px 54px;
-            margin-top: 18px;
-            margin-bottom: 16px;
-            cursor: pointer;
-            transition: background 0.2s;
-            box-shadow: 0 4px 18px rgba(67,160,71,0.13);
-            letter-spacing: 0.09em;
+        
+        .hero-quote {
+            font-style: italic;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: rgba(255, 255, 255, 0.9);
+            position: relative;
+            padding: 0 20px;
         }
-        .hero-cta-btn:hover {
-            background: #fffde7;
-            color: #43a047;
-        }
-        .social-icons {
-            margin-top: 18px;
-        }
-        .social-icons a {
-            color: #ffc107;
-            font-size: 2.3rem;
-            margin: 0 16px;
-            transition: color 0.2s;
-        }
-        .social-icons a:hover {
-            color: #fff;
-        }
-        .slogan-banner {
-            background: #ffc107;
-            color: #1a237e;
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-align: center;
-            padding: 22px 0;
-            border-radius: 8px;
-            margin: 36px 0 24px 0;
-            letter-spacing: 0.13em;
-        }
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            color: #181818;
-            font-size: 2.3rem;
-            margin-bottom: 22px;
-            letter-spacing: 0.09em;
-            font-weight: 800;
-        }
-        .section-content {
-            font-size: 1.22rem;
-            color: #232323;
-            margin-bottom: 22px;
-            letter-spacing: 0.05em;
-            line-height: 2.1;
-        }
-        .campaign-pillars {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 38px;
-            justify-content: space-between;
-            margin-top: 32px;
-        }
-        .pillar-card {
-            background: #f1f8e9;
-            border-left: 8px solid #43a047;
-            border-radius: 12px;
-            flex: 1 1 270px;
-            min-width: 220px;
-            padding: 32px 22px;
-            box-shadow: 0 2px 12px rgba(67,160,71,0.09);
-            letter-spacing: 0.04em;
-        }
-        .pillar-title {
-            font-size: 1.35rem;
-            font-weight: bold;
-            color: #1a237e;
-            margin-bottom: 14px;
-            letter-spacing: 0.07em;
-        }
-        .pillar-desc {
-            font-size: 1.13rem;
-            color: #232323;
-            line-height: 2;
-        }
-        .engagement-section {
-            background: #e3f2fd;
-            border-left: 8px solid #1a237e;
-            border-radius: 12px;
-            padding: 38px 22px;
-            margin-top: 38px;
-        }
-        .engagement-title {
-            color: #1a237e;
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 14px;
-            letter-spacing: 0.08em;
-        }
-        .engagement-content {
-            font-size: 1.18rem;
-            color: #232323;
-            letter-spacing: 0.04em;
-        }
-        .analysis-section {
-            background: #fffde7;
-            border-left: 8px solid #ffc107;
-            border-radius: 12px;
-            padding: 38px 22px;
-            margin-top: 38px;
-        }
-        .analysis-title {
-            color: #ff9800;
-            font-size: 1.35rem;
-            font-weight: bold;
-            margin-bottom: 14px;
-            letter-spacing: 0.07em;
-        }
-        .analysis-content {
-            font-size: 1.18rem;
-            color: #232323;
-            letter-spacing: 0.04em;
-        }
-        .footer {
-            background: #1a237e;
-            color: #fff;
-            text-align: center;
-            padding: 22px 0 12px 0;
-            font-size: 1.15rem;
-            margin-top: 44px;
-            letter-spacing: 0.07em;
-        }
-        .footer a {
-            color: #ffc107;
-            text-decoration: none;
-            margin: 0 12px;
-            letter-spacing: 0.06em;
-        }
-        .footer a:hover {
-            text-decoration: underline;
-        }
-        @media (max-width: 900px) {
-            .campaign-pillars { flex-direction: column; gap: 22px; }
-        }
-        @media (max-width: 700px) {
-            .hero-title { font-size: 1.7rem; }
-            .section-title { font-size: 1.15rem; }
-            .slogan-banner { font-size: 1.05rem; }
-            .hero-img { width: 120px; height: 120px; }
-            .hero-img-large { width: 120px; height: 120px; }
-        }
-        .floating-burner {
-            position: fixed;
-            right: 24px;
-            bottom: 80px;
-            z-index: 9999;
-            background: linear-gradient(90deg, #ffc107 80%, #43a047 100%);
-            color: #1a237e;
-            font-size: 1.18rem;
-            font-weight: bold;
-            border-radius: 40px;
-            padding: 16px 32px 16px 22px;
-            box-shadow: 0 8px 32px rgba(26,35,126,0.18);
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            animation: floatY 2.5s ease-in-out infinite alternate;
-            border: 2.5px solid #fffde7;
-            cursor: pointer;
-        }
-        .floating-burner .burner-icon {
+        
+        .hero-quote::before, .hero-quote::after {
+            content: '"';
             font-size: 2rem;
-            color: #43a047;
-            margin-right: 6px;
-            animation: shake 1.2s infinite alternate;
+            color: var(--secondary-color);
+            position: absolute;
         }
-        .floating-burner .burner-text {
-            font-family: 'Playfair Display', serif;
-            letter-spacing: 0.5px;
+        
+        .hero-quote::before {
+            left: -10px;
+            top: -15px;
         }
-        @keyframes floatY {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-24px); }
+        
+        .hero-quote::after {
+            right: -10px;
+            bottom: -25px;
         }
-        @keyframes shake {
-            0% { transform: rotate(-8deg);}
-            100% { transform: rotate(8deg);}
-        }
-        @media (max-width: 700px) {
-            .floating-burner {
-                right: 8px;
-                left: 8px;
-                bottom: 24px;
-                font-size: 1rem;
-                padding: 10px 10px 10px 14px;
-            }
-            .floating-burner .burner-icon { font-size: 1.3rem; }
-        }
-        .floating-burner-star {
-            position: fixed;
-            right: 24px;
-            bottom: 80px;
-            z-index: 9999;
-            background: transparent;
-            color: #1a237e;
-            font-size: 1.15rem;
-            font-weight: bold;
+        
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
             border: none;
-            outline: none;
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: var(--transition);
+        }
+        
+        .btn-primary:hover {
+            background-color: white;
+            color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .social-icons {
+            margin-top: 30px;
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 50%;
+            margin: 0 10px;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        /* Slogan Banner */
+        .slogan-banner {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 15px 0;
+            text-align: center;
+            font-weight: 600;
+            margin: 40px 0;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .slogan-banner .hashtag {
+            display: inline-block;
+            margin: 0 10px;
+        }
+        
+        /* Section Styling */
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -15px;
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            border-radius: 2px;
+        }
+        
+        .section-title.center::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        /* Campaign Pillars */
+        .pillar-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            height: 100%;
+            border-top: 5px solid var(--secondary-color);
+        }
+        
+        .pillar-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .pillar-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+        
+        .pillar-title {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        /* Engagement Section */
+        .engagement-section {
+            background-color: #f8f9fa;
+            position: relative;
+        }
+        
+        .engagement-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('blog/images/dots.png') repeat;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .engagement-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Testimonials */
+        .testimonial-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 15px;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .testimonial-text::before {
+            content: '"';
+            font-size: 4rem;
+            color: var(--secondary-color);
+            position: absolute;
+            left: -15px;
+            top: -25px;
+            opacity: 0.3;
+            line-height: 1;
+        }
+        
+        .testimonial-author {
             display: flex;
             align-items: center;
-            gap: 14px;
-            cursor: pointer;
-            animation: floatY 2.5s ease-in-out infinite alternate;
-            transition: box-shadow 0.2s;
         }
-        .floating-burner-star .star-shape {
-            display: inline-block;
-            width: 70px;
-            height: 70px;
-            background: #ffc107;
-            clip-path: polygon(
-                50% 0%,
-                61% 35%,
-                98% 35%,
-                68% 57%,
-                79% 91%,
-                50% 70%,
-                21% 91%,
-                32% 57%,
-                2% 35%,
-                39% 35%
-            );
-            box-shadow: 0 4px 24px #ffc10799, 0 0 0 6px #fffde7;
-            margin-right: -30px;
-            margin-left: 0;
-            animation: popUp 0.7s cubic-bezier(.4,2,.2,1) 1;
-        }
-        .floating-burner-star .burner-icon {
-            font-size: 2.1rem;
-            color: #43a047;
-            margin-left: -18px;
-            margin-right: 2px;
-            z-index: 2;
-            animation: shake 1.2s infinite alternate;
-        }
-        .floating-burner-star .burner-text {
-            font-family: 'Playfair Display', serif;
-            letter-spacing: 0.5px;
-            background: #fffde7;
-            border-radius: 24px;
-            padding: 10px 22px 10px 18px;
-            box-shadow: 0 2px 8px #ffc10755;
-            border: 2px solid #ffc107;
-            margin-left: -10px;
-            font-size: 1.08em;
-        }
-        @keyframes floatY {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-24px); }
-        }
-        @keyframes shake {
-            0% { transform: rotate(-8deg);}
-            100% { transform: rotate(8deg);}
-        }
-        @keyframes popUp {
-            0% { transform: scale(0.2); opacity: 0; }
-            80% { transform: scale(1.15); opacity: 1;}
-            100% { transform: scale(1); opacity: 1;}
-        }
-        @keyframes spinStar {
-            0% { transform: rotate(0deg);}
-            100% { transform: rotate(360deg);}
-        }
-        @keyframes blinkBurner {
-            0%, 100% { filter: brightness(1); }
-            50% { filter: brightness(2.2); }
-        }
-        @media (max-width: 700px) {
-            .floating-burner-star {
-                right: 8px;
-                left: 8px;
-                bottom: 24px;
-                font-size: 1rem;
-            }
-            .floating-burner-star .star-shape { width: 44px; height: 44px; }
-            .floating-burner-star .burner-icon { font-size: 1.3rem; margin-left: -10px;}
-            .floating-burner-star .burner-text { padding: 7px 10px 7px 10px; font-size: 0.98em;}
-        }
-        /* Dark theme overrides */
-        body.dark-mode {
-            background-color: #181a1b !important;
-            background-image: url('blog/images/karokeraro.jpg');
-            color: #f5f5f5;
-        }
-        body.dark-mode .navbar,
-        body.dark-mode .footer {
-            background-color: #101223 !important;
-        }
-        body.dark-mode .navbar-brand,
-        body.dark-mode .nav-link,
-        body.dark-mode .footer,
-        body.dark-mode .footer a {
-            color: #ffc107 !important;
-        }
-        body.dark-mode .hero-section {
-            background: linear-gradient(90deg, #101223 60%, #1b5e20 100%);
-            color: #fff;
-        }
-        body.dark-mode .hero-title,
-        body.dark-mode .slogan-banner,
-        body.dark-mode .section-title,
-        body.dark-mode .pillar-title,
-        body.dark-mode .analysis-title,
-        body.dark-mode .engagement-title {
-            color: #ffc107 !important;
-        }
-        body.dark-mode .section-content,
-        body.dark-mode .pillar-desc,
-        body.dark-mode .analysis-content,
-        body.dark-mode .engagement-content {
-            color: #f5f5f5 !important;
-        }
-        body.dark-mode .pillar-card {
-            background: #23272b;
-            border-left: 8px solid #ffc107;
-        }
-        body.dark-mode .engagement-section {
-            background: #23272b;
-            border-left: 8px solid #ffc107;
-        }
-        body.dark-mode .analysis-section {
-            background: #23272b;
-            border-left: 8px solid #ffc107;
-        }
-        body.dark-mode .slogan-banner {
-            background: #23272b;
-            color: #ffc107 !important;
-        }
-        body.dark-mode .hero-cta-btn {
-            background: #ffc107;
-            color: #181a1a;
-        }
-        body.dark-mode .hero-cta-btn:hover {
-            background: #fffde7;
-            color: #43a047;
-        }
-        body.dark-mode .social-icons a {
-            color: #ffc107;
-        }
-        body.dark-mode .social-icons a:hover {
-            color: #fff;
-        }
-        /* Favicon round border for browser tabs is not supported by browsers,
-           but we can make all in-page uses of the logo round. */
-        .favicon-round, .favicon-round-img {
+        
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             object-fit: cover;
+            margin-right: 15px;
+        }
+        
+        .author-info h5 {
+            margin-bottom: 0;
+            color: var(--primary-color);
+        }
+        
+        .author-info p {
+            margin-bottom: 0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* Events Section */
+        .event-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+        }
+        
+        .event-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .event-img {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+        }
+        
+        .event-date {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+        
+        .event-body {
+            padding: 20px;
+        }
+        
+        .event-title {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .event-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .event-meta i {
+            color: var(--secondary-color);
+            margin-right: 5px;
+        }
+        
+        /* Newsletter */
+        .newsletter-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #303f9f 100%);
+            color: white;
+            padding: 60px 0;
+            border-radius: 10px;
+        }
+        
+        .newsletter-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-form .form-control {
+            height: 50px;
+            border-radius: 50px;
+            border: none;
+            padding: 0 20px;
+        }
+        
+        .newsletter-form .btn {
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-weight: 600;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        
+        .footer-about p {
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links h4 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: white;
+            opacity: 0.8;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--secondary-color);
+            padding-left: 5px;
+        }
+        
+        .footer-contact i {
+            color: var(--secondary-color);
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 40px;
+            text-align: center;
+            opacity: 0.8;
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background-color: white;
+            transform: translateY(-3px);
+        }
+        
+        /* Floating Action Button */
+        .floating-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            animation: pulse 2s infinite;
+        }
+        
+        .floating-btn:hover {
+            transform: scale(1.1);
+            animation: none;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(255, 193, 7, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 193, 7, 0);
+            }
+        }
+        
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+        }
+        
+        body.dark-mode .pillar-card,
+        body.dark-mode .testimonial-card,
+        body.dark-mode .event-card {
+            background-color: #1e1e1e;
+            color: var(--text-light);
+        }
+        
+        body.dark-mode .section-title,
+        body.dark-mode .pillar-title,
+        body.dark-mode .event-title {
+            color: var(--secondary-color);
+        }
+        
+        body.dark-mode .engagement-section {
+            background-color: #121212;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 150px 0 80px;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+            
+            .footer {
+                text-align: center;
+            }
+            
+            .footer-links {
+                margin-bottom: 30px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-section {
+                padding: 120px 0 60px;
+            }
+            
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+            
+            .navbar-brand img {
+                height: 30px;
+            }
+        }
+        
+        /* Animation Classes */
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .slide-up {
+            animation: slideUp 1s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
     </style>
 </head>
 <body>
-    <!-- Check-in Modal Overlay -->
-    <div id="checkinOverlay" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:20000;background:#fff;backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;">
-        <div class="card shadow-lg p-4" style="max-width:900px;width:98vw;border-radius:18px;background:#fff;">
-            <div class="card-body text-center">
-                <h2 class="mb-3" style="font-family:'Playfair Display',serif;font-weight:800;letter-spacing:0.09em;color:#1a237e;">
-                    <img src="blog/images/gisiri logo.jpg" alt="icon" class="favicon-round-img" style="width:32px;height:32px;vertical-align:middle;margin-right:8px;">
-                    Check In to Continue
-                </h2>
-                <p class="mb-4" style="font-size:1.18rem;letter-spacing:0.04em;">Please select your polling area to access the blog.<br><span style="color:#43a047;font-weight:700;">We are growing....</span></p>
-                <div class="mb-3">
-                    <label for="areaSelectModal" class="form-label" style="font-weight:700;">Polling Area</label>
-                    <div class="position-relative" style="max-width:860px;margin:0 auto;">
-                        <div id="areaNamesScroller" style="display:flex;overflow-x:auto;gap:12px;padding:8px 0 8px 0;scrollbar-width:thin;scroll-behavior:smooth;">
-                            <!-- Area names will be injected here -->
-                        </div>
-                        <input type="text" class="form-control mt-3" id="areaSelectModalInput" placeholder="Type or select your area..." autocomplete="off" readonly style="cursor:pointer;background:#fff;" />
-                        <div id="areaDropdownModal" class="list-group position-absolute w-100 shadow" style="display:none;max-height:320px;overflow-y:auto;z-index:10;"></div>
-                    </div>
-                </div>
-                <button class="btn btn-primary" id="checkinModalBtn" style="font-weight:700;letter-spacing:0.08em;">Check In</button>
-                <div id="checkinModalMsg" class="mt-3"></div>
-                <div class="mt-4" id="checkinModalBarContainer" style="display:none;">
-                    <h6 style="font-weight:700;letter-spacing:0.07em;">Check-In Results</h6>
-                    <canvas id="areaBarChartModal" height="220"></canvas>
-                    <div class="mt-2" id="checkinModalTotal"></div>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand" href="#">Hon. Gisiri Maroa 2027</a>
+            <a class="navbar-brand" href="#">
+                <img src="blog/images/gisiri logo.PNG" alt="Hon. Gisiri Maroa">
+                Gisiri Maroa
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="#vision">Vision</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#pillars">Pillars</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#engagement">Engage</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#analysis">Analysis</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#pillars">Pillars</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#events">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#testimonials">Testimonials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
                 </ul>
-                <button class="theme-toggle-btn" id="themeToggleBtn" type="button">
-                    <span id="themeToggleIcon" class="bi bi-moon-fill"></span> <span id="themeToggleText">Dark Mode</span>
+                <button class="btn btn-outline-light ms-3" id="themeToggleBtn">
+                    <i class="fas fa-moon" id="themeIcon"></i>
                 </button>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section with Picture, Title, and Message -->
-    <section class="hero-section">
-        <div class="container hero-img-container">
-            <img src="blog/images/gisiri logo.JPG" alt="Hon. Gisiri Maroa" class="hero-img hero-img-large shadow-lg mb-3 favicon-round-img" loading="lazy">
-            <div class="hero-title">Hon. Gisiri Maroa</div>
-            <div class="hero-message">
-                <span style="font-size:1.25em;font-weight:700;">"Resilient. Determined. Ready for Change."</span><br>
-                <span style="font-size:1.1em;">
-                    <b>To the people Nyabasi West, it's time for a new dawn!</b> <br>
-                    I stand with you—shoulder to shoulder—to fight poverty, empower our farmers, and give every youth a voice. <br>
-                    <span style="color:#ffc107;">Let's build a future where every family thrives and every dream is possible.</span>
-                </span>
-            </div>
-            <button class="hero-cta-btn" onclick="window.location='#engagement'">Join the Movement</button>
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="container text-center hero-content">
+            <img src="blog/images/gisiri logo.png" alt="Hon. Gisiri Maroa" class="hero-img">
+            <h1 class="hero-title">Hon. Gisiri Maroa</h1>
+            <h2 class="hero-subtitle">Candidate for Nyabasi West MCA 2027</h2>
+            <p class="hero-quote">"Resilient. Determined. Ready for Change. Together, we will build a future where every family thrives and every dream is possible."</p>
+            <a href="#engagement" class="btn btn-primary">Join Our Movement</a>
             <div class="social-icons">
-                <a href="#" title="Facebook" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-                <a href="#" title="Twitter" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
-                <a href="#" title="WhatsApp" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
-                <a href="#" title="YouTube" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
             </div>
         </div>
     </section>
 
     <!-- Slogan Banner -->
-    <div class="slogan-banner">
-        <img src="blog/images/gisiri logo.jpg" alt="icon" class="favicon-round-img" style="width:28px;height:28px;vertical-align:middle;margin-right:8px;">
-        <span>#ResilientForNyabasi &nbsp; #GisiriForChange &nbsp; #Mchapakazi &nbsp; #AgriRevolution &nbsp; #EveryVoterCounts</span>
+    <div class="container">
+        <div class="slogan-banner">
+            <span class="hashtag">#ResilientForNyabasi</span>
+            <span class="hashtag">#GisiriForChange</span>
+            <span class="hashtag">#Mchapakazi</span>
+            <span class="hashtag">#AgriRevolution</span>
+            <span class="hashtag">#EveryVoterCounts</span>
+        </div>
     </div>
 
-    <!-- Check-in Feature (hidden, only bar after check-in) -->
-    <section class="section" id="checkin" style="display:none;">
-        <div class="section-title">
-            <img src="blog/images/gisiri logo.jpg" alt="icon" class="favicon-round-img" style="width:28px;height:28px;vertical-align:middle;margin-right:8px;">
-            We are growing....
-        </div>
-        <div class="section-content text-center">
-            <div id="checkinTotal" class="mb-3" style="font-size:1.25rem;font-weight:700;color:#43a047;"></div>
-            <div class="d-flex justify-content-center">
-                <div style="max-width:900px;width:100%;overflow-x:auto;">
-                    <canvas id="areaBarChart" height="320"></canvas>
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <img src="blog/images/gisiri logo.png" alt="About Hon. Gisiri Maroa" class="img-fluid rounded shadow">
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="section-title">Our Vision for Nyabasi West</h2>
+                    <p>Hon. Gisiri Maroa is committed to leading Nyabasi West into a new era of opportunity, dignity, and sustainable growth. With a background in community development and a passion for service, Hon. Maroa brings fresh energy and innovative solutions to our ward's challenges.</p>
+                    <p>Our campaign is built on four foundational pillars that address the most pressing needs of our community while laying the groundwork for long-term prosperity.</p>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-check-circle text-success me-2"></i> Championing poverty eradication through innovative programs</li>
+                        <li><i class="fas fa-check-circle text-success me-2"></i> Transforming agriculture with modern techniques</li>
+                        <li><i class="fas fa-check-circle text-success me-2"></i> Engaging every voter with data-driven strategies</li>
+                        <li><i class="fas fa-check-circle text-success me-2"></i> Building transparent, accountable leadership</li>
+                    </ul>
+                    <a href="#pillars" class="btn btn-primary mt-3">Learn About Our Pillars</a>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Vision Section -->
-    <section class="section" id="vision">
-        <div class="section-title">
-            <img src="blog/images/gisiri logo.jpg" alt="icon" class="favicon-round-img" style="width:28px;height:28px;vertical-align:middle;margin-right:8px;">
-            Our Vision for Nyabasi West
-        </div>
-        <div class="section-content">
-            <b>Imagine a ward where every family thrives, every youth is empowered, and every farmer prospers.</b>
-            <br><br>
-            Hon. Gisiri Maroa is committed to leading Nyabasi West into a new era of opportunity, dignity, and sustainable growth. 
-            <br>
-            <ul style="margin-top:10px;">
-                <li>Championing <b>poverty eradication</b> through innovative programs and partnerships.</li>
-                <li>Transforming <b>agriculture</b> with modern techniques, market access, and value addition.</li>
-                <li>Engaging every voter with <b>scientific, data-driven</b> strategies for inclusive development.</li>
-                <li>Building a transparent, accountable, and people-centered leadership for all.</li>
-            </ul>
         </div>
     </section>
 
     <!-- Campaign Pillars Section -->
-    <section class="section" id="pillars">
-        <div class="section-title">
-            <img src="blog/images/gisiri logo.jpg" alt="icon" class="favicon-round-img" style="width:28px;height:28px;vertical-align:middle;margin-right:8px;">
-            Our Campaign Pillars
-        </div>
-        <div class="campaign-pillars">
-            <div class="pillar-card">
-                <div class="pillar-title">
-                    <i class="bi bi-lightning-charge-fill" style="color:#ffc107;font-size:1.5em;margin-right:8px;vertical-align:middle;"></i>
-                    Change That Matters
+    <section class="section bg-light" id="pillars">
+        <div class="container">
+            <h2 class="section-title text-center">Our Campaign Pillars</h2>
+            <p class="text-center mb-5">These four pillars form the foundation of our vision for Nyabasi West</p>
+            
+            <div class="row">
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="pillar-card" data-aos="fade-up">
+                        <div class="pillar-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3 class="pillar-title">Change That Matters</h3>
+                        <p>We believe in real, measurable change. From better roads to quality healthcare, our agenda is action, not promises.</p>
+                    </div>
                 </div>
-                <div class="pillar-desc">
-                    We believe in real, measurable change. From better roads to quality healthcare, our agenda is action, not promises.
+                
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="pillar-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="pillar-icon">
+                            <i class="fas fa-people-carry"></i>
+                        </div>
+                        <h3 class="pillar-title">Poverty Eradication</h3>
+                        <p>No family should go hungry. We will launch targeted social programs, youth empowerment, and microfinance initiatives.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="pillar-card">
-                <div class="pillar-title">
-                    <i class="bi bi-people-fill" style="color:#43a047;font-size:1.5em;margin-right:8px;vertical-align:middle;"></i>
-                    Poverty Eradication
+                
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="pillar-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="pillar-icon">
+                            <i class="fas fa-tractor"></i>
+                        </div>
+                        <h3 class="pillar-title">Agricultural Revolution</h3>
+                        <p>Agriculture is our backbone. We will support farmers with training, inputs, irrigation, and market linkages.</p>
+                    </div>
                 </div>
-                <div class="pillar-desc">
-                    No family should go hungry. We will launch targeted social programs, youth empowerment, and microfinance initiatives to lift every household.
-                </div>
-            </div>
-            <div class="pillar-card">
-                <div class="pillar-title">
-                    <i class="bi bi-flower1" style="color:#1a237e;font-size:1.5em;margin-right:8px;vertical-align:middle;"></i>
-                    Agricultural Revolution
-                </div>
-                <div class="pillar-desc">
-                    Agriculture is our backbone. We will support farmers with training, inputs, irrigation, and market linkages for higher yields and incomes.
-                </div>
-            </div>
-            <div class="pillar-card">
-                <div class="pillar-title">
-                    <i class="bi bi-chat-dots-fill" style="color:#ff9800;font-size:1.5em;margin-right:8px;vertical-align:middle;"></i>
-                    Voter Engagement
-                </div>
-                <div class="pillar-desc">
-                    Your voice matters! We use scientific analysis and digital tools to listen, learn, and act on your needs. Be part of every decision.
+                
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="pillar-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="pillar-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3 class="pillar-title">Voter Engagement</h3>
+                        <p>Your voice matters! We use scientific analysis and digital tools to listen, learn, and act on your needs.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -656,438 +829,455 @@
 
     <!-- Engagement Section -->
     <section class="section engagement-section" id="engagement">
-        <div class="engagement-title">
-            <img src="blog/images/gisiri logo.jpg" alt="icon" class="favicon-round-img" style="width:24px;height:24px;vertical-align:middle;margin-right:8px;">
-            Engage. Participate. Decide.
-        </div>
-        <div class="engagement-content">
-            <b>We want to hear from you!</b> Share your views, ideas, and priorities for Nyabasi West.<br>
-            <ul>
-                <li>Take part in our <b>community surveys</b> and scientific polls.</li>
-                <li>Join our <b>WhatsApp groups</b> and digital townhalls for real-time engagement.</li>
-                <li>Volunteer for door-to-door campaigns and grassroots mobilization.</li>
-                <li>Follow us on social media for updates, live Q&A, and more.</li>
-            </ul>
-            <div style="margin-top:18px;">
-                <a href="mailto:gisirimaroa2027@gmail.com" style="color:#1a237e;font-weight:bold;">Email: gisirimaroa2027@gmail.com</a>
-                <br>
-                <a href="tel:+254700000000" style="color:#1a237e;font-weight:bold;">Call: +254 700 000000</a>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <h2 class="section-title">Engage. Participate. Decide.</h2>
+                    <p>We want to hear from you! Share your views, ideas, and priorities for Nyabasi West.</p>
+                    <ul class="mb-4">
+                        <li>Take part in our community surveys and scientific polls</li>
+                        <li>Join our WhatsApp groups and digital townhalls</li>
+                        <li>Volunteer for door-to-door campaigns</li>
+                        <li>Follow us on social media for updates</li>
+                    </ul>
+                    
+                    <div class="mb-4">
+                        <h4>Contact Information</h4>
+                        <p><i class="fas fa-envelope me-2"></i> gisirimaroa2027@gmail.com</p>
+                        <p><i class="fas fa-phone me-2"></i> +254 700 000000</p>
+                        <p><i class="fas fa-map-marker-alt me-2"></i> Nyabasi West, Kenya</p>
+                    </div>
+                    
+                    <a href="#contact" class="btn btn-primary">Get Involved</a>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="card shadow">
+                        <div class="card-body p-4">
+                            <h3 class="mb-4">Join Our Movement</h3>
+                            <form id="engagementForm">
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" placeholder="Your Name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="email" class="form-control" placeholder="Email Address" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="tel" class="form-control" placeholder="Phone Number">
+                                </div>
+                                <div class="mb-3">
+                                    <select class="form-select" required>
+                                        <option value="">How would you like to help?</option>
+                                        <option>Volunteer</option>
+                                        <option>Attend Events</option>
+                                        <option>Share Ideas</option>
+                                        <option>Make Donation</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <textarea class="form-control" rows="3" placeholder="Your Message"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Analysis Section -->
-    <section class="section analysis-section" id="analysis">
-        <div class="analysis-title">
-            <img src="blog/images/gisiri logo.jpg" alt="icon" class="favicon-round-img" style="width:24px;height:24px;vertical-align:middle;margin-right:8px;">
-            Scientific Campaign & Data-Driven Strategy
-        </div>
-        <div class="analysis-content">
-            <b>We believe in facts, not guesswork.</b> Our campaign uses proven scientific methods:
-            <ul>
-                <li>Regular <b>opinion polls</b> and <b>focus groups</b> to understand voter needs.</li>
-                <li>Data analytics to identify key issues and track progress.</li>
-                <li>Transparent reporting and feedback loops for accountability.</li>
-                <li>Modern digital marketing to reach every corner of Nyabasi West.</li>
-            </ul>
-            <div style="margin-top:10px;">
-                <b>Together, we will build a winning strategy for 2027!</b>
+    <!-- Events Section -->
+    <section class="section" id="events">
+        <div class="container">
+            <h2 class="section-title text-center">Upcoming Events</h2>
+            <p class="text-center mb-5">Join us at these upcoming campaign events in Nyabasi West</p>
+            
+            <div class="row">
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="event-card" data-aos="fade-up">
+                        <div class="position-relative">
+                            <img src="blog/images/event1.jpg" alt="Town Hall Meeting" class="event-img">
+                            <div class="event-date">June 15, 2024</div>
+                        </div>
+                        <div class="event-body">
+                            <h3 class="event-title">Town Hall Meeting</h3>
+                            <div class="event-meta">
+                                <i class="fas fa-map-marker-alt"></i> Nyabasi Community Hall
+                            </div>
+                            <div class="event-meta">
+                                <i class="fas fa-clock"></i> 10:00 AM - 2:00 PM
+                            </div>
+                            <p>Join Hon. Gisiri Maroa for an open discussion about the future of Nyabasi West.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="event-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="position-relative">
+                            <img src="blog/images/event2.jpg" alt="Youth Empowerment Workshop" class="event-img">
+                            <div class="event-date">June 22, 2024</div>
+                        </div>
+                        <div class="event-body">
+                            <h3 class="event-title">Youth Empowerment Workshop</h3>
+                            <div class="event-meta">
+                                <i class="fas fa-map-marker-alt"></i> Nyabasi Youth Center
+                            </div>
+                            <div class="event-meta">
+                                <i class="fas fa-clock"></i> 9:00 AM - 4:00 PM
+                            </div>
+                            <p>Skills training and career guidance for young people in Nyabasi West.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="event-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="position-relative">
+                            <img src="blog/images/event3.jpg" alt="Farmers' Cooperative Launch" class="event-img">
+                            <div class="event-date">July 5, 2024</div>
+                        </div>
+                        <div class="event-body">
+                            <h3 class="event-title">Farmers' Cooperative Launch</h3>
+                            <div class="event-meta">
+                                <i class="fas fa-map-marker-alt"></i> Nyabasi Farmers Market
+                            </div>
+                            <div class="event-meta">
+                                <i class="fas fa-clock"></i> 8:00 AM - 12:00 PM
+                            </div>
+                            <p>Launch of the new Nyabasi West Farmers Cooperative to boost agricultural productivity.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <a href="#" class="btn btn-primary">View All Events</a>
             </div>
         </div>
     </section>
 
-    <!-- Slogan Banner -->
-    <div class="slogan-banner">
-        <img src="blog/images/gisiri logo.jpg" alt="icon" class="favicon-round-img" style="width:28px;height:28px;vertical-align:middle;margin-right:8px;">
-        <span>#ResilientForNyabasi &nbsp; #GisiriForChange &nbsp; #EradicatePoverty &nbsp; #AgriRevolution &nbsp; #EveryVoterCounts</span>
-    </div>
+    <!-- Testimonials Section -->
+    <section class="section bg-light" id="testimonials">
+        <div class="container">
+            <h2 class="section-title text-center">What People Are Saying</h2>
+            <p class="text-center mb-5">Hear from community members about Hon. Gisiri Maroa</p>
+            
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="testimonial-card" data-aos="fade-up">
+                        <p class="testimonial-text">Hon. Gisiri Maroa has shown true dedication to our community. His vision for agricultural development aligns perfectly with our needs as farmers.</p>
+                        <div class="testimonial-author">
+                            <img src="blog/images/testimonial1.jpg" alt=">">
+                            <div class="author-info">
+                                <h5>Kelvin Chacha</h5>
+                                <p>Farmer, Nyabasi West</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 mb-4">
+                    <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+                        <p class="testimonial-text">As a youth leader, I appreciate Hon. Maroa's commitment to creating opportunities for young people. His youth empowerment programs are exactly what we need.</p>
+                        <div class="testimonial-author">
+                            <img src="blog/images/testimonial2.jpg" alt=">">
+                            <div class="author-info">
+                                <h5>Angeline Robi</h5>
+                                <p>Youth Leader</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 mb-4">
+                    <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+                        <p class="testimonial-text">Hon. Maroa listens to the people. His door-to-door campaign style shows he truly cares about understanding our challenges and finding solutions.</p>
+                        <div class="testimonial-author">
+                            <img src="blog/images/" alt=">">
+                            <div class="author-info">
+                                <h5>David Gesase</h5>
+                                <p>Community Elder</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="section">
+        <div class="container">
+            <div class="newsletter-section rounded">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 text-center">
+                        <h2 class="mb-4">Stay Updated</h2>
+                        <p class="mb-5">Subscribe to our newsletter for campaign updates, event invitations, and community news.</p>
+                        
+                        <form class="newsletter-form">
+                            <div class="input-group">
+                                <input type="email" class="form-control" placeholder="Your email address" required>
+                                <button class="btn btn-primary" type="submit">Subscribe</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Contact Section -->
     <section class="section" id="contact">
-        <div class="section-title">
-            <img src="blog/images/gisiri logo.jpg" alt="icon" class="favicon-round-img" style="width:24px;height:24px;vertical-align:middle;margin-right:8px;">
-            Contact & Volunteer
-        </div>
-        <div class="section-content">
-            Ready to make a difference? <b>Volunteer, donate, or share your ideas</b> with Hon. Gisiri Maroa's campaign.<br>
-            <ul>
-                <li>Email: <a href="mailto:gisirimaroa2027@gmail.com">gisirimaroa2027@gmail.com</a></li>
-                <li>Phone: <a href="tel:+254700000000">+254 700 000000</a></li>
-                <li>Facebook: <a href="#">facebook.com/gisirimaroa2027</a></li>
-                <li>Twitter: <a href="#">@gisirimaroa2027</a></li>
-            </ul>
-            <button class="hero-cta-btn" onclick="window.location='mailto:gisirimaroa2027@gmail.com'">Volunteer Now</button>
+        <div class="container">
+            <h2 class="section-title text-center">Contact Us</h2>
+            <p class="text-center mb-5">Get in touch with the campaign team</p>
+            
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="card shadow h-100">
+                        <div class="card-body p-4">
+                            <h3 class="mb-4">Campaign Headquarters</h3>
+                            <div class="footer-contact mb-3">
+                                <i class="fas fa-map-marker-alt"></i> Nyabasi West, Kenya
+                            </div>
+                            <div class="footer-contact mb-3">
+                                <i class="fas fa-phone"></i> +254 728 560925
+                            </div>
+                            <div class="footer-contact mb-3">
+                                <i class="fas fa-envelope"></i> gisirimaroa5@gmail.com
+                            </div>
+                            <div class="footer-contact">
+                                <i class="fas fa-clock"></i> Mon-Fri: 8AM - 5PM
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-8">
+                    <div class="card shadow">
+                        <div class="card-body p-4">
+                            <h3 class="mb-4">Send Us a Message</h3>
+                            <form id="contactForm">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <input type="text" class="form-control" placeholder="Your Name" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <input type="email" class="form-control" placeholder="Email Address" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" placeholder="Subject">
+                                </div>
+                                <div class="mb-3">
+                                    <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Send Message</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Star Floating Burner -->
-    <div id="floating-burner" class="floating-burner-star shadow-lg" tabindex="0" aria-label="Shika Kura Usikike!!">
-        <span class="star-shape"></span>
-        <span class="burner-icon"><i class="bi bi-megaphone-fill"></i></span>
-        <span class="burner-text">Shika Kura Usikike!! <span style="font-size:1.1em;font-weight:600;"></span></span>
-    </div>
-
     <!-- Footer -->
     <footer class="footer">
-        &copy; 2024 Hon. Gisiri Maroa for Nyabasi West MCA. All Rights Reserved.
-        <br>
-        <a href="#vision">Vision</a> | <a href="#pillars">Pillars</a> | <a href="#engagement">Engage</a> | <a href="#analysis">Analysis</a>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <a href="#" class="footer-logo">Gisiri Maroa</a>
+                    <div class="footer-about">
+                        <p>The official campaign for Hon. Gisiri Maroa, candidate for Nyabasi West MCA in the 2027 elections.</p>
+                    </div>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
+                    <div class="footer-links">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="#home">Home</a></li>
+                            <li><a href="#about">About</a></li>
+                            <li><a href="#pillars">Pillars</a></li>
+                            <li><a href="#events">Events</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-4 mb-4 mb-md-0">
+                    <div class="footer-links">
+                        <h4>Campaign</h4>
+                        <ul>
+                            <li><a href="#">Volunteer</a></li>
+                            <li><a href="#">Donate</a></li>
+                            <li><a href="#">Events</a></li>
+                            <li><a href="#">News</a></li>
+                            <li><a href="#">Gallery</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-4">
+                    <div class="footer-links">
+                        <h4>Contact Info</h4>
+                        <ul>
+                            <li><i class="fas fa-map-marker-alt me-2"></i> Nyabasi West, Kenya</li>
+                            <li><i class="fas fa-phone me-2"></i> +254 700 000000</li>
+                            <li><i class="fas fa-envelope me-2"></i> gisirimaroa2027@gmail.com</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Hon. Gisiri Maroa for Nyabasi West MCA. All Rights Reserved.</p>
+            </div>
+        </div>
     </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- Floating Action Button -->
+    <a href="#" class="floating-btn" id="floatingBtn" title="Join Our Movement">
+        <i class="fas fa-hands-helping"></i>
+    </a>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Theme toggle logic
-        const themeBtn = document.getElementById('themeToggleBtn');
-        const themeIcon = document.getElementById('themeToggleIcon');
-        const themeText = document.getElementById('themeToggleText');
-        function setTheme(mode) {
-            if (mode === 'dark') {
-                document.body.classList.add('dark-mode');
-                themeIcon.className = 'bi bi-sun-fill';
-                themeText.textContent = 'Light Mode';
-                localStorage.setItem('theme', 'dark');
+        // Initialize AOS animation
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
             } else {
-                document.body.classList.remove('dark-mode');
-                themeIcon.className = 'bi bi-moon-fill';
-                themeText.textContent = 'Dark Mode';
-                localStorage.setItem('theme', 'light');
+                navbar.classList.remove('scrolled');
             }
-        }
-        // Load saved theme
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        setTheme(savedTheme);
-        themeBtn.onclick = function() {
-            setTheme(document.body.classList.contains('dark-mode') ? 'light' : 'dark');
-        };
-        // Star burner animation sequence: float -> pop -> spin -> blink
-        setTimeout(() => {
-            const burner = document.getElementById('floating-burner');
-            const star = burner.querySelector('.star-shape');
-            // Remove float, add pop
-            burner.style.animation = 'popUp 0.7s cubic-bezier(.4,2,.2,1) 1';
-            setTimeout(() => {
-                // Spin star
-                star.style.animation = 'spinStar 1.2s linear 1';
-                setTimeout(() => {
-                    // Blink burner
-                    burner.style.animation = '';
-                    star.style.animation = '';
-                    burner.style.transition = 'filter 0.2s';
-                    burner.style.filter = 'brightness(1)';
-                    let blink = false;
-                    let blinkCount = 0;
-                    const blinkInterval = setInterval(() => {
-                        burner.style.filter = blink ? 'brightness(2.2)' : 'brightness(1)';
-                        blink = !blink;
-                        blinkCount++;
-                        if (blinkCount > 7) { // blink 4 times
-                            clearInterval(blinkInterval);
-                            burner.style.filter = 'brightness(1)';
-                        }
-                    }, 300);
-                }, 1200);
-            }, 700);
-        }, 5000);
+        });
 
-        // Optional: Click to open voter registration info
-        document.getElementById('floating-burner').onclick = function() {
-            alert('Visit your nearest IEBC office or use the eCitizen portal to register as a voter. Shika Kura Usikike!');
-        };
+        // Back to top button
+        const backToTopButton = document.getElementById('backToTop');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('active');
+            } else {
+                backToTopButton.classList.remove('active');
+            }
+        });
+        backToTopButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
 
-        // --- Check-in Feature Data ---
-        const pollingAreas = [
-            "Bitorogwe","Chinato","Gibarori","Itacho","Kebare","Kebarisia","Kebaroti","Kegonche","Kemakoba","Kendege","Kionyo","Komotobo","Kwiyegani","Maeta","Mosaro","Musweto","Ngibunyi","Nyabikongori","Nyabosongo","Nyaitara","Nyametaburo/Komorama","Nyamutiro","Nyaroha","Remanyanki","Sanchawa","Senta","Tebesi"
-        ].sort((a, b) => a.localeCompare(b));
-        let areaCounts = {};
-        pollingAreas.forEach(area => areaCounts[area] = 0);
-        if (localStorage.getItem('areaCounts')) {
-            try {
-                const saved = JSON.parse(localStorage.getItem('areaCounts'));
-                pollingAreas.forEach(area => {
-                    if (saved[area] !== undefined) areaCounts[area] = saved[area];
-                });
-            } catch {}
-        }
-
-        // --- Check-in Modal Logic ---
-        const areaInputModal = document.getElementById('areaSelectModalInput');
-        const areaDropdownModal = document.getElementById('areaDropdownModal');
-        const checkinModalBtn = document.getElementById('checkinModalBtn');
-        const checkinModalMsg = document.getElementById('checkinModalMsg');
-        const checkinOverlay = document.getElementById('checkinOverlay');
-        const checkinModalBarContainer = document.getElementById('checkinModalBarContainer');
-        const checkinModalTotal = document.getElementById('checkinModalTotal');
-        const areaNamesScroller = document.getElementById('areaNamesScroller');
-        let selectedAreaModal = "";
-
-        // Render all area names horizontally
-        function renderAreaNamesScroller() {
-            areaNamesScroller.innerHTML = '';
-            pollingAreas.forEach(area => {
-                const btn = document.createElement('button');
-                btn.type = "button";
-                btn.className = "btn btn-outline-primary btn-sm";
-                btn.style = "min-width:120px;font-weight:700;letter-spacing:0.05em;border-radius:18px;";
-                btn.textContent = area;
-                btn.onclick = function() {
-                    areaInputModal.value = area;
-                    selectedAreaModal = area;
-                    // Scroll to center the selected button
-                    const rect = btn.getBoundingClientRect();
-                    const parentRect = areaNamesScroller.getBoundingClientRect();
-                    areaNamesScroller.scrollLeft += rect.left - parentRect.left - parentRect.width/2 + rect.width/2;
-                };
-                areaNamesScroller.appendChild(btn);
-            });
-        }
-        renderAreaNamesScroller();
-
-        // Show dropdown with fast scroll animation
-        areaInputModal.addEventListener('click', function() {
-            areaDropdownModal.innerHTML = '';
-            pollingAreas.forEach((area, idx) => {
-                const item = document.createElement('button');
-                item.type = "button";
-                item.className = "list-group-item list-group-item-action";
-                item.textContent = area;
-                item.style.transition = "background 0.2s";
-                item.onclick = function() {
-                    areaInputModal.value = area;
-                    selectedAreaModal = area;
-                    areaDropdownModal.style.display = "none";
-                };
-                areaDropdownModal.appendChild(item);
-            });
-            areaDropdownModal.style.display = "block";
-            // Animate highlight scroll
-            let i = 0;
-            function highlightNext() {
-                if (i > 0) areaDropdownModal.children[i-1].classList.remove('active');
-                if (i < areaDropdownModal.children.length) {
-                    areaDropdownModal.children[i].classList.add('active');
-                    areaDropdownModal.scrollTop = areaDropdownModal.children[i].offsetTop - areaDropdownModal.offsetTop;
-                    i++;
-                    setTimeout(highlightNext, 1000 / areaDropdownModal.children.length); // ~1s total
-                } else {
-                    setTimeout(() => {
-                        Array.from(areaDropdownModal.children).forEach(c => c.classList.remove('active'));
-                    }, 400);
+        // Smooth scrolling for navigation links (with offset for fixed navbar)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#' || !document.querySelector(targetId)) return;
+                e.preventDefault();
+                const targetElement = document.querySelector(targetId);
+                const navHeight = document.querySelector('.navbar').offsetHeight;
+                const elementTop = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight - 10;
+                window.scrollTo({ top: elementTop, behavior: 'smooth' });
+                // Close mobile menu if open
+                const navbarCollapse = document.querySelector('.navbar-collapse');
+                if (navbarCollapse.classList.contains('show')) {
+                    const bsCollapse = new bootstrap.Collapse(navbarCollapse);
+                    bsCollapse.hide();
                 }
-            }
-            highlightNext();
-        });
-        // Allow typing to filter
-        areaInputModal.removeAttribute('readonly');
-        areaInputModal.addEventListener('input', function() {
-            const val = areaInputModal.value.toLowerCase();
-            areaDropdownModal.innerHTML = '';
-            pollingAreas.filter(a => a.toLowerCase().includes(val)).forEach(area => {
-                const item = document.createElement('button');
-                item.type = "button";
-                item.className = "list-group-item list-group-item-action";
-                item.textContent = area;
-                item.onclick = function() {
-                    areaInputModal.value = area;
-                    selectedAreaModal = area;
-                    areaDropdownModal.style.display = "none";
-                };
-                areaDropdownModal.appendChild(item);
             });
-            areaDropdownModal.style.display = areaDropdownModal.children.length ? "block" : "none";
-        });
-        // Hide dropdown on outside click
-        document.addEventListener('click', function(e) {
-            if (!areaDropdownModal.contains(e.target) && e.target !== areaInputModal) {
-                areaDropdownModal.style.display = "none";
-            }
         });
 
-        // Modal Bar Chart
-        let barChartModal = null;
-        function renderBarChartModal() {
-            const ctx = document.getElementById('areaBarChartModal').getContext('2d');
-            const data = {
-                labels: pollingAreas,
-                datasets: [{
-                    label: 'Check-Ins',
-                    data: pollingAreas.map(a => areaCounts[a]),
-                    backgroundColor: '#ffc107cc',
-                    borderColor: '#1a237e',
-                    borderWidth: 2,
-                    borderRadius: 6,
-                    maxBarThickness: 36
-                }]
-            };
-            if (barChartModal) {
-                barChartModal.data = data;
-                barChartModal.update();
-            } else {
-                barChartModal = new Chart(ctx, {
-                    type: 'bar',
-                    data,
-                    options: {
-                        indexAxis: 'y',
-                        responsive: true,
-                        plugins: {
-                            legend: { display: false },
-                            title: { display: false }
-                        },
-                        scales: {
-                            x: {
-                                beginAtZero: true,
-                                ticks: { color: '#1a237e', font: { size: 16, weight: 'bold' } }
-                            },
-                            y: {
-                                ticks: { color: '#1a237e', font: { size: 16, weight: 'bold' } }
-                            }
-                        }
-                    }
-                });
-            }
-            // Show total
-            const total = pollingAreas.reduce((sum, a) => sum + areaCounts[a], 0);
-            checkinModalTotal.innerHTML = `<span style="color:#43a047;font-weight:700;">${total} already people checked in</span>`;
+        // Dark mode toggle
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const themeIcon = document.getElementById('themeIcon');
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        function setTheme(theme) {
+            document.body.className = theme === 'dark' ? 'dark-mode' : '';
+            themeIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            localStorage.setItem('theme', theme);
         }
-        renderBarChartModal();
+        setTheme(savedTheme);
+        themeToggleBtn.addEventListener('click', function() {
+            const currentTheme = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
+            setTheme(currentTheme);
+        });
 
-        // Check-in logic
-        checkinModalBtn.onclick = function() {
-            const area = areaInputModal.value.trim();
-            if (!pollingAreas.includes(area)) {
-                checkinModalMsg.innerHTML = '<span class="text-danger">Please select a valid polling area.</span>';
-                return;
-            }
-            areaCounts[area] = (areaCounts[area] || 0) + 1;
-            localStorage.setItem('areaCounts', JSON.stringify(areaCounts));
-            checkinModalMsg.innerHTML = `<span class="text-success">Thank you for checking in for <b>${area}</b>!</span>`;
-            checkinModalBarContainer.style.display = "block";
-            renderBarChartModal();
-            setTimeout(() => {
-                // Hide overlay, show main bar
-                checkinOverlay.style.display = "none";
-                document.getElementById('checkin').style.display = "";
-                renderBarChart();
-            }, 1200);
-        };
+        // Engagement form submission
+        document.getElementById('engagementForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your interest! We will contact you soon.');
+            this.reset();
+        });
 
-        // Main page bar chart
-        let barChart = null;
-        function renderBarChart() {
-            const ctx = document.getElementById('areaBarChart').getContext('2d');
-            const data = {
-                labels: pollingAreas,
-                datasets: [{
-                    label: 'Check-Ins',
-                    data: pollingAreas.map(a => areaCounts[a]),
-                    backgroundColor: '#ffc107cc',
-                    borderColor: '#1a237e',
-                    borderWidth: 2,
-                    borderRadius: 6,
-                    maxBarThickness: 36
-                }]
-            };
-            if (barChart) {
-                barChart.data = data;
-                barChart.update();
-            } else {
-                barChart = new Chart(ctx, {
-                    type: 'bar',
-                    data,
-                    options: {
-                        indexAxis: 'x',
-                        responsive: true,
-                        plugins: {
-                            legend: { display: false },
-                            title: { display: false }
-                        },
-                        scales: {
-                            x: {
-                                ticks: { color: '#1a237e', font: { size: 16, weight: 'bold' } }
-                            },
-                            y: {
-                                beginAtZero: true,
-                                ticks: { color: '#1a237e', font: { size: 16, weight: 'bold' } }
-                            }
-                        }
-                    }
-                });
-            }
-            // Show total
-            const total = pollingAreas.reduce((sum, a) => sum + areaCounts[a], 0);
-            document.getElementById('checkinTotal').innerHTML = `${total} already people checked in`;
-        }
-        // Only show bar after check-in
-        if (localStorage.getItem('checkedInArea')) {
-            document.getElementById('checkin').style.display = "";
-            renderBarChart();
-            document.getElementById('checkinOverlay').style.display = "none";
-        }
+        // Contact form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will respond as soon as possible.');
+            this.reset();
+        });
 
-        // Save checked in area to prevent repeat
-        checkinModalBtn.addEventListener('click', function() {
-            const area = areaInputModal.value.trim();
-            if (pollingAreas.includes(area)) {
-                localStorage.setItem('checkedInArea', area);
+        // Floating button scroll to engagement section
+        document.getElementById('floatingBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            const engagement = document.getElementById('engagement');
+            if (engagement) {
+                const navHeight = document.querySelector('.navbar').offsetHeight;
+                const elementTop = engagement.getBoundingClientRect().top + window.pageYOffset - navHeight - 10;
+                window.scrollTo({ top: elementTop, behavior: 'smooth' });
             }
         });
 
-        // ...existing floating burner/star animation JS...
-        setTimeout(() => {
-            const burner = document.getElementById('floating-burner');
-            const star = burner.querySelector('.star-shape');
-            burner.style.animation = 'popUp 0.7s cubic-bezier(.4,2,.2,1) 1';
-            setTimeout(() => {
-                star.style.animation = 'spinStar 1.2s linear 1';
-                setTimeout(() => {
-                    burner.style.animation = '';
-                    star.style.animation = '';
-                    burner.style.transition = 'filter 0.2s';
-                    burner.style.filter = 'brightness(1)';
-                    let blink = false;
-                    let blinkCount = 0;
-                    const blinkInterval = setInterval(() => {
-                        burner.style.filter = blink ? 'brightness(2.2)' : 'brightness(1)';
-                        blink = !blink;
-                        blinkCount++;
-                        if (blinkCount > 7) { clearInterval(blinkInterval); burner.style.filter = 'brightness(1)'; }
-                    }, 300);
-                }, 1200);
-            }, 700);
-        }, 5000);
+        // Set active nav link based on scroll position
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        window.addEventListener('scroll', function() {
+            let current = '';
+            const scrollY = window.pageYOffset;
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 120;
+                if (scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
 
-        document.getElementById('floating-burner').onclick = function() {
-            alert('Visit your nearest IEBC office or use the eCitizen portal to register as a voter. Shika Kura Usikike!');
-        };
+        // Accessibility: focus on nav when using keyboard
+        document.addEventListener('keyup', function(e) {
+            if (e.key === 'Tab') {
+                document.body.classList.add('user-is-tabbing');
+            }
+        });
     </script>
-    <style>
-        /* ...existing code... */
-        #checkinOverlay {
-            background: #fff !important;
-        }
-        #checkinOverlay .card {
-            background: #fff !important;
-        }
-        #areaNamesScroller::-webkit-scrollbar {
-            height: 8px;
-        }
-        #areaNamesScroller::-webkit-scrollbar-thumb {
-            background: #ffc107;
-            border-radius: 8px;
-        }
-        #areaNamesScroller {
-            scrollbar-color: #ffc107 #eee;
-        }
-        @media (max-width: 900px) {
-            #areaNamesScroller {
-                gap: 8px;
-            }
-        }
-        @media (max-width: 700px) {
-            #areaNamesScroller {
-                gap: 6px;
-            }
-        }
-    </style>
 </body>
 </html>
