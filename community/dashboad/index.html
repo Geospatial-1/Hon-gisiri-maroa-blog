@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Hon Gisiri Community</title>
+    <link rel="stylesheet" href="../../css/community.css">
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="../../js/firebase-config.js"></script>
+</head>
+<body>
+    <header class="community-header">
+        <div class="container">
+            <h1><a href="../../index.html">Hon Gisiri</a> / <a href="../index.html">Community</a> / Dashboard</h1>
+            <nav>
+                <a href="../index.html">Discussions</a>
+                <a href="../events.html">Events</a>
+                <a href="../weekly-focus.html">Weekly Focus</a>
+                <a href="#" id="logout-link">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="dashboard-section">
+            <h2>Your Community Dashboard</h2>
+            
+            <div class="dashboard-grid">
+                <div class="dashboard-card profile-card">
+                    <h3>Your Profile</h3>
+                    <div id="profile-info" class="loading-message">Loading profile...</div>
+                    <a href="profile.html" class="dashboard-link">Edit Profile</a>
+                </div>
+                
+                <div class="dashboard-card activity-card">
+                    <h3>Your Activity</h3>
+                    <div id="user-activity" class="loading-message">Loading activity...</div>
+                    <a href="activity.html" class="dashboard-link">View All Activity</a>
+                </div>
+                
+                <div class="dashboard-card events-card">
+                    <h3>Your Events</h3>
+                    <div id="user-events" class="loading-message">Loading events...</div>
+                    <a href="../events.html" class="dashboard-link">View All Events</a>
+                </div>
+                
+                <div class="dashboard-card messages-card" id="messages-section" style="display:none;">
+                    <h3>Admin Messages</h3>
+                    <div id="admin-messages" class="loading-message">Loading messages...</div>
+                    <a href="messages.html" class="dashboard-link">View All Messages</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="community-footer">
+        <div class="container">
+            <p>&copy; 2023 Hon Gisiri Community. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="../../about.html">About Us</a>
+                <a href="../../contact.html">Contact</a>
+                <a href="../../privacy.html">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Check auth state
+        auth.onAuthStateChanged(user => {
+            if (!user) {
+                window.location.href = '../auth/login.html';
+                return;
+            }
+            
+            // Load user profile
+            db.collection('users').doc(user.uid).get()
+                .then(doc => {
+                    if (doc.exists) {
+                        const userData = doc.data();
+                        document.getElementById('profile-info').innerHTML = `
+                            <p><strong>Name:</strong> ${userData.name || 'Not set'}</p>
+                            <p><strong>Email:</strong> ${user.email}</p>
+                            <p><strong>Member since:</strong> ${userData.createdAt?.toDate().toLocaleDateString() || 'Unknown'}</p>
+                            ${userData.role === 'admin' ? '<p><strong>Role:</strong> Administrator</p>' : ''}
+                        `;
+                        
+                        if (userData.role === 'admin') {
+                            document.getElementById('messages-section').style.display = 'block';
+                            loadAdminMessages();
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error("Error loading profile: ", error);
+                    document.getElementById('profile-info').innerHTML = 
+                        '<div class="error-message">Error loading profile data.</div>';
+                });
+            
+            // Load user activity
+            loadUserActivity(user.uid);
+            
+            // Load user events
+            loadUserEvents(user.uid);
+        });
+
+        // Load user activity
+        function loadUserActivity(userId) {
+            db.collection("topics")
+                .where("authorId", "==", userId)
+                .orderBy("createdAt", "desc")
+                .limit(3)
+                .get()
+                .then(querySnapshot => {
+                    const container = document.getElementById('user-activity');
+                    
+                    if (querySnapshot.empty) {
+                        container.innerHTML = '<p>No activity yet. Start a discussion!</p>';
+                        return;
+                    }
+                    
+                    let activityHTML = '<ul class="activity-list">';
+                    querySnapshot.forEach(doc => {
+                        const topic = doc.data();
+                        activityHTML += `
+                            <li>
+                                <a href="../topic.html?id=${doc.id}">${topic.title}</a>
+                                <span class="activity-date">${topic.createdAt.toDate().toLocaleDateString()}</span>
+                            </li>
+                        `;
+                    });
+                    activityHTML += '</ul>';
+                    container.innerHTML = activityHTML;
+                })
+                .catch(error => {
+                    console.error("Error loading user activity: ", error);
+                    document.getElementById('user-activity').innerHTML = 
+                        '<div class="error-message">Error loading activity.</div>';
+                });
+        }
+
+        // Load user events
+        function loadUserEvents(userId) {
+            // This would query events the user has RSVP'd to
+            // Implementation depends on your events RSVP structure
+            document.getElementById('user-events').innerHTML = `
+                <p>Event RSVP functionality coming soon!</p>
+            `;
+        }
+
+        // Load admin messages
+        function loadAdminMessages() {
+            // Implementation depends on your messaging system
+            document.getElementById('admin-messages').innerHTML = `
+                <p>Admin messaging system coming soon!</p>
+            `;
+        }
+
+        // Handle logout
+        document.getElementById('logout-link').addEventListener('click', e => {
+            e.preventDefault();
+            auth.signOut()
+                .then(() => {
+                    window.location.href = '../../index.html';
+                })
+                .catch(error => {
+                    console.error("Error signing out: ", error);
+                    alert('Error signing out. Please try again.');
+                });
+        });
+    </script>
+</body>
+</html>
