@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Focus | Hon Gisiri Community</title>
+    <link rel="stylesheet" href="../css/community.css">
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/community.js"></script>
+</head>
+<body>
+    <header class="community-header">
+        <div class="container">
+            <h1><a href="../index.html">Hon Gisiri</a> / <a href="index.html">Community</a> / Weekly Focus</h1>
+            <nav>
+                <a href="index.html">Discussions</a>
+                <a href="events.html">Events</a>
+                <a href="weekly-focus.html" class="active">Weekly Focus</a>
+                <a href="auth/login.html" id="login-link">Login</a>
+                <a href="dashboard/index.html" id="dashboard-link" style="display:none;">Dashboard</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="weekly-focus-section">
+            <h2>This Week's Community Focus</h2>
+            
+            <div class="focus-card" id="current-focus">
+                <div class="loading-message">Loading this week's focus...</div>
+            </div>
+            
+            <h3>Previous Focus Topics</h3>
+            <div class="focus-archive" id="focus-archive">
+                <!-- Previous focus items will be loaded here -->
+            </div>
+            
+            <div id="edit-focus-section" style="display:none;">
+                <h3>Edit Weekly Focus</h3>
+                <form id="focus-form">
+                    <div class="form-group">
+                        <label for="focus-title">Title</label>
+                        <input type="text" id="focus-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="focus-week">Week of</label>
+                        <input type="date" id="focus-week" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="focus-description">Description</label>
+                        <textarea id="focus-description" rows="6" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="focus-image">Image URL (optional)</label>
+                        <input type="url" id="focus-image">
+                    </div>
+                    <button type="submit" class="submit-btn">Save Focus</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="community-footer">
+        <div class="container">
+            <p>&copy; 2023 Hon Gisiri Community. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="../about.html">About Us</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../privacy.html">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Auth state management
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                document.getElementById('login-link').style.display = 'none';
+                document.getElementById('dashboard-link').style.display = 'inline-block';
+                
+                // Check if user is admin
+                db.collection('users').doc(user.uid).get()
+                    .then(doc => {
+                        if (doc.exists && doc.data().role === 'admin') {
+                            document.getElementById('edit-focus-section').style.display = 'block';
+                        }
+                    });
+            } else {
+                document.getElementById('login-link').style.display = 'inline-block';
+                document.getElementById('dashboard-link').style.display = 'none';
+                document.getElementById('edit-focus-section').style.display = 'none';
+            }
+        });
+
+        // Load current weekly focus
+        function loadWeeklyFocus() {
+            const now = new Date();
+            const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay()));
+            const endOfWeek = new Date(now.setDate(now.getDate() + 6));
+            
+            db.collection("weeklyFocus")
+                .where("weekOf", ">=", startOfWeek)
+                .where("weekOf", "<=", endOfWeek)
+                .limit(1)
+                .get()
+                .then(querySnapshot => {
+                    const container = document.getElementById('current-focus');
+                    
+                    if (querySnapshot.empty) {
+                        container.innerHTML = `
+                            <div class="no-focus">
+                                <h3>No focus set for this week</h3>
+                                <p>Check back later or contact community organizers</p>
+                            </div>
+                        `;
+                        return;
+                    }
+                    
+                    const focus = querySnapshot.docs[0].data();
+                    const weekOf = focus.weekOf.toDate();
+                    
+                    container.innerHTML = `
+                        <div class="focus-header">
+                            <h3>${focus.title}</h3>
+                            <span class="focus-week">Week of ${weekOf.toLocaleDateString()}</span>
+                        </div>
+                        ${focus.image ? `<img src="${focus.image}" alt="${focus.title}" class="focus-image">` : ''}
+                        <div class="focus-content">
+                            ${focus.description.split('\n').map(p => `<p>${p}</p>`).join('')}
+                        </div>
+                        <div class="focus-actions">
+                            <button class="action-btn">Share</button>
+                            <button class="action-btn">Discuss</button>
+                        </div>
+                    `;
+                })
+                .catch(error => {
+                    console.error("Error loading weekly focus: ", error);
+                    document.getElementById('current-focus').innerHTML = 
+                        '<div class="error-message">Error loading weekly focus. Please try again later.</div>';
+                });
+        }
+
+        // Load focus archive
+        function loadFocusArchive() {
+            db.collection("weeklyFocus")
+                .orderBy("weekOf", "desc")
+                .limit(10)
+                .get()
+                .then(querySnapshot => {
+                    const container = document.getElementById('focus-archive');
+                    
+                    if (querySnapshot.empty) {
+                        container.innerHTML = '<div class="empty-message">No previous focus topics</div>';
+                        return;
+                    }
+                    
+                    querySnapshot.forEach(doc => {
+                        const focus = doc.data();
+                        const weekOf = focus.weekOf.toDate();
+                        
+                        const focusElement = document.createElement('div');
+                        focusElement.className = 'archive-item';
+                        focusElement.innerHTML = `
+                            <h4>${focus.title}</h4>
+                            <span class="archive-week">${weekOf.toLocaleDateString()}</span>
+                            <p class="archive-excerpt">${focus.description.substring(0, 100)}...</p>
+                            <a href="#" class="archive-link" data-id="${doc.id}">View details</a>
+                        `;
+                        container.appendChild(focusElement);
+                    });
+                })
+                .catch(error => {
+                    console.error("Error loading focus archive: ", error);
+                });
+        }
+
+        // Handle focus form submission
+        document.getElementById('focus-form')?.addEventListener('submit', e => {
+            e.preventDefault();
+            
+            const title = document.getElementById('focus-title').value;
+            const weekOf = document.getElementById('focus-week').value;
+            const description = document.getElementById('focus-description').value;
+            const image = document.getElementById('focus-image').value;
+            
+            db.collection("weeklyFocus").add({
+                title,
+                weekOf: new Date(weekOf),
+                description,
+                image: image || null,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                createdBy: auth.currentUser.uid
+            })
+            .then(() => {
+                alert('Weekly focus saved successfully!');
+                document.getElementById('focus-form').reset();
+                loadWeeklyFocus();
+                loadFocusArchive();
+            })
+            .catch(error => {
+                console.error("Error saving weekly focus: ", error);
+                alert('Error saving weekly focus. Please try again.');
+            });
+        });
+
+        // Load data when page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            loadWeeklyFocus();
+            loadFocusArchive();
+        });
+    </script>
+</body>
+</html>
