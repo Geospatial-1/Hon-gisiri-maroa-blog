@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discussions | Hon Gisiri Community</title>
+    <link rel="stylesheet" href="../css/community.css">
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/community.js"></script>
+</head>
+<body>
+    <header class="community-header">
+        <div class="container">
+            <h1><a href="../index.html">Hon Gisiri</a> / <a href="index.html">Community</a> / Discussions</h1>
+            <nav>
+                <a href="index.html" class="active">Discussions</a>
+                <a href="events.html">Events</a>
+                <a href="weekly-focus.html">Weekly Focus</a>
+                <a href="auth/login.html" id="login-link">Login</a>
+                <a href="dashboard/index.html" id="dashboard-link" style="display:none;">Dashboard</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="discussions-section">
+            <div class="discussions-header">
+                <h2>Community Discussions</h2>
+                <button id="new-topic-btn" class="new-topic-btn" style="display:none;">New Topic</button>
+            </div>
+            
+            <div class="discussion-categories">
+                <div class="category-card" data-category="general">
+                    <h3>General</h3>
+                    <p>General community discussions</p>
+                </div>
+                <div class="category-card" data-category="announcements">
+                    <h3>Announcements</h3>
+                    <p>Official community announcements</p>
+                </div>
+                <div class="category-card" data-category="help">
+                    <h3>Help & Support</h3>
+                    <p>Ask for help or offer support</p>
+                </div>
+                <div class="category-card" data-category="ideas">
+                    <h3>Ideas & Suggestions</h3>
+                    <p>Share your ideas for the community</p>
+                </div>
+            </div>
+            
+            <div class="topics-list" id="topics-container">
+                <!-- Topics will be loaded here dynamically -->
+                <div class="loading-message">Loading discussions...</div>
+            </div>
+            
+            <div id="new-topic-modal" class="modal" style="display:none;">
+                <div class="modal-content">
+                    <span class="close-btn">&times;</span>
+                    <h3>Create New Topic</h3>
+                    <form id="new-topic-form">
+                        <div class="form-group">
+                            <label for="topic-title">Title</label>
+                            <input type="text" id="topic-title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="topic-category">Category</label>
+                            <select id="topic-category" required>
+                                <option value="general">General</option>
+                                <option value="announcements">Announcements</option>
+                                <option value="help">Help & Support</option>
+                                <option value="ideas">Ideas & Suggestions</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="topic-content">Content</label>
+                            <textarea id="topic-content" rows="6" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Post Topic</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="community-footer">
+        <div class="container">
+            <p>&copy; 2023 Hon Gisiri Community. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="../about.html">About Us</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../privacy.html">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Auth state management
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                document.getElementById('login-link').style.display = 'none';
+                document.getElementById('dashboard-link').style.display = 'inline-block';
+                document.getElementById('new-topic-btn').style.display = 'block';
+            } else {
+                document.getElementById('login-link').style.display = 'inline-block';
+                document.getElementById('dashboard-link').style.display = 'none';
+                document.getElementById('new-topic-btn').style.display = 'none';
+            }
+        });
+
+        // Load discussions
+        function loadDiscussions() {
+            db.collection("topics").orderBy("createdAt", "desc").limit(20).get()
+                .then(querySnapshot => {
+                    const container = document.getElementById('topics-container');
+                    container.innerHTML = '';
+                    
+                    if (querySnapshot.empty) {
+                        container.innerHTML = '<div class="empty-message">No discussions yet. Be the first to start one!</div>';
+                        return;
+                    }
+                    
+                    querySnapshot.forEach(doc => {
+                        const topic = doc.data();
+                        const topicDate = topic.createdAt.toDate();
+                        
+                        const topicElement = document.createElement('div');
+                        topicElement.className = 'topic-card';
+                        topicElement.innerHTML = `
+                            <div class="topic-header">
+                                <h3><a href="topic.html?id=${doc.id}">${topic.title}</a></h3>
+                                <span class="topic-category ${topic.category}">${topic.category}</span>
+                            </div>
+                            <div class="topic-meta">
+                                <span class="topic-author">${topic.authorName}</span>
+                                <span class="topic-date">${topicDate.toLocaleDateString()}</span>
+                                <span class="topic-comments">${topic.commentCount || 0} comments</span>
+                            </div>
+                        `;
+                        container.appendChild(topicElement);
+                    });
+                })
+                .catch(error => {
+                    console.error("Error loading discussions: ", error);
+                    document.getElementById('topics-container').innerHTML = 
+                        '<div class="error-message">Error loading discussions. Please try again later.</div>';
+                });
+        }
+
+        // New topic modal
+        document.getElementById('new-topic-btn')?.addEventListener('click', () => {
+            document.getElementById('new-topic-modal').style.display = 'block';
+        });
+
+        document.querySelector('.close-btn')?.addEventListener('click', () => {
+            document.getElementById('new-topic-modal').style.display = 'none';
+        });
+
+        // Handle new topic submission
+        document.getElementById('new-topic-form')?.addEventListener('submit', e => {
+            e.preventDefault();
+            const user = auth.currentUser;
+            
+            if (!user) {
+                alert('Please login to create a topic');
+                return;
+            }
+            
+            const title = document.getElementById('topic-title').value;
+            const category = document.getElementById('topic-category').value;
+            const content = document.getElementById('topic-content').value;
+            
+            db.collection("topics").add({
+                title,
+                category,
+                content,
+                authorId: user.uid,
+                authorName: user.displayName || "Anonymous",
+                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                commentCount: 0,
+                views: 0
+            })
+            .then(() => {
+                document.getElementById('new-topic-form').reset();
+                document.getElementById('new-topic-modal').style.display = 'none';
+                loadDiscussions();
+            })
+            .catch(error => {
+                console.error("Error creating topic: ", error);
+                alert('Error creating topic. Please try again.');
+            });
+        });
+
+        // Load discussions when page loads
+        window.addEventListener('DOMContentLoaded', loadDiscussions);
+    </script>
+</body>
+</html>
