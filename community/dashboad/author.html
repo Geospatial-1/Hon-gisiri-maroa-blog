@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Author Dashboard | Hon Gisiri Community</title>
+    <link rel="stylesheet" href="../../css/community.css">
+    <link rel="stylesheet" href="../../css/dashboard.css">
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+    <header class="community-header">
+        <div class="container">
+            <h1><a href="../../index.html">Hon Gisiri</a> / <a href="../index.html">Community</a> / Author</h1>
+            <nav>
+                <a href="../index.html">← Back to Dashboard</a>
+                <a href="#" id="logout-link">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container dashboard-container">
+        <aside class="dashboard-sidebar">
+            <div class="user-profile">
+                <h3 id="user-name">Loading...</h3>
+                <p id="user-email"></p>
+                <p id="user-role"></p>
+            </div>
+            
+            <nav class="dashboard-nav">
+                <ul>
+                    <li><a href="#" class="active" data-section="my-posts">My Posts</a></li>
+                    <li><a href="#" data-section="create-post">Create New Post</a></li>
+                    <li><a href="#" data-section="drafts">My Drafts</a></li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <section class="dashboard-content">
+            <div id="my-posts-section" class="dashboard-section">
+                <h2>My Published Discussions</h2>
+                <div id="author-discussions-list">
+                    <!-- Loaded by JS -->
+                </div>
+            </div>
+            
+            <div id="create-post-section" class="dashboard-section" style="display:none;">
+                <h2>Create New Discussion</h2>
+                <form id="new-discussion-form">
+                    <div class="form-group">
+                        <label for="discussion-title">Title</label>
+                        <input type="text" id="discussion-title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="discussion-content">Content</label>
+                        <textarea id="discussion-content" rows="10" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="is-featured"> Feature this post
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="is-event"> This is an event
+                        </label>
+                        <div id="event-fields" style="display:none;">
+                            <label for="event-date">Event Date</label>
+                            <input type="datetime-local" id="event-date">
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" id="save-draft-btn" class="btn btn-outline">Save Draft</button>
+                        <button type="submit" class="btn">Publish Discussion</button>
+                    </div>
+                </form>
+            </div>
+            
+            <div id="drafts-section" class="dashboard-section" style="display:none;">
+                <h2>My Drafts</h2>
+                <div id="drafts-list">
+                    <!-- Loaded by JS -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="community-footer">
+        <div class="container">
+            <p>&copy; 2023 Hon Gisiri Community</p>
+        </div>
+    </footer>
+
+    <script src="../js/community/firebase.js"></script>
+    <script src="../js/community/auth.js"></script>
+    <script src="../js/community/author.js"></script>
+</body>
+</html>
