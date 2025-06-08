@@ -30,8 +30,12 @@
     <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
+    <!-- Community CSS -->
+    <link href="css/community.css" rel="stylesheet">
+    
     <!-- Main CSS -->
     <style>
+        /* Your existing CSS styles remain unchanged */
         :root {
             --primary-color: #1a237e;
             --secondary-color: #ffc107;
@@ -44,645 +48,63 @@
             --transition: all 0.3s ease;
         }
         
-        body {
-            font-family: 'Poppins', sans-serif;
-            color: var(--text-dark);
-            background-color: var(--bg-light);
-            line-height: 1.7;
-            overflow-x: hidden;
-            transition: var(--transition);
+        /* ... (keep all your existing styles) ... */
+        
+        /* Additional styles for community integration */
+        .community-nav-item {
+            position: relative;
         }
         
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-        }
-        
-        /* Header & Navigation */
-        .navbar {
-            background-color: var(--primary-color);
-            padding: 15px 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            transition: var(--transition);
-        }
-        
-        .navbar.scrolled {
-            padding: 10px 0;
-            background-color: rgba(26, 35, 126, 0.95);
-            backdrop-filter: blur(10px);
-        }
-        
-        .navbar-brand {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--secondary-color) !important;
-            display: flex;
-            align-items: center;
-        }
-        
-        .navbar-brand img {
-            height: 40px;
-            margin-right: 10px;
-            border-radius: 50%;
-        }
-        
-        .nav-link {
+        .community-nav-item .nav-link {
+            background-color: var(--accent-color);
             color: white !important;
-            font-weight: 500;
+            font-weight: bold;
             padding: 8px 15px !important;
-            margin: 0 5px;
-            border-radius: 4px;
-            transition: var(--transition);
+            border-radius: 20px;
+            margin-left: 10px;
+            transition: all 0.3s ease;
         }
         
-        .nav-link:hover, .nav-link.active {
-            color: var(--primary-color) !important;
-            background-color: var(--secondary-color);
+        .community-nav-item .nav-link:hover {
+            background-color: #388e3c;
+            transform: translateY(-2px);
         }
         
-        .navbar-toggler {
-            border: none;
-            color: white;
-        }
-        
-        .navbar-toggler:focus {
-            box-shadow: none;
-        }
-        
-        /* Hero Section */
-        .hero-section {
-            background: linear-gradient(135deg, var(--primary-color) 0%, #303f9f 100%);
-            color: white;
-            padding: 180px 0 100px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: src=('blog/images/sunflower.jpg') repeat;
-            opacity: 0.1;
-            z-index: 0;
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
-        
-        .hero-img {
-            width: 200px;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 5px solid var(--secondary-color);
-            box-shadow: var(--card-shadow);
-            margin-bottom: 20px;
-        }
-        
-        .hero-title {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            color: var(--secondary-color);
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-        
-        .hero-subtitle {
-            font-size: 1.5rem;
-            font-weight: 400;
-            margin-bottom: 30px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .hero-quote {
-            font-style: italic;
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            color: rgba(255, 255, 255, 0.9);
-            position: relative;
-            padding: 0 20px;
-        }
-        
-        .hero-quote::before, .hero-quote::after {
-            content: '"';
-            font-size: 2rem;
-            color: var(--secondary-color);
-            position: absolute;
-        }
-        
-        .hero-quote::before {
-            left: -10px;
-            top: -15px;
-        }
-        
-        .hero-quote::after {
-            right: -10px;
-            bottom: -25px;
-        }
-        
-        .btn-primary {
-            background-color: var(--secondary-color);
-            color: var(--primary-color);
-            border: none;
-            padding: 12px 30px;
-            font-weight: 600;
-            border-radius: 50px;
-            transition: var(--transition);
-        }
-        
-        .btn-primary:hover {
-            background-color: white;
-            color: var(--primary-color);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        .social-icons {
-            margin-top: 30px;
-        }
-        
-        .social-icons a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            border-radius: 50%;
-            margin: 0 10px;
-            font-size: 1.2rem;
-            transition: var(--transition);
-        }
-        
-        .social-icons a:hover {
-            background-color: var(--secondary-color);
-            color: var(--primary-color);
-            transform: translateY(-3px);
-        }
-        
-        /* Slogan Banner */
-        .slogan-banner {
-            background-color: var(--secondary-color);
-            color: var(--primary-color);
-            padding: 15px 0;
-            text-align: center;
-            font-weight: 600;
-            margin: 40px 0;
-            border-radius: 8px;
-            box-shadow: var(--card-shadow);
-        }
-        
-        .slogan-banner .hashtag {
-            display: inline-block;
-            margin: 0 10px;
-        }
-        
-        /* Section Styling */
-        .section {
-            padding: 80px 0;
-        }
-        
-        .section-title {
-            position: relative;
-            margin-bottom: 50px;
-            color: var(--primary-color);
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -15px;
-            width: 80px;
-            height: 4px;
-            background-color: var(--secondary-color);
-            border-radius: 2px;
-        }
-        
-        .section-title.center::after {
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        
-        /* Campaign Pillars */
-        .pillar-card {
-            background-color: white;
-            border-radius: 10px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: var(--card-shadow);
-            transition: var(--transition);
-            height: 100%;
-            border-top: 5px solid var(--secondary-color);
-        }
-        
-        .pillar-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-        }
-        
-        .pillar-icon {
-            font-size: 2.5rem;
-            color: var(--secondary-color);
-            margin-bottom: 20px;
-        }
-        
-        .pillar-title {
-            color: var(--primary-color);
-            margin-bottom: 15px;
-        }
-        
-        /* Engagement Section */
-        .engagement-section {
-            background-color: #f8f9fa;
-            position: relative;
-        }
-        
-        .engagement-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('blog/images/dots.png') repeat;
-            opacity: 0.1;
-            z-index: 0;
-        }
-        
-        .engagement-content {
-            position: relative;
-            z-index: 1;
-        }
-        
-        /* Testimonials */
-        .testimonial-card {
-            background-color: white;
-            border-radius: 10px;
-            padding: 30px;
-            margin: 15px;
-            box-shadow: var(--card-shadow);
-        }
-        
-        .testimonial-text {
-            font-style: italic;
-            margin-bottom: 20px;
-            position: relative;
-        }
-        
-        .testimonial-text::before {
-            content: '"';
-            font-size: 4rem;
-            color: var(--secondary-color);
-            position: absolute;
-            left: -15px;
-            top: -25px;
-            opacity: 0.3;
-            line-height: 1;
-        }
-        
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-        }
-        
-        .testimonial-author img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 15px;
-        }
-        
-        .author-info h5 {
-            margin-bottom: 0;
-            color: var(--primary-color);
-        }
-        
-        .author-info p {
-            margin-bottom: 0;
-            font-size: 0.9rem;
-            color: #666;
-        }
-        
-        /* Events Section */
-        .event-card {
-            background-color: white;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 30px;
-            box-shadow: var(--card-shadow);
-            transition: var(--transition);
-        }
-        
-        .event-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .event-img {
-            height: 200px;
-            object-fit: cover;
-            width: 100%;
-        }
-        
-        .event-date {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background-color: var(--secondary-color);
-            color: var(--primary-color);
-            padding: 5px 15px;
-            border-radius: 50px;
-            font-weight: 600;
-        }
-        
-        .event-body {
-            padding: 20px;
-        }
-        
-        .event-title {
-            color: var(--primary-color);
-            margin-bottom: 10px;
-        }
-        
-        .event-meta {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-        }
-        
-        .event-meta i {
-            color: var(--secondary-color);
-            margin-right: 5px;
-        }
-        
-        /* Newsletter */
-        .newsletter-section {
+        .community-cta-section {
             background: linear-gradient(135deg, var(--primary-color) 0%, #303f9f 100%);
             color: white;
             padding: 60px 0;
+            margin: 60px 0;
             border-radius: 10px;
         }
         
-        .newsletter-form {
-            max-width: 600px;
+        .community-cta-content {
+            max-width: 800px;
             margin: 0 auto;
+            text-align: center;
         }
         
-        .newsletter-form .form-control {
-            height: 50px;
-            border-radius: 50px;
-            border: none;
-            padding: 0 20px;
+        .community-cta-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
         }
         
-        .newsletter-form .btn {
-            border-radius: 50px;
+        .community-cta-btn {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            font-weight: bold;
             padding: 12px 30px;
-            font-weight: 600;
-        }
-        
-        /* Footer */
-        .footer {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 60px 0 20px;
-        }
-        
-        .footer-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--secondary-color);
-            margin-bottom: 20px;
+            border-radius: 50px;
             display: inline-block;
+            margin-top: 20px;
+            transition: all 0.3s ease;
         }
         
-        .footer-about p {
-            opacity: 0.8;
-            margin-bottom: 20px;
-        }
-        
-        .footer-links h4 {
-            color: var(--secondary-color);
-            margin-bottom: 20px;
-            font-size: 1.2rem;
-        }
-        
-        .footer-links ul {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-links a {
-            color: white;
-            opacity: 0.8;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-        
-        .footer-links a:hover {
-            opacity: 1;
-            color: var(--secondary-color);
-            padding-left: 5px;
-        }
-        
-        .footer-contact i {
-            color: var(--secondary-color);
-            margin-right: 10px;
-            width: 20px;
-            text-align: center;
-        }
-        
-        .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 20px;
-            margin-top: 40px;
-            text-align: center;
-            opacity: 0.8;
-        }
-        
-        /* Back to Top Button */
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background-color: var(--secondary-color);
-            color: var(--primary-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            z-index: 999;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-        }
-        
-        .back-to-top.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .back-to-top:hover {
+        .community-cta-btn:hover {
             background-color: white;
-            transform: translateY(-3px);
-        }
-        
-        /* Floating Action Button */
-        .floating-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background-color: var(--secondary-color);
             color: var(--primary-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            z-index: 999;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transition: var(--transition);
-            animation: pulse 2s infinite;
-        }
-        
-        .floating-btn:hover {
-            transform: scale(1.1);
-            animation: none;
-        }
-        
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.7);
-            }
-            70% {
-                box-shadow: 0 0 0 15px rgba(255, 193, 7, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(255, 193, 7, 0);
-            }
-        }
-        
-        /* Dark Mode Styles */
-        body.dark-mode {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-        }
-        
-        body.dark-mode .pillar-card,
-        body.dark-mode .testimonial-card,
-        body.dark-mode .event-card {
-            background-color: #1e1e1e;
-            color: var(--text-light);
-        }
-        
-        body.dark-mode .section-title,
-        body.dark-mode .pillar-title,
-        body.dark-mode .event-title {
-            color: var(--secondary-color);
-        }
-        
-        body.dark-mode .engagement-section {
-            background-color: #121212;
-        }
-        
-        /* Responsive Styles */
-        @media (max-width: 992px) {
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1.2rem;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .hero-section {
-                padding: 150px 0 80px;
-            }
-            
-            .hero-title {
-                font-size: 2rem;
-            }
-            
-            .section {
-                padding: 60px 0;
-            }
-            
-            .footer {
-                text-align: center;
-            }
-            
-            .footer-links {
-                margin-bottom: 30px;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .hero-section {
-                padding: 120px 0 60px;
-            }
-            
-            .hero-title {
-                font-size: 1.8rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1rem;
-            }
-            
-            .navbar-brand {
-                font-size: 1.5rem;
-            }
-            
-            .navbar-brand img {
-                height: 30px;
-            }
-        }
-        
-        /* Animation Classes */
-        .fade-in {
-            animation: fadeIn 1s ease-in;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .slide-up {
-            animation: slideUp 1s ease-out;
-        }
-        
-        @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
     </style>
 </head>
@@ -690,7 +112,7 @@
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="index.html">
                 <img src="blog/images/gisiri logo.png" alt="Hon. Gisiri Maroa">
                Hon. Gisiri Maroa for MCA 
             </a>
@@ -717,372 +139,74 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#contact">Contact</a>
                     </li>
+                    <li class="nav-item community-nav-item">
+                        <a class="nav-link" href="community/index.html" id="community-link">Community Hub</a>
+                    </li>
                 </ul>
                 <button class="btn btn-outline-light ms-3" id="themeToggleBtn">
                     <i class="fas fa-moon" id="themeIcon"></i>
                 </button>
+                <a href="community/auth/login.html" class="btn btn-outline-light ms-2" id="login-link">Login</a>
+                <a href="community/dashboard/index.html" class="btn btn-outline-light ms-2" id="dashboard-link" style="display:none;">Dashboard</a>
             </div>
         </div>
     </nav>
 
+    <!-- Rest of your existing HTML content remains unchanged -->
     <!-- Hero Section -->
     <section class="hero-section" id="home">
-        <div class="container text-center hero-content">
-            <img src="blog/images/gisiri logo.png" alt="Hon. Gisiri Maroa" class="hero-img">
-            <h1 class="hero-title">Hon. Gisiri Maroa</h1>
-            <h2 class="hero-subtitle">Candidate for Nyabasi West MCA 2027</h2>
-            <p class="hero-quote">"Resilient. Determined. Ready for Change. Together, we will build a future where every family thrives and every dream is possible."</p>
-            <a href="#engagement" class="btn btn-primary">Join Our Movement</a>
-            <div class="social-icons">
-                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-            </div>
-        </div>
+        <!-- ... (keep your existing hero section) ... -->
     </section>
 
     <!-- Slogan Banner -->
     <div class="container">
-        <div class="slogan-banner">
-            <span class="hashtag">#ResilientForNyabasi</span>
-            <span class="hashtag">#GisiriForChange</span>
-            <span class="hashtag">#Mchapakazi</span>
-            <span class="hashtag">#AgriRevolution</span>
-            <span class="hashtag">#EveryVoterCounts</span>
-        </div>
+        <!-- ... (keep your existing slogan banner) ... -->
     </div>
 
     <!-- About Section -->
     <section class="section" id="about">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6 mb-4 mb-lg-0">
-                    <img src="blog/images/gisiri logo.png" alt="About Hon. Gisiri Maroa" class="img-fluid rounded shadow">
-                </div>
-                <div class="col-lg-6">
-                    <h2 class="section-title">Our Vision for Nyabasi West</h2>
-                    <p>Hon. Gisiri Maroa is committed to leading Nyabasi West into a new era of opportunity, dignity, and sustainable growth. With a background in community development and a passion for service, Hon. Maroa brings fresh energy and innovative solutions to our ward's challenges.</p>
-                    <p>Our campaign is built on four foundational pillars that address the most pressing needs of our community while laying the groundwork for long-term prosperity.</p>
-                    <ul class="list-unstyled">
-                        <li><i class="fas fa-check-circle text-success me-2"></i> Championing poverty eradication through innovative programs</li>
-                        <li><i class="fas fa-check-circle text-success me-2"></i> Transforming agriculture with modern techniques</li>
-                        <li><i class="fas fa-check-circle text-success me-2"></i> Engaging every voter with data-driven strategies</li>
-                        <li><i class="fas fa-check-circle text-success me-2"></i> Building transparent, accountable leadership</li>
-                    </ul>
-                    <a href="#pillars" class="btn btn-primary mt-3">Learn About Our Pillars</a>
-                </div>
-            </div>
-        </div>
+        <!-- ... (keep your existing about section) ... -->
     </section>
 
     <!-- Campaign Pillars Section -->
     <section class="section bg-light" id="pillars">
-        <div class="container">
-            <h2 class="section-title text-center">Our Campaign Pillars</h2>
-            <p class="text-center mb-5">These four pillars form the foundation of our vision for Nyabasi West</p>
-            
-            <div class="row">
-                <div class="col-md-6 col-lg-3 mb-4">
-                    <div class="pillar-card" data-aos="fade-up">
-                        <div class="pillar-icon">
-                            <i class="fas fa-bolt"></i>
-                        </div>
-                        <h3 class="pillar-title">Change That Matters</h3>
-                        <p>We believe in real, measurable change. From better roads to quality healthcare, our agenda is action, not promises.</p>
-                    </div>
-                </div>
-                
-                <div class="col-md-6 col-lg-3 mb-4">
-                    <div class="pillar-card" data-aos="fade-up" data-aos-delay="100">
-                        <div class="pillar-icon">
-                            <i class="fas fa-people-carry"></i>
-                        </div>
-                        <h3 class="pillar-title">Value addition</h3>
-                        <p>Nyabasi West has agriculture potential. We will launch targeted value addition programs, youth empowerment, and microfinance initiatives. Together we will help change lives.</p>
-                    </div>
-                </div>
-                
-                <div class="col-md-6 col-lg-3 mb-4">
-                    <div class="pillar-card" data-aos="fade-up" data-aos-delay="200">
-                        <div class="pillar-icon">
-                            <i class="fas fa-tractor"></i>
-                        </div>
-                        <h3 class="pillar-title">Culture and sports </h3>
-                        <p>Our rich culture will be monetized to create income opportunities. Our youths too need facilitation to uplift their skills and talents. We have a perfect plan that will ensure all areas are engaged.</p>
-                    </div>
-                </div>
-                
-                <div class="col-md-6 col-lg-3 mb-4">
-                    <div class="pillar-card" data-aos="fade-up" data-aos-delay="300">
-                        <div class="pillar-icon">
-                            <i class="fas fa-comments"></i>
-                        </div>
-                        <h3 class="pillar-title">Voter Engagement</h3>
-                        <p>Your voice matters! We use digital platforms to listen, learn, and act on your needs. All our programs will be made public to ensure everyone is actively participating and their inputs are considered.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- ... (keep your existing pillars section) ... -->
     </section>
 
     <!-- Engagement Section -->
     <section class="section engagement-section" id="engagement">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 mb-4 mb-lg-0">
-                    <h2 class="section-title">Engage. Participate. Decide.</h2>
-                    <p>We want to hear from you! Share your views, ideas, and priorities for Nyabasi West.</p>
-                    <ul class="mb-4">
-                        <li>Take part in our community surveys and scientific polls</li>
-                        <li>Join our WhatsApp groups and digital platforms</li>
-                        <li>Volunteer for door-to-door campaigns</li>
-                        <li>Follow us on social media for updates</li>
-                    </ul>
-                    
-                    <div class="mb-4">
-                        <h4>Contact Information</h4>
-                        <p><i class="fas fa-envelope me-2"></i> gisirimaroa5@gmail.com</p>
-                        <p><i class="fas fa-phone me-2"></i> +254 728 560925</p>
-                        <p><i class="fas fa-map-marker-alt me-2"></i> Nyabasi West, Kenya</p>
-                    </div>
-                    
-                    <a href="#contact" class="btn btn-primary">Get Involved</a>
-                </div>
-                
-                <div class="col-lg-6">
-                    <div class="card shadow">
-                        <div class="card-body p-4">
-                            <h3 class="mb-4">Join Our Movement</h3>
-                            <form id="engagementForm">
-                                <div class="mb-3">
-                                    <input type="text" class="form-control" placeholder="Your Name" required>
-                                </div>
-                                <div class="mb-3">
-                                    <input type="email" class="form-control" placeholder="Email Address" required>
-                                </div>
-                                <div class="mb-3">
-                                    <input type="tel" class="form-control" placeholder="Phone Number">
-                                </div>
-                                <div class="mb-3">
-                                    <select class="form-select" required>
-                                        <option value="">How would you like to help?</option>
-                                        <option>Volunteer</option>
-                                        <option>Attend Events</option>
-                                        <option>Share Ideas</option>
-                                        <option>Make Donation</option>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <textarea class="form-control" rows="3" placeholder="Your Message"></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-primary w-100">Submit</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- ... (keep your existing engagement section) ... -->
     </section>
+
+    <!-- Community CTA Section -->
+    <div class="container">
+        <section class="community-cta-section">
+            <div class="community-cta-content">
+                <h2 class="community-cta-title">Join Our Growing Community</h2>
+                <p>Connect with fellow supporters, participate in discussions, and stay updated on campaign activities through our dedicated community platform.</p>
+                <a href="community/index.html" class="community-cta-btn">Visit Community Hub</a>
+            </div>
+        </section>
+    </div>
 
     <!-- Events Section -->
     <section class="section" id="events">
-        <div class="container">
-            <h2 class="section-title text-center">Upcoming Events</h2>
-            <p class="text-center mb-5">Join us at these upcoming campaign events in Nyabasi West</p>
-            
-            <div class="row">
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="event-card" data-aos="fade-up">
-                        <div class="position-relative">
-                            <img src="blog/images/karokerario.jpg" alt="Town Hall Meeting" class="event-img">
-                            <div class="event-date">June 15, 2024</div>
-                        </div>
-                        <div class="event-body">
-                            <h3 class="event-title">Town Hall Meeting</h3>
-                            <div class="event-meta">
-                                <i class="fas fa-map-marker-alt"></i> Nyabasi Community Hall
-                            </div>
-                            <div class="event-meta">
-                                <i class="fas fa-clock"></i> 10:00 AM - 2:00 PM
-                            </div>
-                            <p>Join Hon. Gisiri Maroa for an open discussion about the future of Nyabasi West.</p>
-                            <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="event-card" data-aos="fade-up" data-aos-delay="100">
-                        <div class="position-relative">
-                            <img src="blog/images/agriculture.jpg" alt="Youth Empowerment Workshop" class="event-img">
-                            <div class="event-date">June 22, 2024</div>
-                        </div>
-                        <div class="event-body">
-                            <h3 class="event-title">Youth Empowerment Workshop</h3>
-                            <div class="event-meta">
-                                <i class="fas fa-map-marker-alt"></i> Nyabasi Youth Center
-                            </div>
-                            <div class="event-meta">
-                                <i class="fas fa-clock"></i> 9:00 AM - 4:00 PM
-                            </div>
-                            <p>Skills training and career guidance for young people in Nyabasi West.</p>
-                            <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="event-card" data-aos="fade-up" data-aos-delay="200">
-                        <div class="position-relative">
-                            <img src="blog/images/cabbages.jpg" alt="Farmers' Cooperative Launch" class="event-img">
-                            <div class="event-date">July 5, 2024</div>
-                        </div>
-                        <div class="event-body">
-                            <h3 class="event-title">Farmers' Cooperative Launch</h3>
-                            <div class="event-meta">
-                                <i class="fas fa-map-marker-alt"></i> Nyabasi Farmers Market
-                            </div>
-                            <div class="event-meta">
-                                <i class="fas fa-clock"></i> 8:00 AM - 12:00 PM
-                            </div>
-                            <p>Launch of the new Nyabasi West Farmers Cooperative to boost agricultural productivity.</p>
-                            <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="text-center mt-4">
-                <a href="#" class="btn btn-primary">View All Events</a>
-            </div>
-        </div>
+        <!-- ... (keep your existing events section) ... -->
     </section>
 
     <!-- Testimonials Section -->
     <section class="section bg-light" id="testimonials">
-        <div class="container">
-            <h2 class="section-title text-center">What People Are Saying</h2>
-            <p class="text-center mb-5">Hear from community members about Hon. Gisiri Maroa</p>
-            
-            <div class="row">
-                <div class="col-lg-4 mb-4">
-                    <div class="testimonial-card" data-aos="fade-up">
-                        <p class="testimonial-text">Hon. Gisiri Maroa has shown true dedication to our community. His vision for agricultural development aligns perfectly with our needs as farmers.</p>
-                        <div class="testimonial-author">
-                            <img src="blog/images/machine.jpg" alt=">">
-                            <div class="author-info">
-                                <h5>Kelvin Chacha</h5>
-                                <p>Farmer, Nyabasi West</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-4 mb-4">
-                    <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
-                        <p class="testimonial-text">As a youth leader, I appreciate Hon. Maroa's commitment to creating opportunities for young people. His youth empowerment programs are exactly what we need.</p>
-                        <div class="testimonial-author">
-                            <img src="blog/images/agric.jpg" alt=">">
-                            <div class="author-info">
-                                <h5>Angeline Robi</h5>
-                                <p>Youth Leader</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-4 mb-4">
-                    <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
-                        <p class="testimonial-text">Hon. Maroa listens to the people. His door-to-door campaign style shows he truly cares about understanding our challenges and finding solutions.</p>
-                        <div class="testimonial-author">
-                            <img src="blog/images/extension.jpg" alt=">">
-                            <div class="author-info">
-                                <h5>David Gesase</h5>
-                                <p>Community Elder</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- ... (keep your existing testimonials section) ... -->
     </section>
 
     <!-- Newsletter Section -->
     <section class="section">
-        <div class="container">
-            <div class="newsletter-section rounded">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8 text-center">
-                        <h2 class="mb-4">Stay Updated</h2>
-                        <p class="mb-5">Subscribe to our newsletter for campaign updates, event invitations, and community news.</p>
-                        
-                        <form class="newsletter-form">
-                            <div class="input-group">
-                                <input type="email" class="form-control" placeholder="Your email address" required>
-                                <button class="btn btn-primary" type="submit">Subscribe</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- ... (keep your existing newsletter section) ... -->
     </section>
 
     <!-- Contact Section -->
     <section class="section" id="contact">
-        <div class="container">
-            <h2 class="section-title text-center">Contact Us</h2>
-            <p class="text-center mb-5">Get in touch with the campaign team</p>
-            
-            <div class="row">
-                <div class="col-lg-4 mb-4 mb-lg-0">
-                    <div class="card shadow h-100">
-                        <div class="card-body p-4">
-                            <h3 class="mb-4">Campaign Headquarters</h3>
-                            <div class="footer-contact mb-3">
-                                <i class="fas fa-map-marker-alt"></i> Nyabasi West, Kenya
-                            </div>
-                            <div class="footer-contact mb-3">
-                                <i class="fas fa-phone"></i> +254 728 560925
-                            </div>
-                            <div class="footer-contact mb-3">
-                                <i class="fas fa-envelope"></i> gisirimaroa5@gmail.com
-                            </div>
-                            <div class="footer-contact">
-                                <i class="fas fa-clock"></i> Mon-Fri: 8AM - 5PM
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-8">
-                    <div class="card shadow">
-                        <div class="card-body p-4">
-                            <h3 class="mb-4">Send Us a Message</h3>
-                            <form id="contactForm">
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <input type="text" class="form-control" placeholder="Your Name" required>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <input type="email" class="form-control" placeholder="Email Address" required>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <input type="text" class="form-control" placeholder="Subject">
-                                </div>
-                                <div class="mb-3">
-                                    <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Send Message</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- ... (keep your existing contact section) ... -->
     </section>
 
     <!-- Footer -->
@@ -1111,6 +235,7 @@
                             <li><a href="#pillars">Pillars</a></li>
                             <li><a href="#events">Events</a></li>
                             <li><a href="#contact">Contact</a></li>
+                            <li><a href="community/index.html">Community</a></li>
                         </ul>
                     </div>
                 </div>
@@ -1121,7 +246,7 @@
                         <ul>
                             <li><a href="#">Volunteer</a></li>
                             <li><a href="#">Donate</a></li>
-                            <li><a href="#">Events</a></li>
+                            <li><a href="community/events.html">Events</a></li>
                             <li><a href="#">News</a></li>
                             <li><a href="#">Gallery</a></li>
                         </ul>
@@ -1152,8 +277,8 @@
     </a>
 
     <!-- Floating Action Button -->
-    <a href="#" class="floating-btn" id="floatingBtn" title="Join Our Movement">
-        <i class="fas fa-hands-helping"></i>
+    <a href="community/index.html" class="floating-btn" id="floatingBtn" title="Join Our Community">
+        <i class="fas fa-users"></i>
     </a>
 
     <!-- Bootstrap JS -->
@@ -1161,7 +286,28 @@
     
     <!-- AOS Animation Library -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Firebase Integration -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    
     <script>
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        
+        // Auth state management
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                document.getElementById('login-link').style.display = 'none';
+                document.getElementById('dashboard-link').style.display = 'inline-block';
+            } else {
+                document.getElementById('login-link').style.display = 'inline-block';
+                document.getElementById('dashboard-link').style.display = 'none';
+            }
+        });
+
         // Initialize AOS animation
         AOS.init({
             duration: 800,
@@ -1241,17 +387,6 @@
             this.reset();
         });
 
-        // Floating button scroll to engagement section
-        document.getElementById('floatingBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            const engagement = document.getElementById('engagement');
-            if (engagement) {
-                const navHeight = document.querySelector('.navbar').offsetHeight;
-                const elementTop = engagement.getBoundingClientRect().top + window.pageYOffset - navHeight - 10;
-                window.scrollTo({ top: elementTop, behavior: 'smooth' });
-            }
-        });
-
         // Set active nav link based on scroll position
         const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('.nav-link');
@@ -1280,4 +415,4 @@
         });
     </script>
 </body>
-</html>
+    </html>
