@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Hon Gisiri Community</title>
+    <link rel="stylesheet" href="../../css/community.css">
+    <link rel="stylesheet" href="../../css/dashboard.css">
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+    <header class="community-header">
+        <div class="container">
+            <h1><a href="../../index.html">Hon Gisiri</a> / <a href="../index.html">Community</a> / Admin</h1>
+            <nav>
+                <a href="../index.html">← Back to Community</a>
+                <a href="#" id="logout-link">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container dashboard-container">
+        <aside class="dashboard-sidebar">
+            <div class="user-profile">
+                <h3 id="user-name">Loading...</h3>
+                <p id="user-email"></p>
+                <p id="user-role"></p>
+            </div>
+            
+            <nav class="dashboard-nav">
+                <ul>
+                    <li><a href="../index.html">← Back to Dashboard</a></li>
+                    <li><a href="#" class="active" data-section="manage-posts">Manage Posts</a></li>
+                    <li><a href="#" data-section="manage-users">Manage Users</a></li>
+                    <li><a href="#" data-section="reported-content">Reported Content</a></li>
+                    <li><a href="#" data-section="author-applications">Author Applications</a></li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <section class="dashboard-content">
+            <div id="manage-posts-section" class="dashboard-section">
+                <h2>Manage All Discussions</h2>
+                <div class="search-filter">
+                    <input type="text" id="post-search" placeholder="Search discussions...">
+                    <select id="post-filter">
+                        <option value="all">All Discussions</option>
+                        <option value="featured">Featured</option>
+                        <option value="reported">Reported</option>
+                    </select>
+                </div>
+                <div id="all-discussions-list">
+                    <!-- Loaded by JS -->
+                </div>
+            </div>
+            
+            <div id="manage-users-section" class="dashboard-section" style="display:none;">
+                <h2>Manage Users</h2>
+                <div class="search-filter">
+                    <input type="text" id="user-search" placeholder="Search users...">
+                </div>
+                <div id="users-list">
+                    <!-- Loaded by JS -->
+                </div>
+            </div>
+            
+            <div id="reported-content-section" class="dashboard-section" style="display:none;">
+                <h2>Reported Content</h2>
+                <div id="reported-content-list">
+                    <!-- Loaded by JS -->
+                </div>
+            </div>
+            
+            <div id="author-applications-section" class="dashboard-section" style="display:none;">
+                <h2>Author Applications</h2>
+                <div id="applications-list">
+                    <!-- Loaded by JS -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="community-footer">
+        <div class="container">
+            <p>&copy; 2023 Hon Gisiri Community</p>
+        </div>
+    </footer>
+
+    <script src="../js/community/firebase.js"></script>
+    <script src="../js/community/auth.js"></script>
+    <script src="../js/community/admin.js"></script>
+</body>
+</html>
