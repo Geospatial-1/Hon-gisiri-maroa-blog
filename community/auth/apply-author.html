@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply to be an Author | Hon Gisiri Community</title>
+    <link rel="stylesheet" href="../../css/community.css">
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+    <header class="community-header">
+        <div class="container">
+            <h1><a href="../../index.html">Hon Gisiri</a> / <a href="../index.html">Community</a> / Apply to be an Author</h1>
+        </div>
+    </header>
+
+    <main class="container auth-container">
+        <div class="auth-card">
+            <h2>Apply to be an Author</h2>
+            <p>Join our team of authors and contribute to the Hon Gisiri community by creating engaging discussions and content.</p>
+            
+            <form id="author-application-form">
+                <div class="form-group">
+                    <label for="applicant-name">Full Name</label>
+                    <input type="text" id="applicant-name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="applicant-email">Email</label>
+                    <input type="email" id="applicant-email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="applicant-phone">Phone Number</label>
+                    <input type="tel" id="applicant-phone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="applicant-area">Voter Area</label>
+                    <input type="text" id="applicant-area" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="application-message">Why do you want to be an author? (Minimum 100 characters)</label>
+                    <textarea id="application-message" rows="5" minlength="100" required></textarea>
+                </div>
+                
+                <button type="submit" class="btn">Submit Application</button>
+                <p class="auth-link"><a href="../index.html">← Back to Community</a></p>
+            </form>
+            
+            <div id="application-message" class="message"></div>
+        </div>
+    </main>
+
+    <footer class="community-footer">
+        <div class="container">
+            <p>&copy; 2023 Hon Gisiri Community</p>
+        </div>
+    </footer>
+
+    <script src="../js/community/firebase.js"></script>
+    <script src="../js/community/auth.js"></script>
+    <script>
+        document.getElementById('author-application-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const applicationData = {
+                name: document.getElementById('applicant-name').value,
+                email: document.getElementById('applicant-email').value,
+                phone: document.getElementById('applicant-phone').value,
+                area: document.getElementById('applicant-area').value,
+                message: document.getElementById('application-message').value,
+                status: 'pending',
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            };
+            
+            try {
+                // In a real implementation, you would save to an 'applications' collection
+                // This is a simplified version that just shows a success message
+                // await db.collection('applications').add(applicationData);
+                
+                document.getElementById('application-message').textContent = 
+                    'Application submitted successfully! We will review your application and get back to you soon.';
+                document.getElementById('application-message').style.color = 'green';
+                document.getElementById('author-application-form').reset();
+            } catch (error) {
+                document.getElementById('application-message').textContent = 
+                    'Error submitting application: ' + error.message;
+                document.getElementById('application-message').style.color = 'red';
+            }
+        });
+    </script>
+</body>
+</html>
