@@ -1,0 +1,271 @@
+document.addEventListener('DOMContentLoaded', () => {
+    // Check auth state and author role
+    auth.onAuthStateChanged(async user => {
+        if (!user) {
+            window.location.href = '../../auth/login.html';
+            return;
+        }
+        
+        // Verify author role
+        const userDoc = await db.collection('users').doc(user.uid).get();
+        if (!['author', 'admin'].includes(userDoc.data().role)) {
+            window.location.href = '../index.html';
+            return;
+        }
+        
+        // Load user data
+        document.getElementById('user-name').textContent = userDoc.data().name || 'Author';
+        document.getElementById('user-email').textContent = user.email;
+        document.getElementById('user-role').textContent = userDoc.data().role === 'admin' ? 'Admin' : 'Author';
+        
+        // Setup navigation
+        setupAuthorNavigation();
+        
+        // Load initial section
+        loadAuthorSection('my-posts');
+        
+        // Setup event listeners
+        setupEventCheckbox();
+    });
+    
+    // Logout button
+    document.getElementById('logout-link').addEventListener('click', (e) => {
+        e.preventDefault();
+        logout().then(() => {
+            window.location.href = '../../index.html';
+        });
+    });
+});
+
+function setupAuthorNavigation() {
+    const navLinks = document.querySelectorAll('.dashboard-nav a[data-section]');
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Update active state
+            navLinks.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+            
+            // Load section
+            const section = link.dataset.section;
+            loadAuthorSection(section);
+        });
+    });
+}
+
+function loadAuthorSection(section) {
+    // Hide all sections
+    document.querySelectorAll('.dashboard-section').forEach(el => {
+        el.style.display = 'none';
+    });
+    
+    // Show selected section
+    document.getElementById(`${section}-section`).style.display = 'block';
+    
+    // Load section data
+    switch (section) {
+        case 'my-posts':
+            loadAuthorDiscussions();
+            break;
+        case 'drafts':
+            loadAuthorDrafts();
+            break;
+        case 'create-post':
+            resetDiscussionForm();
+            break;
+    }
+}
+
+async function loadAuthorDiscussions() {
+    const userId = auth.currentUser.uid;
+    const container = document.getElementById('author-discussions-list');
+    container.innerHTML = '<p>Loading your discussions...</p>';
+    
+    const snapshot = await db.collection('discussions')
+        .where('authorId', '==', userId)
+        .where('status', '==', 'published')
+        .orderBy('createdAt', 'desc')
+        .get();
+    
+    if (snapshot.empty) {
+        container.innerHTML = '<p>You have no published discussions yet.</p>';
+        return;
+    }
+    
+    let html = '';
+    snapshot.forEach(doc => {
+        const discussion = doc.data();
+        html += `
+            <div class="discussion-card">
+                <h3><a href="../../community/discussion.html?id=${doc.id}">${discussion.title}</a></h3>
+                <p class="discussion-meta">
+                    Published on ${new Date(discussion.createdAt?.toDate()).toLocaleDateString()} | 
+                    ${discussion.views || 0} views | ${discussion.comments || 0} comments
+                </p>
+                <div class="discussion-actions">
+                    <a href="../../community/discussion.html?id=${doc.id}" class="btn-sm">View</a>
+                    <button class="btn-sm btn-outline" onclick="editDiscussion('${doc.id}')">Edit</button>
+                </div>
+            </div>
+        `;
+    });
+    
+    container.innerHTML = html;
+}
+
+async function loadAuthorDrafts() {
+    const userId = auth.currentUser.uid;
+    const container = document.getElementById('drafts-list');
+    container.innerHTML = '<p>Loading your drafts...</p>';
+    
+    const snapshot = await db.collection('discussions')
+        .where('authorId', '==', userId)
+        .where('status', '==', 'draft')
+        .orderBy('createdAt', 'desc')
+        .get();
+    
+    if (snapshot.empty) {
+        container.innerHTML = '<p>You have no saved drafts.</p>';
+        return;
+    }
+    
+    let html = '';
+    snapshot.forEach(doc => {
+        const draft = doc.data();
+        html += `
+            <div class="draft-card">
+                <h3>${draft.title}</h3>
+                <p class="draft-meta">
+                    Last saved: ${new Date(draft.updatedAt?.toDate()).toLocaleString()}
+                </p>
+                <div class="draft-preview">${draft.content.substring(0, 100)}...</div>
+                <div class="draft-actions">
+                    <button class="btn-sm" onclick="continueDraft('${doc.id}')">Continue Editing</button>
+                    <button class="btn-sm btn-danger" onclick="deleteDraft('${doc.id}')">Delete</button>
+                </div>
+            </div>
+        `;
+    });
+    
+    container.innerHTML = html;
+}
+
+function setupEventCheckbox() {
+    const eventCheckbox = document.getElementById('is-event');
+    const eventFields = document.getElementById('event-fields');
+    
+    eventCheckbox.addEventListener('change', () => {
+        eventFields.style.display = eventCheckbox.checked ? 'block' : 'none';
+    });
+}
+
+function resetDiscussionForm() {
+    document.getElementById('new-discussion-form').reset();
+    document.getElementById('event-fields').style.display = 'none';
+}
+
+// Form submission
+document.getElementById('new-discussion-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const userId = auth.currentUser.uid;
+    const user = auth.currentUser;
+    const userDoc = await db.collection('users').doc(userId).get();
+    const userData = userDoc.data();
+    
+    const discussionData = {
+        title: document.getElementById('discussion-title').value,
+        content: document.getElementById('discussion-content').value,
+        author: userData.name || user.email,
+        authorId: userId,
+        isFeatured: document.getElementById('is-featured').checked,
+        isEvent: document.getElementById('is-event').checked,
+        status: 'published',
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+        views: 0,
+        comments: 0,
+        likes: 0
+    };
+    
+    if (discussionData.isEvent) {
+        discussionData.eventDate = document.getElementById('event-date').value;
+    }
+    
+    try {
+        await db.collection('discussions').add(discussionData);
+        alert('Discussion published successfully!');
+        resetDiscussionForm();
+        loadAuthorSection('my-posts');
+    } catch (error) {
+        alert('Error publishing discussion: ' + error.message);
+    }
+});
+
+// Save draft button
+document.getElementById('save-draft-btn').addEventListener('click', async () => {
+    const userId = auth.currentUser.uid;
+    const user = auth.currentUser;
+    const userDoc = await db.collection('users').doc(userId).get();
+    const userData = userDoc.data();
+    
+    const discussionData = {
+        title: document.getElementById('discussion-title').value,
+        content: document.getElementById('discussion-content').value,
+        author: userData.name || user.email,
+        authorId: userId,
+        isFeatured: document.getElementById('is-featured').checked,
+        isEvent: document.getElementById('is-event').checked,
+        status: 'draft',
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    };
+    
+    if (discussionData.isEvent) {
+        discussionData.eventDate = document.getElementById('event-date').value;
+    }
+    
+    try {
+        await db.collection('discussions').add(discussionData);
+        alert('Draft saved successfully!');
+        resetDiscussionForm();
+        loadAuthorSection('drafts');
+    } catch (error) {
+        alert('Error saving draft: ' + error.message);
+    }
+});
+
+// Author functions
+window.continueDraft = async (draftId) => {
+    const doc = await db.collection('discussions').doc(draftId).get();
+    const draft = doc.data();
+    
+    document.getElementById('discussion-title').value = draft.title;
+    document.getElementById('discussion-content').value = draft.content;
+    document.getElementById('is-featured').checked = draft.isFeatured || false;
+    document.getElementById('is-event').checked = draft.isEvent || false;
+    
+    if (draft.isEvent) {
+        document.getElementById('event-fields').style.display = 'block';
+        document.getElementById('event-date').value = draft.eventDate || '';
+    }
+    
+    // Switch to create post section
+    document.querySelectorAll('.dashboard-nav a[data-section]').forEach(l => l.classList.remove('active'));
+    document.querySelector('.dashboard-nav a[data-section="create-post"]').classList.add('active');
+    loadAuthorSection('create-post');
+};
+
+window.deleteDraft = async (draftId) => {
+    if (confirm('Are you sure you want to delete this draft?')) {
+        await db.collection('discussions').doc(draftId).delete();
+        loadAuthorDrafts();
+    }
+};
+
+window.editDiscussion = async (discussionId) => {
+    // Implementation for editing published discussions
+    alert('Editing functionality would be implemented here.\nYou would typically load the discussion and allow updates.');
+};
