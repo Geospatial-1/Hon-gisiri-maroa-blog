@@ -16,7 +16,7 @@
     <meta property="og:image" content="https://gisirimaroa2027.com/blog/images/gisiri-social-preview.jpg">
     
     <!-- Favicon -->
-    <link rel="icon" type="blog/images/gisiri logo.png" href="blog/images/gisiri logo.PNG">
+    <link rel="icon" type="image/png" href="blog/images/gisiri-logo.jpg">
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -33,9 +33,13 @@
     <!-- Community CSS -->
     <link href="css/community.css" rel="stylesheet">
     
+    <!-- Firebase JS SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
     <!-- Main CSS -->
     <style>
-        /* Your existing CSS styles remain unchanged */
         :root {
             --primary-color: #1a237e;
             --secondary-color: #ffc107;
@@ -48,8 +52,6 @@
             --transition: all 0.3s ease;
         }
         
-        /* ... (keep all your existing styles) ... */
-       
         body {
             font-family: 'Poppins', sans-serif;
             color: var(--text-dark);
@@ -136,7 +138,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: src=('blog/images/sunflower.jpg') repeat;
+            background: url('blog/images/pattern.png') repeat;
             opacity: 0.1;
             z-index: 0;
         }
@@ -617,6 +619,152 @@
             background-color: #121212;
         }
         
+        /* Community Posts Section */
+        .community-posts-section {
+            background-color: #f8f9fa;
+            padding: 60px 0;
+        }
+        .community-posts-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .community-posts-title {
+            color: var(--primary-color);
+            margin: 0;
+        }
+        .view-all-link {
+            color: var(--accent-color);
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        .view-all-link i {
+            margin-left: 5px;
+            transition: transform 0.3s;
+        }
+        .view-all-link:hover {
+            text-decoration: underline;
+        }
+        .view-all-link:hover i {
+            transform: translateX(3px);
+        }
+        .community-posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .community-post-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s;
+        }
+        .community-post-card:hover {
+            transform: translateY(-5px);
+        }
+        .post-image-container {
+            height: 180px;
+            overflow: hidden;
+        }
+        .post-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .community-post-card:hover .post-image {
+            transform: scale(1.05);
+        }
+        .post-content {
+            padding: 20px;
+        }
+        .post-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+            color: #666;
+        }
+        .post-author {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+        .author-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 8px;
+        }
+        .post-date {
+            display: flex;
+            align-items: center;
+        }
+        .post-date i {
+            margin-right: 5px;
+            font-size: 0.9rem;
+        }
+        .post-title {
+            color: var(--primary-color);
+            margin: 0 0 10px;
+            font-size: 1.2rem;
+        }
+        .post-excerpt {
+            color: #555;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        .post-stats {
+            display: flex;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #666;
+        }
+        .post-stat {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+        .post-stat i {
+            margin-right: 5px;
+            color: var(--secondary-color);
+        }
+        .read-more-btn {
+            color: var(--accent-color);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+        .read-more-btn i {
+            margin-left: 5px;
+            transition: transform 0.3s;
+        }
+        .read-more-btn:hover {
+            text-decoration: underline;
+        }
+        .read-more-btn:hover i {
+            transform: translateX(3px);
+        }
+        @media (max-width: 768px) {
+            .community-posts-grid {
+                grid-template-columns: 1fr;
+            }
+            .community-posts-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .view-all-link {
+                margin-top: 10px;
+            }
+        }
+        
         /* Responsive Styles */
         @media (max-width: 992px) {
             .hero-title {
@@ -690,72 +838,15 @@
             from { transform: translateY(50px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
-   
-        /* Additional styles for community integration */
-        .community-nav-item {
-            position: relative;
-        }
-        
-        .community-nav-item .nav-link {
-            background-color: var(--accent-color);
-            color: white !important;
-            font-weight: bold;
-            padding: 8px 15px !important;
-            border-radius: 20px;
-            margin-left: 10px;
-            transition: all 0.3s ease;
-        }
-        
-        .community-nav-item .nav-link:hover {
-            background-color: #388e3c;
-            transform: translateY(-2px);
-        }
-        
-        .community-cta-section {
-            background: linear-gradient(135deg, var(--primary-color) 0%, #303f9f 100%);
-            color: white;
-            padding: 60px 0;
-            margin: 60px 0;
-            border-radius: 10px;
-        }
-        
-        .community-cta-content {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        
-        .community-cta-title {
-            font-size: 2rem;
-            margin-bottom: 20px;
-        }
-        
-        .community-cta-btn {
-            background-color: var(--secondary-color);
-            color: var(--primary-color);
-            font-weight: bold;
-            padding: 12px 30px;
-            border-radius: 50px;
-            display: inline-block;
-            margin-top: 20px;
-            transition: all 0.3s ease;
-        }
-        
-        .community-cta-btn:hover {
-            background-color: white;
-            color: var(--primary-color);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
     </style>
 </head>
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand" href="index.html">
-                <img src="blog/images/gisiri logo.png" alt="Hon. Gisiri Maroa">
-               Hon. Gisiri Maroa for MCA 
+            <a class="navbar-brand" href="#">
+                <img src="blog/images/gisiri logo.PNG" alt="Hon. Gisiri Maroa">
+                Gisiri Maroa
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -780,74 +871,387 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#contact">Contact</a>
                     </li>
-                    <li class="nav-item community-nav-item">
-                        <a class="nav-link" href="community/index.html" id="community-link">Community Hub</a>
-                    </li>
                 </ul>
                 <button class="btn btn-outline-light ms-3" id="themeToggleBtn">
                     <i class="fas fa-moon" id="themeIcon"></i>
                 </button>
-                <a href="community/auth/login.html" class="btn btn-outline-light ms-2" id="login-link">Login</a>
-                <a href="community/dashboard/index.html" class="btn btn-outline-light ms-2" id="dashboard-link" style="display:none;">Dashboard</a>
             </div>
         </div>
     </nav>
 
-    <!-- Rest of your existing HTML content remains unchanged -->
     <!-- Hero Section -->
     <section class="hero-section" id="home">
-        <!-- ... (keep your existing hero section) ... -->
+        <div class="container text-center hero-content">
+            <img src="blog/images/gisiri logo.png" alt="Hon. Gisiri Maroa" class="hero-img">
+            <h1 class="hero-title">Hon. Gisiri Maroa</h1>
+            <h2 class="hero-subtitle">Candidate for Nyabasi West MCA 2027</h2>
+            <p class="hero-quote">"Resilient. Determined. Ready for Change. Together, we will build a future where every family thrives and every dream is possible."</p>
+            <a href="#engagement" class="btn btn-primary">Join Our Movement</a>
+            <div class="social-icons">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
     </section>
 
     <!-- Slogan Banner -->
     <div class="container">
-        <!-- ... (keep your existing slogan banner) ... -->
+        <div class="slogan-banner">
+            <span class="hashtag">#ResilientForNyabasi</span>
+            <span class="hashtag">#GisiriForChange</span>
+            <span class="hashtag">#Mchapakazi</span>
+            <span class="hashtag">#AgriRevolution</span>
+            <span class="hashtag">#EveryVoterCounts</span>
+        </div>
     </div>
 
     <!-- About Section -->
     <section class="section" id="about">
-        <!-- ... (keep your existing about section) ... -->
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <img src="blog/images/gisiri logo.png" alt="About Hon. Gisiri Maroa" class="img-fluid rounded shadow">
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="section-title">Our Vision for Nyabasi West</h2>
+                    <p>Hon. Gisiri Maroa is committed to leading Nyabasi West into a new era of opportunity, dignity, and sustainable growth. With a background in community development and a passion for service, Hon. Maroa brings fresh energy and innovative solutions to our ward's challenges.</p>
+                    <p>Our campaign is built on four foundational pillars that address the most pressing needs of our community while laying the groundwork for long-term prosperity.</p>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-check-circle text-success me-2"></i> Championing poverty eradication through innovative programs</li>
+                        <li><i class="fas fa-check-circle text-success me-2"></i> Transforming agriculture with modern techniques</li>
+                        <li><i class="fas fa-check-circle text-success me-2"></i> Engaging every voter with data-driven strategies</li>
+                        <li><i class="fas fa-check-circle text-success me-2"></i> Building transparent, accountable leadership</li>
+                    </ul>
+                    <a href="#pillars" class="btn btn-primary mt-3">Learn About Our Pillars</a>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Campaign Pillars Section -->
     <section class="section bg-light" id="pillars">
-        <!-- ... (keep your existing pillars section) ... -->
+        <div class="container">
+            <h2 class="section-title text-center">Our Campaign Pillars</h2>
+            <p class="text-center mb-5">These four pillars form the foundation of our vision for Nyabasi West</p>
+            
+            <div class="row">
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="pillar-card" data-aos="fade-up">
+                        <div class="pillar-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3 class="pillar-title">Change That Matters</h3>
+                        <p>We believe in real, measurable change. From better roads to quality healthcare, our agenda is action, not promises.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="pillar-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="pillar-icon">
+                            <i class="fas fa-people-carry"></i>
+                        </div>
+                        <h3 class="pillar-title">Poverty Eradication</h3>
+                        <p>No family should go hungry. We will launch targeted social programs, youth empowerment, and microfinance initiatives.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="pillar-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="pillar-icon">
+                            <i class="fas fa-tractor"></i>
+                        </div>
+                        <h3 class="pillar-title">Agricultural Revolution</h3>
+                        <p>Agriculture is our backbone. We will support farmers with training, inputs, irrigation, and market linkages.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="pillar-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="pillar-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3 class="pillar-title">Voter Engagement</h3>
+                        <p>Your voice matters! We use scientific analysis and digital tools to listen, learn, and act on your needs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Engagement Section -->
     <section class="section engagement-section" id="engagement">
-        <!-- ... (keep your existing engagement section) ... -->
-    </section>
-
-    <!-- Community CTA Section -->
-    <div class="container">
-        <section class="community-cta-section">
-            <div class="community-cta-content">
-                <h2 class="community-cta-title">Join Our Growing Community</h2>
-                <p>Connect with fellow supporters, participate in discussions, and stay updated on campaign activities through our dedicated community platform.</p>
-                <a href="community/index.html" class="community-cta-btn">Visit Community Hub</a>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <h2 class="section-title">Engage. Participate. Decide.</h2>
+                    <p>We want to hear from you! Share your views, ideas, and priorities for Nyabasi West.</p>
+                    <ul class="mb-4">
+                        <li>Take part in our community surveys and scientific polls</li>
+                        <li>Join our WhatsApp groups and digital townhalls</li>
+                        <li>Volunteer for door-to-door campaigns</li>
+                        <li>Follow us on social media for updates</li>
+                    </ul>
+                    
+                    <div class="mb-4">
+                        <h4>Contact Information</h4>
+                        <p><i class="fas fa-envelope me-2"></i> gisirimaroa2027@gmail.com</p>
+                        <p><i class="fas fa-phone me-2"></i> +254 700 000000</p>
+                        <p><i class="fas fa-map-marker-alt me-2"></i> Nyabasi West, Kenya</p>
+                    </div>
+                    
+                    <a href="#contact" class="btn btn-primary">Get Involved</a>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="card shadow">
+                        <div class="card-body p-4">
+                            <h3 class="mb-4">Join Our Movement</h3>
+                            <form id="engagementForm">
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" placeholder="Your Name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="email" class="form-control" placeholder="Email Address" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="tel" class="form-control" placeholder="Phone Number">
+                                </div>
+                                <div class="mb-3">
+                                    <select class="form-select" required>
+                                        <option value="">How would you like to help?</option>
+                                        <option>Volunteer</option>
+                                        <option>Attend Events</option>
+                                        <option>Share Ideas</option>
+                                        <option>Make Donation</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <textarea class="form-control" rows="3" placeholder="Your Message"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
 
     <!-- Events Section -->
     <section class="section" id="events">
-        <!-- ... (keep your existing events section) ... -->
+        <div class="container">
+            <h2 class="section-title text-center">Upcoming Events</h2>
+            <p class="text-center mb-5">Join us at these upcoming campaign events in Nyabasi West</p>
+            
+            <div class="row">
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="event-card" data-aos="fade-up">
+                        <div class="position-relative">
+                            <img src="blog/images/event1.jpg" alt="Town Hall Meeting" class="event-img">
+                            <div class="event-date">June 15, 2024</div>
+                        </div>
+                        <div class="event-body">
+                            <h3 class="event-title">Town Hall Meeting</h3>
+                            <div class="event-meta">
+                                <i class="fas fa-map-marker-alt"></i> Nyabasi Community Hall
+                            </div>
+                            <div class="event-meta">
+                                <i class="fas fa-clock"></i> 10:00 AM - 2:00 PM
+                            </div>
+                            <p>Join Hon. Gisiri Maroa for an open discussion about the future of Nyabasi West.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="event-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="position-relative">
+                            <img src="blog/images/event2.jpg" alt="Youth Empowerment Workshop" class="event-img">
+                            <div class="event-date">June 22, 2024</div>
+                        </div>
+                        <div class="event-body">
+                            <h3 class="event-title">Youth Empowerment Workshop</h3>
+                            <div class="event-meta">
+                                <i class="fas fa-map-marker-alt"></i> Nyabasi Youth Center
+                            </div>
+                            <div class="event-meta">
+                                <i class="fas fa-clock"></i> 9:00 AM - 4:00 PM
+                            </div>
+                            <p>Skills training and career guidance for young people in Nyabasi West.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="event-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="position-relative">
+                            <img src="blog/images/event3.jpg" alt="Farmers' Cooperative Launch" class="event-img">
+                            <div class="event-date">July 5, 2024</div>
+                        </div>
+                        <div class="event-body">
+                            <h3 class="event-title">Farmers' Cooperative Launch</h3>
+                            <div class="event-meta">
+                                <i class="fas fa-map-marker-alt"></i> Nyabasi Farmers Market
+                            </div>
+                            <div class="event-meta">
+                                <i class="fas fa-clock"></i> 8:00 AM - 12:00 PM
+                            </div>
+                            <p>Launch of the new Nyabasi West Farmers Cooperative to boost agricultural productivity.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <a href="#" class="btn btn-primary">View All Events</a>
+            </div>
+        </div>
     </section>
 
     <!-- Testimonials Section -->
     <section class="section bg-light" id="testimonials">
-        <!-- ... (keep your existing testimonials section) ... -->
+        <div class="container">
+            <h2 class="section-title text-center">What People Are Saying</h2>
+            <p class="text-center mb-5">Hear from community members about Hon. Gisiri Maroa</p>
+            
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="testimonial-card" data-aos="fade-up">
+                        <p class="testimonial-text">Hon. Gisiri Maroa has shown true dedication to our community. His vision for agricultural development aligns perfectly with our needs as farmers.</p>
+                        <div class="testimonial-author">
+                            <img src="blog/images/testimonial1.jpg" alt=">">
+                            <div class="author-info">
+                                <h5>Kelvin Chacha</h5>
+                                <p>Farmer, Nyabasi West</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 mb-4">
+                    <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+                        <p class="testimonial-text">As a youth leader, I appreciate Hon. Maroa's commitment to creating opportunities for young people. His youth empowerment programs are exactly what we need.</p>
+                        <div class="testimonial-author">
+                            <img src="blog/images/testimonial2.jpg" alt=">">
+                            <div class="author-info">
+                                <h5>Angeline Robi</h5>
+                                <p>Youth Leader</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 mb-4">
+                    <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+                        <p class="testimonial-text">Hon. Maroa listens to the people. His door-to-door campaign style shows he truly cares about understanding our challenges and finding solutions.</p>
+                        <div class="testimonial-author">
+                            <img src="blog/images/" alt=">">
+                            <div class="author-info">
+                                <h5>David Gesase</h5>
+                                <p>Community Elder</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Newsletter Section -->
     <section class="section">
-        <!-- ... (keep your existing newsletter section) ... -->
+        <div class="container">
+            <div class="newsletter-section rounded">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 text-center">
+                        <h2 class="mb-4">Stay Updated</h2>
+                        <p class="mb-5">Subscribe to our newsletter for campaign updates, event invitations, and community news.</p>
+                        
+                        <form class="newsletter-form">
+                            <div class="input-group">
+                                <input type="email" class="form-control" placeholder="Your email address" required>
+                                <button class="btn btn-primary" type="submit">Subscribe</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Contact Section -->
     <section class="section" id="contact">
-        <!-- ... (keep your existing contact section) ... -->
+        <div class="container">
+            <h2 class="section-title text-center">Contact Us</h2>
+            <p class="text-center mb-5">Get in touch with the campaign team</p>
+            
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="card shadow h-100">
+                        <div class="card-body p-4">
+                            <h3 class="mb-4">Campaign Headquarters</h3>
+                            <div class="footer-contact mb-3">
+                                <i class="fas fa-map-marker-alt"></i> Nyabasi West, Kenya
+                            </div>
+                            <div class="footer-contact mb-3">
+                                <i class="fas fa-phone"></i> +254 728 560925
+                            </div>
+                            <div class="footer-contact mb-3">
+                                <i class="fas fa-envelope"></i> gisirimaroa5@gmail.com
+                            </div>
+                            <div class="footer-contact">
+                                <i class="fas fa-clock"></i> Mon-Fri: 8AM - 5PM
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-8">
+                    <div class="card shadow">
+                        <div class="card-body p-4">
+                            <h3 class="mb-4">Send Us a Message</h3>
+                            <form id="contactForm">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <input type="text" class="form-control" placeholder="Your Name" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <input type="email" class="form-control" placeholder="Email Address" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" placeholder="Subject">
+                                </div>
+                                <div class="mb-3">
+                                    <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Send Message</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Posts Section -->
+    <section class="community-posts-section">
+        <div class="container">
+            <div class="community-posts-header">
+                <h2 class="community-posts-title">Community Discussions</h2>
+                <a href="community/index.html" class="view-all-link">
+                    View All Community Posts <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="community-posts-grid" id="community-posts-container">
+                <div class="loading-message">Loading community posts...</div>
+            </div>
+        </div>
     </section>
 
     <!-- Footer -->
@@ -855,7 +1259,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 mb-4 mb-lg-0">
-                    <a href="#" class="blog/images/gisiri logo.png">Gisiri Maroa</a>
+                    <a href="#" class="footer-logo">Gisiri Maroa</a>
                     <div class="footer-about">
                         <p>The official campaign for Hon. Gisiri Maroa, candidate for Nyabasi West MCA in the 2027 elections.</p>
                     </div>
@@ -876,7 +1280,6 @@
                             <li><a href="#pillars">Pillars</a></li>
                             <li><a href="#events">Events</a></li>
                             <li><a href="#contact">Contact</a></li>
-                            <li><a href="community/index.html">Community</a></li>
                         </ul>
                     </div>
                 </div>
@@ -887,7 +1290,7 @@
                         <ul>
                             <li><a href="#">Volunteer</a></li>
                             <li><a href="#">Donate</a></li>
-                            <li><a href="community/events.html">Events</a></li>
+                            <li><a href="#">Events</a></li>
                             <li><a href="#">News</a></li>
                             <li><a href="#">Gallery</a></li>
                         </ul>
@@ -917,7 +1320,7 @@
         <i class="fas fa-arrow-up"></i>
     </a>
 
-    <!-- Floating Action Button -->
+    <!-- Floating Action Button - Updated to link to community -->
     <a href="community/index.html" class="floating-btn" id="floatingBtn" title="Join Our Community">
         <i class="fas fa-users"></i>
     </a>
@@ -927,28 +1330,7 @@
     
     <!-- AOS Animation Library -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    
-    <!-- Firebase Integration -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-    <script src="js/firebase-config.js"></script>
-    
     <script>
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        
-        // Auth state management
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                document.getElementById('login-link').style.display = 'none';
-                document.getElementById('dashboard-link').style.display = 'inline-block';
-            } else {
-                document.getElementById('login-link').style.display = 'inline-block';
-                document.getElementById('dashboard-link').style.display = 'none';
-            }
-        });
-
         // Initialize AOS animation
         AOS.init({
             duration: 800,
@@ -1028,6 +1410,17 @@
             this.reset();
         });
 
+        // Floating button scroll to engagement section
+        document.getElementById('floatingBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            const engagement = document.getElementById('engagement');
+            if (engagement) {
+                const navHeight = document.querySelector('.navbar').offsetHeight;
+                const elementTop = engagement.getBoundingClientRect().top + window.pageYOffset - navHeight - 10;
+                window.scrollTo({ top: elementTop, behavior: 'smooth' });
+            }
+        });
+
         // Set active nav link based on scroll position
         const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('.nav-link');
@@ -1054,6 +1447,83 @@
                 document.body.classList.add('user-is-tabbing');
             }
         });
+
+        // Firebase configuration (replace with your actual config)
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Load community posts
+        function loadCommunityPosts() {
+            db.collection("communityPosts")
+                .orderBy("createdAt", "desc")
+                .limit(3)
+                .get()
+                .then((querySnapshot) => {
+                    const container = document.getElementById('community-posts-container');
+                    container.innerHTML = '';
+                    if (querySnapshot.empty) {
+                        container.innerHTML = '<p>No community posts yet. Be the first to start a discussion!</p>';
+                        return;
+                    }
+                    querySnapshot.forEach((doc) => {
+                        const post = doc.data();
+                        const postDate = post.createdAt && post.createdAt.toDate ? post.createdAt.toDate() : new Date();
+                        const postElement = document.createElement('div');
+                        postElement.className = 'community-post-card';
+                        postElement.innerHTML = `
+                            <div class="post-image-container">
+                                <img src="${post.image || 'blog/images/community-default.jpg'}" alt="${post.title || ''}" class="post-image">
+                            </div>
+                            <div class="post-content">
+                                <div class="post-meta">
+                                    <div class="post-author">
+                                        <img src="${post.authorAvatar || 'blog/images/default-avatar.png'}" alt="${post.authorName || 'User'}" class="author-avatar">
+                                        <span>${post.authorName || 'Anonymous'}</span>
+                                    </div>
+                                    <div class="post-date">
+                                        <i class="far fa-calendar-alt"></i>
+                                        <span>${postDate.toLocaleDateString()}</span>
+                                    </div>
+                                </div>
+                                <h3 class="post-title">${post.title || 'Untitled Post'}</h3>
+                                <p class="post-excerpt">${post.excerpt || (post.content ? post.content.substring(0, 120) + '...' : '')}</p>
+                                <div class="post-stats">
+                                    <div class="post-stat">
+                                        <i class="far fa-comment"></i>
+                                        <span>${post.commentCount || 0} comments</span>
+                                    </div>
+                                    <div class="post-stat">
+                                        <i class="far fa-eye"></i>
+                                        <span>${post.views || 0} views</span>
+                                    </div>
+                                </div>
+                                <a href="community/post.html?id=${doc.id}" class="read-more-btn">Read more <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        `;
+                        container.appendChild(postElement);
+                    });
+                })
+                .catch((error) => {
+                    console.error("Error loading community posts: ", error);
+                    document.getElementById('community-posts-container').innerHTML =
+                        '<p class="error-message">Error loading community posts. Please try again later.</p>';
+                });
+        }
+
+        // Load community posts when page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            loadCommunityPosts();
+        });
     </script>
 </body>
-    </html>
+</html>
