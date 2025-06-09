@@ -3,198 +3,1697 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discussions | Hon Gisiri Community</title>
-    <link rel="stylesheet" href="../css/community.css">
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-    <script src="../js/firebase-config.js"></script>
-    <script src="../js/community.js"></script>
+    <title>Login | Hon. Gisiri Maroa Community</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #1a237e;
+            --secondary-color: #ffc107;
+            --accent-color: #43a047;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --danger-color: #dc3545;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+        }
+        
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .auth-card {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .auth-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #303f9f 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .auth-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .auth-header p {
+            opacity: 0.9;
+            margin-bottom: 0;
+        }
+        
+        .auth-body {
+            padding: 30px;
+        }
+        
+        .form-control {
+            height: 50px;
+            border-radius: 8px;
+            padding-left: 15px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(26, 35, 126, 0.25);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border: none;
+            height: 50px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background-color: #303f9f;
+            transform: translateY(-2px);
+        }
+        
+        .auth-footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--light-color);
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .auth-footer a {
+            color: var(--primary-color);
+            font-weight: 500;
+            text-decoration: none;
+        }
+        
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        .divider::before, .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .divider-text {
+            padding: 0 10px;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .social-login {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .social-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+        
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .facebook {
+            background-color: #3b5998;
+        }
+        
+        .google {
+            background-color: #db4437;
+        }
+        
+        .twitter {
+            background-color: #1da1f2;
+        }
+        
+        .alert {
+            border-radius: 8px;
+        }
+        
+        /* Dashboard styles */
+        .dashboard-container {
+            display: none;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .dashboard-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #303f9f 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+            margin-right: 15px;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .user-role {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .logout-btn {
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background-color: #c82333;
+            transform: translateY(-2px);
+        }
+        
+        .dashboard-nav {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .nav-pills .nav-link {
+            color: var(--dark-color);
+            font-weight: 500;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            transition: all 0.3s;
+        }
+        
+        .nav-pills .nav-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .nav-pills .nav-link:hover:not(.active) {
+            background-color: rgba(26, 35, 126, 0.1);
+        }
+        
+        .dashboard-content {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .content-title {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-color);
+        }
+        
+        .post-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+        
+        .post-card:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .post-title {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .post-meta {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-bottom: 15px;
+        }
+        
+        .post-status {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-right: 10px;
+        }
+        
+        .status-published {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .status-draft {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-pending {
+            background-color: #cce5ff;
+            color: #004085;
+        }
+        
+        .post-actions .btn {
+            margin-right: 10px;
+            font-size: 0.85rem;
+            padding: 5px 12px;
+        }
+        
+        .table-responsive {
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .table {
+            margin-bottom: 0;
+        }
+        
+        .table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 500;
+        }
+        
+        .table td, .table th {
+            vertical-align: middle;
+            padding: 12px 15px;
+        }
+        
+        .badge {
+            font-weight: 500;
+            padding: 5px 10px;
+        }
+        
+        .badge-admin {
+            background-color: var(--primary-color);
+        }
+        
+        .badge-author {
+            background-color: var(--accent-color);
+        }
+        
+        .badge-user {
+            background-color: #6c757d;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        .editor-container {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            min-height: 300px;
+            margin-bottom: 20px;
+        }
+        
+        .comment-card {
+            border-left: 3px solid var(--primary-color);
+            padding-left: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .comment-author {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .comment-date {
+            font-size: 0.8rem;
+            color: #6c757d;
+        }
+        
+        .comment-actions {
+            margin-top: 10px;
+        }
+        
+        .comment-actions .btn {
+            padding: 3px 8px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+        }
+        
+        /* Author Application Modal Custom Styles */
+        #authorApplicationModal .modal-content {
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 8px 32px rgba(67,160,71,0.18);
+            background: #f8fff8;
+            font-family: 'Poppins', sans-serif;
+            padding: 0.5rem 0.5rem 0 0.5rem;
+        }
+        #authorApplicationModal .modal-header {
+            background: linear-gradient(90deg, #43a047 0%, #1a237e 100%);
+            color: #fff;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            border-bottom: none;
+            padding-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(67,160,71,0.08);
+        }
+        #authorApplicationModal .modal-title {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.7rem;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+        }
+        #authorApplicationModal .modal-title i {
+            color: #ffc107;
+            font-size: 1.5rem;
+        }
+        #authorApplicationModal .admin-message {
+            background: #e8f5e9;
+            border-left: 6px solid #43a047;
+            border-radius: 12px;
+            padding: 1.2rem 1.5rem 1.2rem 2.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.08rem;
+            color: #2e7d32;
+            font-style: italic;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(67,160,71,0.06);
+        }
+        #authorApplicationModal .admin-message:before {
+            content: "“";
+            font-size: 2.5rem;
+            color: #43a047;
+            position: absolute;
+            left: 12px;
+            top: 0;
+            line-height: 1;
+        }
+        #authorApplicationModal .admin-message:after {
+            content: "”";
+            font-size: 2.5rem;
+            color: #43a047;
+            position: absolute;
+            right: 10px;
+            bottom: 0;
+            line-height: 1;
+        }
+        #authorApplicationModal .form-label {
+            color: #1a237e;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.2rem;
+        }
+        #authorApplicationModal .form-control, 
+        #authorApplicationModal textarea, 
+        #authorApplicationModal select {
+            border-radius: 10px;
+            border: 1.5px solid #c8e6c9;
+            background: #f8fff8;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+        #authorApplicationModal .form-control:focus, 
+        #authorApplicationModal textarea:focus, 
+        #authorApplicationModal select:focus {
+            border-color: #43a047;
+            box-shadow: 0 0 0 0.15rem rgba(67,160,71,0.15);
+        }
+        #authorApplicationModal .input-group .btn {
+            border-radius: 10px;
+            background: #43a047;
+            color: #fff;
+            border: none;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        #authorApplicationModal .input-group .btn:hover {
+            background: #388e3c;
+        }
+        #authorApplicationModal .modal-footer {
+            border-top: none;
+            padding-top: 0;
+        }
+        #authorApplicationModal .btn-primary {
+            background: linear-gradient(90deg, #43a047 0%, #1a237e 100%);
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            padding: 0.7rem 2.2rem;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            transition: background 0.2s;
+            box-shadow: 0 2px 8px rgba(67,160,71,0.08);
+        }
+        #authorApplicationModal .btn-primary:hover {
+            background: linear-gradient(90deg, #388e3c 0%, #3949ab 100%);
+        }
+        #authorApplicationModal .form-text {
+            font-size: 0.98rem;
+            color: #388e3c;
+        }
+        #authorApplicationModal .text-danger {
+            color: #c62828 !important;
+        }
+        #authorApplicationModal .form-check-label {
+            font-weight: 600;
+            color: #1a237e;
+            font-size: 1rem;
+        }
+        #authorApplicationModal .form-check-label strong {
+            color: #43a047;
+            font-weight: 700;
+        }
+        #authorApplicationModal .form-check-input:checked {
+            background-color: #43a047;
+            border-color: #43a047;
+        }
+        @media (max-width: 600px) {
+            #authorApplicationModal .modal-dialog {
+                max-width: 98vw;
+                margin: 0.5rem;
+            }
+            #authorApplicationModal .modal-content {
+                padding: 0.5rem;
+            }
+            #authorApplicationModal .modal-title {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header class="community-header">
-        <div class="container">
-            <h1><a href="../index.html">Hon Gisiri</a> / <a href="index.html">Community</a> / Discussions</h1>
-            <nav>
-                <a href="index.html" class="active">Discussions</a>
-                <a href="events.html">Events</a>
-                <a href="weekly-focus.html">Weekly Focus</a>
-                <a href="auth/login.html" id="login-link">Login</a>
-                <a href="dashboard/index.html" id="dashboard-link" style="display:none;">Dashboard</a>
-            </nav>
-        </div>
-    </header>
-
-    <main class="container">
-        <section class="discussions-section">
-            <div class="discussions-header">
-                <h2>Community Discussions</h2>
-                <button id="new-topic-btn" class="new-topic-btn" style="display:none;">New Topic</button>
+    <!-- Auth Container (shown by default) -->
+    <div class="auth-container" id="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h2>Welcome Back</h2>
+                <p>Login to access the community dashboard</p>
             </div>
             
-            <div class="discussion-categories">
-                <div class="category-card" data-category="general">
-                    <h3>General</h3>
-                    <p>General community discussions</p>
-                </div>
-                <div class="category-card" data-category="announcements">
-                    <h3>Announcements</h3>
-                    <p>Official community announcements</p>
-                </div>
-                <div class="category-card" data-category="help">
-                    <h3>Help & Support</h3>
-                    <p>Ask for help or offer support</p>
-                </div>
-                <div class="category-card" data-category="ideas">
-                    <h3>Ideas & Suggestions</h3>
-                    <p>Share your ideas for the community</p>
-                </div>
+            <div class="auth-body">
+                <div id="auth-message"></div>
+                <form id="login-form">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="email" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" required>
+                    </div>
+                    
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="remember">
+                        <label class="form-check-label" for="remember">Remember me</label>
+                        <a href="reset-password.html" class="float-end">Forgot password?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
+                    
+                    <div class="divider">
+                        <span class="divider-text">OR</span>
+                    </div>
+                    
+                    <div class="social-login">
+                        <a href="#" class="social-btn facebook" title="Login with Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-btn google" title="Login with Google">
+                            <i class="fab fa-google"></i>
+                        </a>
+                        <a href="#" class="social-btn twitter" title="Login with Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </form>
             </div>
             
-            <div class="topics-list" id="topics-container">
-                <!-- Topics will be loaded here dynamically -->
-                <div class="loading-message">Loading discussions...</div>
-            </div>
-            
-            <div id="new-topic-modal" class="modal" style="display:none;">
-                <div class="modal-content">
-                    <span class="close-btn">&times;</span>
-                    <h3>Create New Topic</h3>
-                    <form id="new-topic-form">
-                        <div class="form-group">
-                            <label for="topic-title">Title</label>
-                            <input type="text" id="topic-title" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="topic-category">Category</label>
-                            <select id="topic-category" required>
-                                <option value="general">General</option>
-                                <option value="announcements">Announcements</option>
-                                <option value="help">Help & Support</option>
-                                <option value="ideas">Ideas & Suggestions</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="topic-content">Content</label>
-                            <textarea id="topic-content" rows="6" required></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn">Post Topic</button>
-                    </form>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="community-footer">
-        <div class="container">
-            <p>&copy; 2023 Hon Gisiri Community. All rights reserved.</p>
-            <div class="footer-links">
-                <a href="../about.html">About Us</a>
-                <a href="../contact.html">Contact</a>
-                <a href="../privacy.html">Privacy Policy</a>
+            <div class="auth-footer">
+                Don't have an account? <a href="register.html">Register here</a>
+                <br>
+                <a href="#" id="open-author-app-link" class="text-primary fw-bold mt-2 d-inline-block">Apply to be an Author</a>
             </div>
         </div>
-    </footer>
-
-    <script>
-        // Auth state management
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                document.getElementById('login-link').style.display = 'none';
-                document.getElementById('dashboard-link').style.display = 'inline-block';
-                document.getElementById('new-topic-btn').style.display = 'block';
-            } else {
-                document.getElementById('login-link').style.display = 'inline-block';
-                document.getElementById('dashboard-link').style.display = 'none';
-                document.getElementById('new-topic-btn').style.display = 'none';
-            }
-        });
-
-        // Load discussions
-        function loadDiscussions() {
-            db.collection("topics").orderBy("createdAt", "desc").limit(20).get()
-                .then(querySnapshot => {
-                    const container = document.getElementById('topics-container');
-                    container.innerHTML = '';
+    </div>
+    
+    <!-- Dashboard Container (hidden by default) -->
+    <div class="dashboard-container" id="dashboard-container">
+        <div class="dashboard-header">
+            <div class="user-info">
+                <img src="https://via.placeholder.com/60" alt="User Avatar" class="user-avatar" id="user-avatar">
+                <div>
+                    <div class="user-name" id="user-name">Loading...</div>
+                    <span class="user-role" id="user-role">Loading...</span>
+                </div>
+            </div>
+            <button class="logout-btn" id="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+        
+        <div class="dashboard-nav">
+            <ul class="nav nav-pills" id="dashboard-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" data-bs-toggle="pill" data-bs-target="#posts-tab">My Posts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-bs-toggle="pill" data-bs-target="#new-post-tab">New Post</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-bs-toggle="pill" data-bs-target="#comments-tab">Comments</a>
+                </li>
+                <li class="nav-item" id="users-tab-item" style="display: none;">
+                    <a class="nav-link" href="#" data-bs-toggle="pill" data-bs-target="#users-tab">Users</a>
+                </li>
+                <li class="nav-item" id="settings-tab-item">
+                    <a class="nav-link" href="#" data-bs-toggle="pill" data-bs-target="#settings-tab">Settings</a>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="tab-content dashboard-content" id="dashboard-tab-content">
+            <!-- My Posts Tab -->
+            <div class="tab-pane fade show active" id="posts-tab">
+                <h3 class="content-title">My Posts</h3>
+                <div id="posts-list">
+                    <div class="text-center py-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-3">Loading your posts...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- New Post Tab -->
+            <div class="tab-pane fade" id="new-post-tab">
+                <h3 class="content-title">Create New Post</h3>
+                <form id="new-post-form">
+                    <div class="form-group">
+                        <label for="post-title" class="form-label">Post Title</label>
+                        <input type="text" class="form-control" id="post-title" required>
+                    </div>
                     
-                    if (querySnapshot.empty) {
-                        container.innerHTML = '<div class="empty-message">No discussions yet. Be the first to start one!</div>';
-                        return;
-                    }
+                    <div class="form-group">
+                        <label for="post-excerpt" class="form-label">Excerpt (Short Description)</label>
+                        <textarea class="form-control" id="post-excerpt" rows="3"></textarea>
+                    </div>
                     
-                    querySnapshot.forEach(doc => {
-                        const topic = doc.data();
-                        const topicDate = topic.createdAt.toDate();
-                        
-                        const topicElement = document.createElement('div');
-                        topicElement.className = 'topic-card';
-                        topicElement.innerHTML = `
-                            <div class="topic-header">
-                                <h3><a href="topic.html?id=${doc.id}">${topic.title}</a></h3>
-                                <span class="topic-category ${topic.category}">${topic.category}</span>
+                    <div class="form-group">
+                        <label for="post-image" class="form-label">Featured Image URL</label>
+                        <input type="url" class="form-control" id="post-image">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Post Content</label>
+                        <div class="editor-container" id="post-editor" contenteditable="true"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="post-status" class="form-label">Post Status</label>
+                        <select class="form-select" id="post-status">
+                            <option value="draft">Save as Draft</option>
+                            <option value="published">Publish Now</option>
+                        </select>
+                    </div>
+                    
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-outline-secondary me-2" id="clear-post-btn">Clear</button>
+                        <button type="submit" class="btn btn-primary">Save Post</button>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Comments Tab -->
+            <div class="tab-pane fade" id="comments-tab">
+                <h3 class="content-title">Recent Comments</h3>
+                <div id="comments-list">
+                    <div class="text-center py-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-3">Loading comments...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Users Tab (Admin Only) -->
+            <div class="tab-pane fade" id="users-tab">
+                <h3 class="content-title">User Management</h3>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Joined</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-table-body">
+                            <tr>
+                                <td colspan="5" class="text-center py-5">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                    <p class="mt-3">Loading users...</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Settings Tab -->
+            <div class="tab-pane fade" id="settings-tab">
+                <h3 class="content-title">Account Settings</h3>
+                <form id="settings-form">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="settings-name" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="settings-name" required>
                             </div>
-                            <div class="topic-meta">
-                                <span class="topic-author">${topic.authorName}</span>
-                                <span class="topic-date">${topicDate.toLocaleDateString()}</span>
-                                <span class="topic-comments">${topic.commentCount || 0} comments</span>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="settings-email" class="form-label">Email Address</label>
+                                <input type="email" class="form-control" id="settings-email" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="settings-avatar" class="form-label">Profile Picture URL</label>
+                        <div class="input-group">
+                            <input type="url" class="form-control" id="settings-avatar">
+                            <button type="button" class="btn btn-outline-secondary" id="upload-avatar-btn">Upload</button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="settings-bio" class="form-label">Bio</label>
+                        <textarea class="form-control" id="settings-bio" rows="3"></textarea>
+                    </div>
+                    
+                    <h5 class="mt-4 mb-3">Change Password</h5>
+                    <div class="form-group">
+                        <label for="current-password" class="form-label">Current Password</label>
+                        <input type="password" class="form-control" id="current-password">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="new-password" class="form-label">New Password</label>
+                        <input type="password" class="form-control" id="new-password">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirm-password" class="form-label">Confirm New Password</label>
+                        <input type="password" class="form-control" id="confirm-password">
+                    </div>
+                    
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Add Author Application Modal -->
+        <div class="modal fade" id="authorApplicationModal" tabindex="-1" aria-labelledby="authorApplicationModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+              <form id="author-application-form" autocomplete="off">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="authorApplicationModalLabel">
+                    <i class="fas fa-leaf me-2"></i>Apply to Become an Author
+                  </h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="admin-message mb-4">
+                    Thank you for your interest to write for us. All authors must undergo a mandatory training to ensure they are compliant with our community standards. Once your application has been processed you will get a message alert on your WhatsApp for a training. Only after training is when your account will be created and login details shared for you to login to our platform.<br>
+                    <span class="d-block mt-2" style="font-style:normal;font-weight:600;">— Admin</span>
+                  </div>
+                  <div id="author-app-message"></div>
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <label for="author-name" class="form-label">Full Name</label>
+                      <input type="text" class="form-control" id="author-name" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="author-phone" class="form-label">Phone Number (WhatsApp)</label>
+                      <input type="tel" class="form-control" id="author-phone" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="author-voting-area" class="form-label">Voting Area</label>
+                      <select class="form-select" id="author-voting-area" required>
+                        <option value="" disabled selected>Select your voting area</option>
+                        <option value="">-- Select Area --</option>
+                            <option value="Bitorogwe">Bitorogwe</option>
+                            <option value="Chinato">Chinato</option>
+                            <option value="Gibarori">Gibarori</option>
+                            <option value="Itacho">Itacho</option>
+                            <option value="Kebare">Kebare</option>
+                            <option value="Kebarisia">Kebarisia</option>
+                            <option value="Kebaroti">Kebaroti</option>
+                            <option value="Kegonche">Kegonche</option>
+                            <option value="Kemakoba">Kemakoba</option>
+                            <option value="Kendege">Kendege</option>
+                            <option value="Kionyo">Kionyo</option>
+                            <option value="Komotobo">Komotobo</option>
+                            <option value="Kwiyegani">Kwiyegani</option>
+                            <option value="Maeta">Maeta</option>
+                            <option value="Mosaro">Mosaro</option>
+                            <option value="Musweto">Musweto</option>
+                            <option value="Ngibunyi">Ngibunyi</option>
+                            <option value="Nyabikongori">Nyabikongori</option>
+                            <option value="Nyabosongo">Nyabosongo</option>
+                            <option value="Nyaitara">Nyaitara</option>
+                            <option value="Nyametaburo/Komorama">Nyametaburo/Komorama</option>
+                            <option value="Nyamutiro">Nyamutiro</option>
+                            <option value="Nyaroha">Nyaroha</option>
+                            <option value="Remanyanki">Remanyanki</option>
+                            <option value="Sanchawa">Sanchawa</option>
+                            <option value="Senta">Senta</option>
+                            <option value="Tebesi">Tebesi</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="author-picture" class="form-label">Profile Picture</label>
+                      <div class="input-group">
+                        <input type="url" class="form-control" id="author-picture" placeholder="Image URL" readonly required>
+                        <button type="button" class="btn" id="upload-author-picture-btn"><i class="fas fa-upload"></i> Upload</button>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <label for="author-message" class="form-label">Why do you want to become an author? <span class="fw-normal">(min 200 words)</span></label>
+                      <textarea class="form-control" id="author-message" rows="7" minlength="200" required style="resize:vertical"></textarea>
+                      <div class="form-text" id="author-message-count">0 / 200 words</div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-check mt-2 mb-1">
+                        <input class="form-check-input" type="checkbox" value="" id="author-privacy-check" required>
+                        <label class="form-check-label" for="author-privacy-check">
+                          <strong>I accept and agree</strong> to adhere to the <span style="color:#43a047;font-weight:700;">privacy of this forum</span> and that <strong>all passwords and login details shared with me will not be shared with anyone else.</strong>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer justify-content-center">
+                  <button type="submit" class="btn btn-primary px-5"><i class="fas fa-paper-plane me-2"></i>Submit Application</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bootstrap 5 JS Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        
+        <!-- Firebase JS -->
+        <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+        
+        <!-- Cloudinary Widget JS -->
+        <script src="https://widget.cloudinary.com/v2.0/global/all.js"></script>
+        
+        <!-- Custom JS -->
+        <script>
+            // Firebase configuration (replace with your actual config)
+            const firebaseConfig = {
+                apiKey: "YOUR_API_KEY",
+                authDomain: "YOUR_AUTH_DOMAIN",
+                projectId: "YOUR_PROJECT_ID",
+                storageBucket: "YOUR_STORAGE_BUCKET",
+                messagingSenderId: "YOUR_SENDER_ID",
+                appId: "YOUR_APP_ID"
+            };
+
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            const auth = firebase.auth();
+            const db = firebase.firestore();
+            
+            // Cloudinary config
+            const cloudName = 'YOUR_CLOUD_NAME'; // replace with your Cloudinary cloud name
+            const uploadPreset = 'YOUR_UNSIGNED_UPLOAD_PRESET'; // replace with your unsigned upload preset
+            
+            // DOM Elements
+            const authContainer = document.getElementById('auth-container');
+            const dashboardContainer = document.getElementById('dashboard-container');
+            const loginForm = document.getElementById('login-form');
+            const authMessage = document.getElementById('auth-message');
+            const logoutBtn = document.getElementById('logout-btn');
+            const userName = document.getElementById('user-name');
+            const userRole = document.getElementById('user-role');
+            const userAvatar = document.getElementById('user-avatar');
+            const usersTabItem = document.getElementById('users-tab-item');
+            const postsList = document.getElementById('posts-list');
+            const commentsList = document.getElementById('comments-list');
+            const usersTableBody = document.getElementById('users-table-body');
+            const newPostForm = document.getElementById('new-post-form');
+            const settingsForm = document.getElementById('settings-form');
+            
+            // Check auth state
+            auth.onAuthStateChanged(user => {
+                if (user) {
+                    // User is signed in
+                    authContainer.style.display = 'none';
+                    dashboardContainer.style.display = 'block';
+                    
+                    // Load user data
+                    loadUserData(user.uid);
+                    
+                    // Load dashboard content based on user role
+                    loadDashboardContent(user.uid);
+                } else {
+                    // User is signed out
+                    authContainer.style.display = 'flex';
+                    dashboardContainer.style.display = 'none';
+                }
+            });
+            
+            // Login form submission
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value.trim();
+
+                // Check if demo account
+                const demo = DEMO_ACCOUNTS.find(acc => acc.email.toLowerCase() === email.toLowerCase() && acc.password === password);
+                if (demo) {
+                    // Simulate login
+                    authContainer.style.display = 'none';
+                    dashboardContainer.style.display = 'block';
+                    // Set user info in dashboard
+                    userName.textContent = demo.name;
+                    userRole.textContent = demo.role;
+                    userAvatar.src = demo.avatar || 'https://via.placeholder.com/60';
+                    if (demo.role === 'admin') {
+                        usersTabItem.style.display = 'block';
+                    } else {
+                        usersTabItem.style.display = 'none';
+                    }
+                    // Fill settings form if present
+                    if (settingsForm) {
+                        document.getElementById('settings-name').value = demo.name;
+                        document.getElementById('settings-email').value = demo.email;
+                        document.getElementById('settings-avatar').value = demo.avatar;
+                        document.getElementById('settings-bio').value = demo.bio;
+                    }
+                    // Optionally clear posts/comments/users for demo
+                    postsList.innerHTML = '<div class="alert alert-info">No posts for demo account.</div>';
+                    commentsList.innerHTML = '<div class="alert alert-info">No comments for demo account.</div>';
+                    usersTableBody.innerHTML = '<tr><td colspan="5" class="text-center py-5">No users for demo account.</td></tr>';
+                    return;
+                }
+
+                const remember = document.getElementById('remember').checked;
+                const persistence = remember ? 
+                    firebase.auth.Auth.Persistence.LOCAL : 
+                    firebase.auth.Auth.Persistence.SESSION;
+                auth.setPersistence(persistence)
+                    .then(() => {
+                        return auth.signInWithEmailAndPassword(email, password);
+                    })
+                    .catch(error => {
+                        showAuthMessage(error.message, 'danger');
+                    });
+            });
+            
+            // Logout button
+            logoutBtn.addEventListener('click', () => {
+                auth.signOut()
+                    .then(() => {
+                        showAuthMessage('You have been logged out successfully.', 'success');
+                    })
+                    .catch(error => {
+                        console.error('Logout error:', error);
+                    });
+            });
+            
+            // Load user data
+            function loadUserData(userId) {
+                db.collection('users').doc(userId).get()
+                    .then(doc => {
+                        if (doc.exists) {
+                            const userData = doc.data();
+                            
+                            // Update user info in dashboard
+                            userName.textContent = userData.name || 'User';
+                            userRole.textContent = userData.role || 'user';
+                            
+                            if (userData.avatar) {
+                                userAvatar.src = userData.avatar;
+                            }
+                            
+                            // Show/hide admin tabs based on role
+                            if (userData.role === 'admin') {
+                                usersTabItem.style.display = 'block';
+                            } else {
+                                usersTabItem.style.display = 'none';
+                            }
+                            
+                            // Load settings form data
+                            if (settingsForm) {
+                                document.getElementById('settings-name').value = userData.name || '';
+                                document.getElementById('settings-email').value = userData.email || '';
+                                document.getElementById('settings-avatar').value = userData.avatar || '';
+                                document.getElementById('settings-bio').value = userData.bio || '';
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error loading user data:', error);
+                    });
+            }
+            
+            // Load dashboard content based on user role
+            function loadDashboardContent(userId) {
+                // Load user's posts
+                loadUserPosts(userId);
+                
+                // Load comments
+                loadComments();
+                
+                // Load users (for admin)
+                loadUsers();
+            }
+            
+            // Load user's posts
+            function loadUserPosts(userId) {
+                db.collection('posts')
+                    .where('authorId', '==', userId)
+                    .orderBy('createdAt', 'desc')
+                    .get()
+                    .then(querySnapshot => {
+                        postsList.innerHTML = '';
+                        
+                        if (querySnapshot.empty) {
+                            postsList.innerHTML = `
+                                <div class="alert alert-info">
+                                    You haven't created any posts yet. Click on "New Post" to get started.
+                            </div>
+                            `;
+                            return;
+                        }
+                        
+                        querySnapshot.forEach(doc => {
+                            const post = doc.data();
+                            const postDate = post.createdAt.toDate();
+                            
+                            postsList.innerHTML += `
+                                <div class="post-card" data-id="${doc.id}">
+                                    <h4 class="post-title">${post.title}</h4>
+                                    <div class="post-meta">
+                                        <span class="post-status ${getStatusClass(post.status)}">
+                                            ${formatStatus(post.status)}
+                                        </span>
+                                        <span>${postDate.toLocaleDateString()}</span>
+                                    </div>
+                                    <p>${post.excerpt || post.content.substring(0, 150) + '...'}</p>
+                                    <div class="post-actions">
+                                        <button class="btn btn-sm btn-outline-primary edit-post-btn">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-danger delete-post-btn">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </button>
+                                        ${post.status === 'published' ? `
+                                        <a href="../post.html?id=${doc.id}" class="btn btn-sm btn-outline-success">
+                                            <i class="fas fa-eye"></i> View
+                                        </a>
+                                        ` : ''}
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        
+                        // Add event listeners to post action buttons
+                        document.querySelectorAll('.edit-post-btn').forEach(btn => {
+                            btn.addEventListener('click', function() {
+                                const postId = this.closest('.post-card').getAttribute('data-id');
+                                editPost(postId);
+                            });
+                        });
+                        
+                        document.querySelectorAll('.delete-post-btn').forEach(btn => {
+                            btn.addEventListener('click', function() {
+                                const postId = this.closest('.post-card').getAttribute('data-id');
+                                deletePost(postId);
+                            });
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error loading posts:', error);
+                        postsList.innerHTML = `
+                            <div class="alert alert-danger">
+                                Error loading posts. Please try again later.
                             </div>
                         `;
-                        container.appendChild(topicElement);
                     });
-                })
-                .catch(error => {
-                    console.error("Error loading discussions: ", error);
-                    document.getElementById('topics-container').innerHTML = 
-                        '<div class="error-message">Error loading discussions. Please try again later.</div>';
-                });
-        }
-
-        // New topic modal
-        document.getElementById('new-topic-btn')?.addEventListener('click', () => {
-            document.getElementById('new-topic-modal').style.display = 'block';
-        });
-
-        document.querySelector('.close-btn')?.addEventListener('click', () => {
-            document.getElementById('new-topic-modal').style.display = 'none';
-        });
-
-        // Handle new topic submission
-        document.getElementById('new-topic-form')?.addEventListener('submit', e => {
-            e.preventDefault();
-            const user = auth.currentUser;
-            
-            if (!user) {
-                alert('Please login to create a topic');
-                return;
             }
             
-            const title = document.getElementById('topic-title').value;
-            const category = document.getElementById('topic-category').value;
-            const content = document.getElementById('topic-content').value;
+            // Load comments
+            function loadComments() {
+                db.collection('comments')
+                    .orderBy('createdAt', 'desc')
+                    .limit(20)
+                    .get()
+                    .then(querySnapshot => {
+                        commentsList.innerHTML = '';
+                        
+                        if (querySnapshot.empty) {
+                            commentsList.innerHTML = `
+                                <div class="alert alert-info">
+                                    No comments found.
+                                </div>
+                            `;
+                            return;
+                        }
+                        
+                        querySnapshot.forEach(doc => {
+                            const comment = doc.data();
+                            const commentDate = comment.createdAt.toDate();
+                            
+                            commentsList.innerHTML += `
+                                <div class="comment-card" data-id="${doc.id}">
+                                    <div class="comment-author">${comment.authorName}</div>
+                                    <div class="comment-date">${commentDate.toLocaleDateString()}</div>
+                                    <p>${comment.content}</p>
+                                    <div class="comment-actions">
+                                        <button class="btn btn-sm btn-outline-danger delete-comment-btn">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </button>
+                                        <a href="../post.html?id=${comment.postId}" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-external-link-alt"></i> View Post
+                                        </a>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        
+                        // Add event listeners to comment action buttons
+                        document.querySelectorAll('.delete-comment-btn').forEach(btn => {
+                            btn.addEventListener('click', function() {
+                                const commentId = this.closest('.comment-card').getAttribute('data-id');
+                                deleteComment(commentId);
+                            });
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error loading comments:', error);
+                        commentsList.innerHTML = `
+                            <div class="alert alert-danger">
+                                Error loading comments. Please try again later.
+                            </div>
+                        `;
+                    });
+            }
             
-            db.collection("topics").add({
-                title,
-                category,
-                content,
-                authorId: user.uid,
-                authorName: user.displayName || "Anonymous",
-                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                commentCount: 0,
-                views: 0
-            })
-            .then(() => {
-                document.getElementById('new-topic-form').reset();
-                document.getElementById('new-topic-modal').style.display = 'none';
-                loadDiscussions();
-            })
-            .catch(error => {
-                console.error("Error creating topic: ", error);
-                alert('Error creating topic. Please try again.');
+            // Load users (admin only)
+            function loadUsers() {
+                db.collection('users')
+                    .orderBy('createdAt', 'desc')
+                    .get()
+                    .then(querySnapshot => {
+                        usersTableBody.innerHTML = '';
+                        
+                        if (querySnapshot.empty) {
+                            usersTableBody.innerHTML = `
+                                <tr>
+                                    <td colspan="5" class="text-center py-5">
+                                        No users found.
+                                    </td>
+                                </tr>
+                            `;
+                            return;
+                        }
+                        
+                        querySnapshot.forEach(doc => {
+                            const user = doc.data();
+                            const joinDate = user.createdAt.toDate();
+                            
+                            usersTableBody.innerHTML += `
+                                <tr data-id="${doc.id}">
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="${user.avatar || 'https://via.placeholder.com/40'}" 
+                                                 alt="${user.name}" 
+                                                 class="rounded-circle me-2" 
+                                                 width="40" 
+                                                 height="40">
+                                            ${user.name}
+                                        </div>
+                                    </td>
+                                    <td>${user.email}</td>
+                                    <td>
+                                        <span class="badge ${getRoleBadgeClass(user.role)}">
+                                            ${user.role || 'user'}
+                                        </span>
+                                    </td>
+                                    <td>${joinDate.toLocaleDateString()}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary edit-user-btn">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-danger delete-user-btn">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            `;
+                        });
+                        
+                        // Add event listeners to user action buttons
+                        document.querySelectorAll('.edit-user-btn').forEach(btn => {
+                            btn.addEventListener('click', function() {
+                                const userId = this.closest('tr').getAttribute('data-id');
+                                editUser(userId);
+                            });
+                        });
+                        
+                        document.querySelectorAll('.delete-user-btn').forEach(btn => {
+                            btn.addEventListener('click', function() {
+                                const userId = this.closest('tr').getAttribute('data-id');
+                                deleteUser(userId);
+                            });
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error loading users:', error);
+                        usersTableBody.innerHTML = `
+                            <tr>
+                                <td colspan="5" class="text-center py-5">
+                                    Error loading users. Please try again later.
+                                </td>
+                            </tr>
+                        `;
+                    });
+            }
+            
+            // New post form submission
+            newPostForm.addEventListener('submit', e => {
+                e.preventDefault();
+                
+                const user = auth.currentUser;
+                if (!user) return;
+                
+                const title = document.getElementById('post-title').value;
+                const excerpt = document.getElementById('post-excerpt').value;
+                const image = document.getElementById('post-image').value;
+                const content = document.getElementById('post-editor').innerHTML;
+                const status = document.getElementById('post-status').value;
+                
+                db.collection('posts').add({
+                    title,
+                    excerpt,
+                    content,
+                    image: image || null,
+                    status,
+                    authorId: user.uid,
+                    authorName: user.displayName || 'Anonymous',
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                })
+                .then(() => {
+                    alert('Post saved successfully!');
+                    newPostForm.reset();
+                    document.getElementById('post-editor').innerHTML = '';
+                    loadUserPosts(user.uid);
+                    
+                    // Switch back to posts tab
+                    const postsTab = document.querySelector('[data-bs-target="#posts-tab"]');
+                    if (postsTab) {
+                        new bootstrap.Tab(postsTab).show();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error saving post:', error);
+                    alert('Error saving post. Please try again.');
+                });
             });
-        });
+            
+            // Clear post form
+            document.getElementById('clear-post-btn')?.addEventListener('click', () => {
+                if (confirm('Are you sure you want to clear the form? All unsaved changes will be lost.')) {
+                    newPostForm.reset();
+                    document.getElementById('post-editor').innerHTML = '';
+                }
+            });
+            
+            // Settings form submission
+            settingsForm.addEventListener('submit', e => {
+                e.preventDefault();
 
-        // Load discussions when page loads
-        window.addEventListener('DOMContentLoaded', loadDiscussions);
-    </script>
-</body>
-</html>
+                const user = auth.currentUser;
+                if (!user) return;
+
+                const name = document.getElementById('settings-name').value;
+                const email = document.getElementById('settings-email').value;
+                const avatar = document.getElementById('settings-avatar').value;
+                const bio = document.getElementById('settings-bio').value;
+                const currentPassword = document.getElementById('current-password').value;
+                const newPassword = document.getElementById('new-password').value;
+                const confirmPassword = document.getElementById('confirm-password').value;
+
+                // Update user data in Firestore
+                const userData = {
+                    name,
+                    email,
+                    avatar: avatar || null,
+                    bio: bio || null,
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                };
+
+                db.collection('users').doc(user.uid).update(userData)
+                    .then(() => {
+                        // Update email if changed
+                        if (email !== user.email) {
+                            user.updateEmail(email)
+                                .then(() => {
+                                    showAuthMessage('Email updated successfully.', 'success');
+                            })
+                            .catch(error => {
+                                showAuthMessage('Error updating email: ' + error.message, 'danger');
+                            });
+                        }
+                        // Update displayName and photoURL in Firebase Auth
+                        user.updateProfile({
+                            displayName: name,
+                            photoURL: avatar || null
+                        }).catch(() => {});
+
+                        // Change password if requested
+                        if (currentPassword && newPassword && confirmPassword) {
+                            if (newPassword !== confirmPassword) {
+                                showAuthMessage('New passwords do not match.', 'danger');
+                                return;
+                            }
+                            // Re-authenticate user
+                            const credential = firebase.auth.EmailAuthProvider.credential(user.email, currentPassword);
+                            user.reauthenticateWithCredential(credential)
+                                .then(() => {
+                                    return user.updatePassword(newPassword);
+                                })
+                                .then(() => {
+                                    showAuthMessage('Password updated successfully.', 'success');
+                                    settingsForm.reset();
+                                })
+                                .catch(error => {
+                                    showAuthMessage('Error updating password: ' + error.message, 'danger');
+                                });
+                        } else {
+                            showAuthMessage('Profile updated successfully.', 'success');
+                        }
+                    })
+                    .catch(error => {
+                        showAuthMessage('Error updating profile: ' + error.message, 'danger');
+                    });
+            });
+
+            // Cloudinary Avatar upload button logic
+            document.getElementById('upload-avatar-btn').addEventListener('click', function() {
+                cloudinary.openUploadWidget({
+                    cloudName: cloudName,
+                    uploadPreset: uploadPreset,
+                    sources: ['local', 'url', 'camera'],
+                    cropping: true,
+                    multiple: false,
+                    folder: 'avatars',
+                    maxFileSize: 2000000, // 2MB
+                    resourceType: 'image'
+                }, (error, result) => {
+                    if (!error && result && result.event === "success") {
+                        document.getElementById('settings-avatar').value = result.info.secure_url;
+                        showAuthMessage('Image uploaded successfully!', 'success');
+                    } else if (error) {
+                        showAuthMessage('Cloudinary upload error: ' + error.message, 'danger');
+                    }
+                });
+            });
+
+            // Author Application Modal logic
+            const openAuthorAppLink = document.getElementById('open-author-app-link');
+            let authorApplicationModal;
+            document.addEventListener('DOMContentLoaded', function() {
+                // Ensure modal is initialized after DOM is loaded
+                const modalEl = document.getElementById('authorApplicationModal');
+                if (modalEl) {
+                    authorApplicationModal = new bootstrap.Modal(modalEl);
+                }
+            });
+            const authorAppForm = document.getElementById('author-application-form');
+            const authorAppMessage = document.getElementById('author-app-message');
+            const uploadAuthorPictureBtn = document.getElementById('upload-author-picture-btn');
+            const authorPictureInput = document.getElementById('author-picture');
+            const authorMessageInput = document.getElementById('author-message');
+            const authorMessageCount = document.getElementById('author-message-count');
+
+            openAuthorAppLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                authorAppForm.reset();
+                authorAppMessage.innerHTML = '';
+                authorMessageCount.textContent = '0 / 200 words';
+                if (!authorApplicationModal) {
+                    // fallback if DOMContentLoaded hasn't fired
+                    authorApplicationModal = new bootstrap.Modal(document.getElementById('authorApplicationModal'));
+                }
+                authorApplicationModal.show();
+            });
+
+            // Cloudinary upload for author application
+            uploadAuthorPictureBtn.addEventListener('click', function() {
+                cloudinary.openUploadWidget({
+                    cloudName: cloudName,
+                    uploadPreset: uploadPreset,
+                    sources: ['local', 'url', 'camera'],
+                    cropping: true,
+                    multiple: false,
+                    folder: 'author_applications',
+                    maxFileSize: 2000000,
+                    resourceType: 'image'
+                }, (error, result) => {
+                    if (!error && result && result.event === "success") {
+                        authorPictureInput.value = result.info.secure_url;
+                        authorAppMessage.innerHTML = '<div class="alert alert-success">Image uploaded successfully!</div>';
+                    } else if (error) {
+                        authorAppMessage.innerHTML = '<div class="alert alert-danger">Cloudinary upload error: ' + error.message + '</div>';
+                    }
+                });
+            });
+
+            // Word count for author message
+            authorMessageInput.addEventListener('input', function() {
+                const words = this.value.trim().split(/\s+/).filter(Boolean);
+                authorMessageCount.textContent = `${words.length} / 200 words`;
+                if (words.length < 200) {
+                    authorMessageCount.classList.add('text-danger');
+                } else {
+                    authorMessageCount.classList.remove('text-danger');
+                }
+            });
+
+            // Submit author application
+            authorAppForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('author-name').value.trim();
+                const phone = document.getElementById('author-phone').value.trim();
+                const votingArea = document.getElementById('author-voting-area').value;
+                const picture = authorPictureInput.value.trim();
+                const message = authorMessageInput.value.trim();
+                const words = message.split(/\s+/).filter(Boolean);
+                const privacyChecked = document.getElementById('author-privacy-check').checked;
+
+                if (words.length < 200) {
+                    authorAppMessage.innerHTML = '<div class="alert alert-danger">Your message must be at least 200 words.</div>';
+                    return;
+                }
+                if (!picture) {
+                    authorAppMessage.innerHTML = '<div class="alert alert-danger">Please upload a profile picture.</div>';
+                    return;
+                }
+                if (!privacyChecked) {
+                    authorAppMessage.innerHTML = '<div class="alert alert-danger">You must accept the privacy agreement to proceed.</div>';
+                    return;
+                }
+                if (!votingArea) {
+                    authorAppMessage.innerHTML = '<div class="alert alert-danger">Please select your voting area.</div>';
+                    return;
+                }
+
+                // Store application in Firestore
+                db.collection('authorApplications').add({
+                    name,
+                    phone,
+                    votingArea,
+                    picture,
+                    message,
+                    status: 'pending',
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                })
+                .then(() => {
+                    authorAppMessage.innerHTML = '<div class="alert alert-success">Application submitted! You will be notified after review.</div>';
+                    authorAppForm.reset();
+                    authorMessageCount.textContent = '0 / 200 words';
+                    setTimeout(() => {
+                        if (authorApplicationModal) authorApplicationModal.hide();
+                    }, 2000);
+                })
+                .catch(error => {
+                    authorAppMessage.innerHTML = '<div class="alert alert-danger">Error submitting application: ' + error.message + '</div>';
+                });
+            });
+
+            // Utility functions
+            function showAuthMessage(message, type = 'info') {
+                authMessage.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+                setTimeout(() => { authMessage.innerHTML = ''; }, 5000);
+            }
+
+            function getStatusClass(status) {
+                if (status === 'published') return 'status-published';
+                if (status === 'draft') return 'status-draft';
+                if (status === 'pending') return 'status-pending';
+                return '';
+            }
+
+            function formatStatus(status) {
+                if (status === 'published') return 'Published';
+                if (status === 'draft') return 'Draft';
+                if (status === 'pending') return 'Pending';
+                return status;
+            }
+
+            function getRoleBadgeClass(role) {
+                if (role === 'admin') return 'badge-admin';
+                if (role === 'author') return 'badge-author';
+                return 'badge-user';
+            }
+
+            // Dummy implementations for edit/delete (to be implemented as needed)
+            function editPost(postId) {
+                alert('Edit post feature coming soon. Post ID: ' + postId);
+            }
+            function deletePost(postId) {
+                if (confirm('Are you sure you want to delete this post?')) {
+                    db.collection('posts').doc(postId).delete()
+                        .then(() => {
+                            alert('Post deleted.');
+                            const user = auth.currentUser;
+                            if (user) loadUserPosts(user.uid);
+                        })
+                        .catch(error => {
+                            alert('Error deleting post: ' + error.message);
+                        });
+                }
+            }
+            function editUser(userId) {
+                alert('Edit user feature coming soon. User ID: ' + userId);
+            }
+            function deleteUser(userId) {
+                if (confirm('Are you sure you want to delete this user?')) {
+                    db.collection('users').doc(userId).delete()
+                        .then(() => {
+                            alert('User deleted.');
+                            loadUsers();
+                        })
+                        .catch(error => {
+                            alert('Error deleting user: ' + error.message);
+                        });
+                }
+            }
+            function deleteComment(commentId) {
+                if (confirm('Are you sure you want to delete this comment?')) {
+                    db.collection('comments').doc(commentId).delete()
+                        .then(() => {
+                            alert('Comment deleted.');
+                            loadComments();
+                        })
+                        .catch(error => {
+                            alert('Error deleting comment: ' + error.message);
+                        });
+                }
+            }
+
+            // Admin: Show author applications notification and management (in Users tab)
+            function loadUsers() {
+                db.collection('users')
+                    .orderBy('createdAt', 'desc')
+                    .get()
+                    .then(querySnapshot => {
+                        usersTableBody.innerHTML = '';
+                        // ...existing code for users...
+                        // After users, show author applications if admin
+                        auth.currentUser.getIdTokenResult().then(idTokenResult => {
+                            if (idTokenResult.claims.role === 'admin') {
+                                loadAuthorApplications();
+                            }
+                        });
+                    })
+                    .catch(error => {
+                        // ...existing code...
+                    });
+            }
+
+            // Add author applications table below users table (admin only)
+            function loadAuthorApplications() {
+                // Check if table already exists
+                let appTable = document.getElementById('author-applications-table');
+                if (!appTable) {
+                    appTable = document.createElement('table');
+                    appTable.className = 'table table-bordered mt-4';
+                    appTable.id = 'author-applications-table';
+                    appTable.innerHTML = `
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Picture</th>
+                                <th>Message</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="author-applications-body">
+                            <tr><td colspan="6" class="text-center">Loading author applications...</td></tr>
+                        </tbody>
+                    `;
+                    usersTableBody.parentElement.parentElement.parentElement.appendChild(appTable);
+                }
+                const appBody = document.getElementById('author-applications-body');
+                db.collection('authorApplications').orderBy('createdAt', 'desc').get()
+                    .then(snapshot => {
+                        appBody.innerHTML = '';
+                        if (snapshot.empty) {
+                            appBody.innerHTML = '<tr><td colspan="6" class="text-center">No author applications found.</td></tr>';
+                            return;
+                        }
+                        snapshot.forEach(doc => {
+                            const app = doc.data();
+                            appBody.innerHTML += `
+                                <tr data-id="${doc.id}">
+                                    <td>${app.name}</td>
+                                    <td>${app.phone}</td>
+                                    <td><img src="${app.picture}" alt="pic" style="width:40px;height:40px;border-radius:50%;"></td>
+                                    <td style="max-width:300px;white-space:pre-line;">${app.message.substring(0, 200)}...</td>
+                                    <td><span class="badge ${app.status === 'pending' ? 'bg-warning' : app.status === 'accepted' ? 'bg-success' : 'bg-danger'}">${app.status}</span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-success accept-author-btn" ${app.status !== 'pending' ? 'disabled' : ''}>Accept</button>
+                                        <button class="btn btn-sm btn-danger deny-author-btn" ${app.status !== 'pending' ? 'disabled' : ''}>Deny</button>
+                                    </td>
+                                </tr>
+                            `;
+                        });
+                        // Add event listeners for accept/deny
+                        document.querySelectorAll('.accept-author-btn').forEach(btn => {
+                            btn.onclick = function() {
+                                const row = this.closest('tr');
+                                const appId = row.getAttribute('data-id');
+                                db.collection('authorApplications').doc(appId).update({status: 'accepted'})
+                                    .then(() => {
+                                        row.querySelector('.badge').className = 'badge bg-success';
+                                        row.querySelector('.badge').textContent = 'accepted';
+                                        this.disabled = true;
+                                        row.querySelector('.deny-author-btn').disabled = true;
+                                        // Optionally, promote user to author if email/phone matches
+                                    });
+                            };
+                        });
+                        document.querySelectorAll('.deny-author-btn').forEach(btn => {
+                            btn.onclick = function() {
+                                const row = this.closest('tr');
+                                const appId = row.getAttribute('data-id');
+                                db.collection('authorApplications').doc(appId).update({status: 'denied'})
+                                    .then(() => {
+                                        row.querySelector('.badge').className = 'badge bg-danger';
+                                        row.querySelector('.badge').textContent = 'denied';
+                                        this.disabled = true;
+                                        row.querySelector('.accept-author-btn').disabled = true;
+                                    });
+                            };
+                        });
+                    });
+            }
+        </script>
+    </body>
+    </html>
