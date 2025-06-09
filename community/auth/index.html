@@ -1414,14 +1414,6 @@
 
             // Author Application Modal logic
             const openAuthorAppLink = document.getElementById('open-author-app-link');
-            let authorApplicationModal;
-            document.addEventListener('DOMContentLoaded', function() {
-                // Ensure modal is initialized after DOM is loaded
-                const modalEl = document.getElementById('authorApplicationModal');
-                if (modalEl) {
-                    authorApplicationModal = new bootstrap.Modal(modalEl);
-                }
-            });
             const authorAppForm = document.getElementById('author-application-form');
             const authorAppMessage = document.getElementById('author-app-message');
             const uploadAuthorPictureBtn = document.getElementById('upload-author-picture-btn');
@@ -1429,16 +1421,23 @@
             const authorMessageInput = document.getElementById('author-message');
             const authorMessageCount = document.getElementById('author-message-count');
 
+            let authorApplicationModal;
+            function ensureAuthorModal() {
+                if (!authorApplicationModal) {
+                    const modalEl = document.getElementById('authorApplicationModal');
+                    if (modalEl) {
+                        authorApplicationModal = bootstrap.Modal.getOrCreateInstance(modalEl);
+                    }
+                }
+            }
+
             openAuthorAppLink.addEventListener('click', function(e) {
                 e.preventDefault();
-                authorAppForm.reset();
-                authorAppMessage.innerHTML = '';
-                authorMessageCount.textContent = '0 / 200 words';
-                if (!authorApplicationModal) {
-                    // fallback if DOMContentLoaded hasn't fired
-                    authorApplicationModal = new bootstrap.Modal(document.getElementById('authorApplicationModal'));
-                }
-                authorApplicationModal.show();
+                ensureAuthorModal();
+                if (authorAppForm) authorAppForm.reset();
+                if (authorAppMessage) authorAppMessage.innerHTML = '';
+                if (authorMessageCount) authorMessageCount.textContent = '0 / 200 words';
+                if (authorApplicationModal) authorApplicationModal.show();
             });
 
             // Cloudinary upload for author application
