@@ -489,10 +489,74 @@
         const rtdb = firebase.database();
 
         // Show login/register modal on login-required actions
-        function showAuthModal() {
+        document.getElementById('loginBtnNav').onclick = function() {
             const modal = new bootstrap.Modal(document.getElementById('authModal'));
             modal.show();
-        }
+            // Reset form and messages
+            document.getElementById('auth-message').innerHTML = '';
+            document.getElementById('login-form').reset();
+            document.getElementById('register-form').reset();
+            document.getElementById('login-tab').classList.add('active');
+            document.getElementById('register-tab').classList.remove('active');
+            document.getElementById('login').classList.add('show', 'active');
+            document.getElementById('register').classList.remove('show', 'active');
+        };
+
+        // Tab switching logic for login/register modal
+        document.getElementById('login-tab').onclick = function(e) {
+            e.preventDefault();
+            this.classList.add('active');
+            document.getElementById('register-tab').classList.remove('active');
+            document.getElementById('login').classList.add('show', 'active');
+            document.getElementById('register').classList.remove('show', 'active');
+            document.getElementById('auth-message').innerHTML = '';
+        };
+        document.getElementById('register-tab').onclick = function(e) {
+            e.preventDefault();
+            this.classList.add('active');
+            document.getElementById('login-tab').classList.remove('active');
+            document.getElementById('register').classList.add('show', 'active');
+            document.getElementById('login').classList.remove('show', 'active');
+            document.getElementById('auth-message').innerHTML = '';
+        };
+
+        // Login form handler
+        document.getElementById('login-form').onsubmit = function(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value.trim();
+            document.getElementById('auth-message').innerHTML = '';
+            auth.signInWithEmailAndPassword(email, password)
+                .then(() => {
+                    bootstrap.Modal.getOrCreateInstance(document.getElementById('authModal')).hide();
+                    // Optionally reload or update UI
+                    location.reload();
+                })
+                .catch(err => {
+                    document.getElementById('auth-message').innerHTML = `<div class="alert alert-danger">${err.message}</div>`;
+                });
+        };
+
+        // Register form handler
+        document.getElementById('register-form').onsubmit = function(e) {
+            e.preventDefault();
+            const email = document.getElementById('register-email').value.trim();
+            const password = document.getElementById('register-password').value.trim();
+            const confirm = document.getElementById('register-confirm-password').value.trim();
+            document.getElementById('auth-message').innerHTML = '';
+            if (password !== confirm) {
+                document.getElementById('auth-message').innerHTML = `<div class="alert alert-danger">Passwords do not match.</div>`;
+                return;
+            }
+            auth.createUserWithEmailAndPassword(email, password)
+                .then(() => {
+                    document.getElementById('auth-message').innerHTML = `<div class="alert alert-success">Registration successful. Please login.</div>`;
+                    document.getElementById('login-tab').click();
+                })
+                .catch(err => {
+                    document.getElementById('auth-message').innerHTML = `<div class="alert alert-danger">${err.message}</div>`;
+                });
+        };
 
         // Show author application modal
         document.getElementById('open-author-app-link').onclick = function(e) {
