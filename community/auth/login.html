@@ -898,429 +898,596 @@
         
         <!-- Custom JS -->
         <script>
-            // Firebase configuration (replace with your actual config)
-            const firebaseConfig = {
-                apiKey: "YOUR_API_KEY",
-                authDomain: "YOUR_AUTH_DOMAIN",
-                projectId: "YOUR_PROJECT_ID",
-                storageBucket: "YOUR_STORAGE_BUCKET",
-                messagingSenderId: "YOUR_SENDER_ID",
-                appId: "YOUR_APP_ID"
-            };
+            // Remove all demo code and restore actual Firebase/Cloudinary logic
 
-            // Initialize Firebase
-            firebase.initializeApp(firebaseConfig);
-            const auth = firebase.auth();
-            const db = firebase.firestore();
-            
-            // Cloudinary config
-            const cloudName = 'YOUR_CLOUD_NAME'; // replace with your Cloudinary cloud name
-            const uploadPreset = 'YOUR_UNSIGNED_UPLOAD_PRESET'; // replace with your unsigned upload preset
-            
-            // DOM Elements
-            const authContainer = document.getElementById('auth-container');
-            const dashboardContainer = document.getElementById('dashboard-container');
-            const loginForm = document.getElementById('login-form');
-            const authMessage = document.getElementById('auth-message');
-            const logoutBtn = document.getElementById('logout-btn');
-            const userName = document.getElementById('user-name');
-            const userRole = document.getElementById('user-role');
-            const userAvatar = document.getElementById('user-avatar');
-            const usersTabItem = document.getElementById('users-tab-item');
-            const postsList = document.getElementById('posts-list');
-            const commentsList = document.getElementById('comments-list');
-            const usersTableBody = document.getElementById('users-table-body');
-            const newPostForm = document.getElementById('new-post-form');
-            const settingsForm = document.getElementById('settings-form');
-            
-            // Demo accounts (for testing)
-            const DEMO_ACCOUNTS = [
-                { email: "Admin20@gisiri.com", password: "admin20", role: "admin", name: "Admin User", avatar: "", bio: "" },
-                { email: "Author1@gisiri.com", password: "author2020", role: "author", name: "Author One", avatar: "", bio: "" }
-            ];
+// Firebase configuration for static hosting (GitHub Pages) with Realtime Database
+const firebaseConfig = {
+    apiKey: "AIzaSyCot4X6jMigcn1CLpewewivCXyaYwn0MBk",
+    authDomain: "hon-gisiri-maroa-blog.firebaseapp.com",
+    databaseURL: "https://hon-gisiri-maroa-blog-default-rtdb.firebaseio.com",
+    projectId: "hon-gisiri-maroa-blog",
+    storageBucket: "hon-gisiri-maroa-blog.appspot.com",
+    messagingSenderId: "120502408737",
+    appId: "1:120502408737:web:6f56946bd1a6db24457560",
+    measurementId: "G-QQ5R7HG7Q5"
+};
 
-            // Dummy posts for demo session
-            const DEMO_POSTS = [
-                {
-                    id: "1",
-                    title: "Welcome to the Community!",
-                    excerpt: "This is your first post. Feel free to edit or delete it.",
-                    content: "This is your first post. Feel free to edit or delete it.",
-                    image: "",
-                    status: "published",
-                    createdAt: new Date(),
-                },
-                {
-                    id: "2",
-                    title: "How to Participate",
-                    excerpt: "Learn how to join discussions and contribute.",
-                    content: "To participate, click on 'New Post' and share your thoughts.",
-                    image: "blog/images/agric.jpg",
-                    status: "draft",
-                    createdAt: new Date(),
-                }
-            ];
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
 
-            // Dummy comments for demo session
-            const DEMO_COMMENTS = [
-                {
-                    id: "c1",
-                    authorName: "Jane Doe",
-                    content: "Great platform! Looking forward to more discussions.",
-                    createdAt: new Date(),
-                    postId: "1"
-                }
-            ];
+// Cloudinary config
+const cloudName = 'dp8ayotum'; // replace with your Cloudinary cloud name
+const uploadPreset = 'hon-gisiri-maroa-blog'; // replace with your unsigned upload preset
 
-            // Dummy users for admin demo
-            const DEMO_USERS = [
-                { id: "u1", name: "Admin User", email: "Admin20@gisiri.com", role: "admin", avatar: "", createdAt: new Date() },
-                { id: "u2", name: "Author One", email: "Author1@gisiri.com", role: "author", avatar: "", createdAt: new Date() }
-            ];
+// DOM Elements
+const authContainer = document.getElementById('auth-container');
+const dashboardContainer = document.getElementById('dashboard-container');
+const loginForm = document.getElementById('login-form');
+const authMessage = document.getElementById('auth-message');
+const logoutBtn = document.getElementById('logout-btn');
+const userName = document.getElementById('user-name');
+const userRole = document.getElementById('user-role');
+const userAvatar = document.getElementById('user-avatar');
+const usersTabItem = document.getElementById('users-tab-item');
+const postsList = document.getElementById('posts-list');
+const commentsList = document.getElementById('comments-list');
+const usersTableBody = document.getElementById('users-table-body');
+const newPostForm = document.getElementById('new-post-form');
+const settingsForm = document.getElementById('settings-form');
 
-            // Session state
-            let demoSession = null;
+// Helper: Get user role based on username
+function getUserRoleFromUsername(username) {
+    if (!username) return 'user';
+    if (username.toLowerCase().includes('admin')) return 'admin';
+    if (username.toLowerCase().includes('author_01')) return 'accepted_author';
+    if (username.toLowerCase().includes('author')) return 'approved_author';
+    return 'user';
+}
 
-            // Login form submission (demo only, no Firebase)
-            loginForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const email = document.getElementById('email').value.trim();
-                const password = document.getElementById('password').value.trim();
+// Auth state
+auth.onAuthStateChanged(user => {
+    if (user) {
+        authContainer.style.display = 'none';
+        dashboardContainer.style.display = 'block';
+        // Determine role from username
+        const role = getUserRoleFromUsername(user.displayName);
+        userName.textContent = user.displayName || 'User';
+        userRole.textContent = role.replace('_', ' ');
+        userAvatar.src = user.photoURL || 'https://via.placeholder.com/60';
+        if (role === 'admin') {
+            usersTabItem.style.display = 'block';
+        } else {
+            usersTabItem.style.display = 'none';
+        }
+        // ...existing code...
+        loadDashboardContent(user.uid, role);
+    } else {
+        authContainer.style.display = 'flex';
+        dashboardContainer.style.display = 'none';
+    }
+});
 
-                // Check if demo account
-                const demo = DEMO_ACCOUNTS.find(acc => acc.email.toLowerCase() === email.toLowerCase() && acc.password === password);
-                if (demo) {
-                    demoSession = {
-                        user: demo,
-                        posts: DEMO_POSTS.map(p => ({ ...p, authorId: demo.email, authorName: demo.name })),
-                        comments: DEMO_COMMENTS,
-                        users: DEMO_USERS
-                    };
-                    showDemoDashboard();
-                    return;
-                }
-                showAuthMessage("Invalid credentials. Use the provided demo accounts.", "danger");
-            });
+// Login form
+loginForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
+    const remember = document.getElementById('remember').checked;
+    const persistence = remember ? 
+        firebase.auth.Auth.Persistence.LOCAL : 
+        firebase.auth.Auth.Persistence.SESSION;
+    auth.setPersistence(persistence)
+        .then(() => {
+            return auth.signInWithEmailAndPassword(email, password);
+        })
+        .catch(error => {
+            showAuthMessage(error.message, 'danger');
+        });
+});
 
-            // Show dashboard for demo session
-            function showDemoDashboard() {
-                authContainer.style.display = 'none';
-                dashboardContainer.style.display = 'block';
-                const user = demoSession.user;
-                userName.textContent = user.name;
-                userRole.textContent = user.role;
-                userAvatar.src = user.avatar || 'https://via.placeholder.com/60';
-                if (user.role === 'admin') {
+// Logout
+logoutBtn.addEventListener('click', () => {
+    auth.signOut()
+        .then(() => {
+            showAuthMessage('You have been logged out successfully.', 'success');
+        })
+        .catch(error => {
+            console.error('Logout error:', error);
+        });
+});
+
+// Load user data
+function loadUserData(userId) {
+    db.collection('users').doc(userId).get()
+        .then(doc => {
+            if (doc.exists) {
+                const userData = doc.data();
+                userName.textContent = userData.name || 'User';
+                userRole.textContent = userData.role || 'user';
+                userAvatar.src = userData.avatar || 'https://via.placeholder.com/60';
+                if (userData.role === 'admin') {
                     usersTabItem.style.display = 'block';
                 } else {
                     usersTabItem.style.display = 'none';
                 }
-                // Fill settings form if present
                 if (settingsForm) {
-                    document.getElementById('settings-name').value = user.name;
-                    document.getElementById('settings-email').value = user.email;
-                    document.getElementById('settings-avatar').value = user.avatar;
-                    document.getElementById('settings-bio').value = user.bio;
+                    document.getElementById('settings-name').value = userData.name || '';
+                    document.getElementById('settings-email').value = userData.email || '';
+                    document.getElementById('settings-avatar').value = userData.avatar || '';
+                    document.getElementById('settings-bio').value = userData.bio || '';
                 }
-                loadDemoPosts();
-                loadDemoComments();
-                loadDemoUsers();
             }
+        })
+        .catch(error => {
+            console.error('Error loading user data:', error);
+        });
+}
 
-            // Logout button (demo)
-            logoutBtn.addEventListener('click', () => {
-                demoSession = null;
-                authContainer.style.display = 'flex';
-                dashboardContainer.style.display = 'none';
-                showAuthMessage('You have been logged out successfully.', 'success');
-            });
+// Load dashboard content
+function loadDashboardContent(userId, role) {
+    loadUserPosts(userId, role);
+    loadComments(role);
+    if (role === 'admin') loadUsers();
+}
 
-            // Load posts for demo session
-            function loadDemoPosts() {
-                postsList.innerHTML = '';
-                if (!demoSession.posts.length) {
-                    postsList.innerHTML = `<div class="alert alert-info">You haven't created any posts yet. Click on "New Post" to get started.</div>`;
-                    return;
-                }
-                demoSession.posts.forEach(post => {
-                    postsList.innerHTML += `
-                        <div class="post-card" data-id="${post.id}">
-                            <h4 class="post-title">${post.title}</h4>
-                            <div class="post-meta">
-                                <span class="post-status ${getStatusClass(post.status)}">${formatStatus(post.status)}</span>
-                                <span>${post.createdAt.toLocaleDateString ? post.createdAt.toLocaleDateString() : new Date().toLocaleDateString()}</span>
-                            </div>
-                            <p>${post.excerpt || post.content.substring(0, 150) + '...'}</p>
-                            <div class="post-actions">
-                                <button class="btn btn-sm btn-outline-primary edit-post-btn"><i class="fas fa-edit"></i> Edit</button>
-                                <button class="btn btn-sm btn-outline-danger delete-post-btn"><i class="fas fa-trash"></i> Delete</button>
-                                ${post.status === 'published' ? `<a href="#" class="btn btn-sm btn-outline-success"><i class="fas fa-eye"></i> View</a>` : ''}
-                            </div>
-                        </div>
+// Load users from Firebase Authentication and display in admin dashboard
+function loadUsers() {
+    // Only admins can view users
+    const user = auth.currentUser;
+    if (!user || getUserRoleFromUsername(user.displayName) !== 'admin') return;
+
+    // Use Firebase Admin SDK on backend for full user listing.
+    // On client, only current user is available for security reasons.
+    // For demo, show only current user.
+    usersTableBody.innerHTML = '';
+    const currentUser = auth.currentUser;
+    if (currentUser) {
+        const role = getUserRoleFromUsername(currentUser.displayName);
+        usersTableBody.innerHTML += `
+            <tr data-id="${currentUser.uid}">
+                <td>
+                    <div class="d-flex align-items-center">
+                        <img src="${currentUser.photoURL || 'https://via.placeholder.com/40'}" alt="${currentUser.displayName}" class="rounded-circle me-2" width="40" height="40">
+                        ${currentUser.displayName}
+                    </div>
+                </td>
+                <td>${currentUser.email}</td>
+                <td><span class="badge ${getRoleBadgeClass(role)}">${role}</span></td>
+                <td>${currentUser.metadata.creationTime ? new Date(currentUser.metadata.creationTime).toLocaleDateString() : ''}</td>
+                <td>
+                    <button class="btn btn-sm btn-outline-primary edit-user-btn"><i class="fas fa-edit"></i></button>
+                    <button class="btn btn-sm btn-outline-danger delete-user-btn"><i class="fas fa-trash"></i></button>
+                </td>
+            </tr>
+        `;
+    }
+    // ...existing code for event listeners...
+}
+
+// Load user's posts
+function loadUserPosts(userId, role) {
+    let query = db.collection('posts');
+    if (role === 'admin') {
+        // Admin: view all posts
+        query = query.orderBy('createdAt', 'desc');
+    } else {
+        // Authors: only their posts
+        query = query.where('authorId', '==', userId).orderBy('createdAt', 'desc');
+    }
+    query.get()
+        .then(querySnapshot => {
+            postsList.innerHTML = '';
+            if (querySnapshot.empty) {
+                postsList.innerHTML = `<div class="alert alert-info">No posts found.</div>`;
+                return;
+            }
+            querySnapshot.forEach(doc => {
+                const post = doc.data();
+                const postDate = post.createdAt?.toDate ? post.createdAt.toDate() : new Date();
+                let actions = '';
+                // Admin: edit, delete, draft, publish
+                if (role === 'admin') {
+                    actions = `
+                        <button class="btn btn-sm btn-outline-primary edit-post-btn"><i class="fas fa-edit"></i> Edit</button>
+                        <button class="btn btn-sm btn-outline-danger delete-post-btn"><i class="fas fa-trash"></i> Delete</button>
+                        <button class="btn btn-sm btn-outline-secondary draft-post-btn">Draft</button>
+                        <button class="btn btn-sm btn-outline-success publish-post-btn">Publish</button>
                     `;
-                });
-                // Add event listeners for edit/delete
-                document.querySelectorAll('.edit-post-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        alert('Edit post feature (demo only).');
-                    });
-                });
-                document.querySelectorAll('.delete-post-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const postId = this.closest('.post-card').getAttribute('data-id');
-                        demoSession.posts = demoSession.posts.filter(p => p.id !== postId);
-                        loadDemoPosts();
-                    });
-                });
-            }
-
-            // Load comments for demo session
-            function loadDemoComments() {
-                commentsList.innerHTML = '';
-                if (!demoSession.comments.length) {
-                    commentsList.innerHTML = `<div class="alert alert-info">No comments found.</div>`;
-                    return;
                 }
-                demoSession.comments.forEach(comment => {
-                    commentsList.innerHTML += `
-                        <div class="comment-card" data-id="${comment.id}">
-                            <div class="comment-author">${comment.authorName}</div>
-                            <div class="comment-date">${comment.createdAt.toLocaleDateString ? comment.createdAt.toLocaleDateString() : new Date().toLocaleDateString()}</div>
-                            <p>${comment.content}</p>
-                            <div class="comment-actions">
-                                <button class="btn btn-sm btn-outline-danger delete-comment-btn"><i class="fas fa-trash"></i> Delete</button>
-                                <a href="#" class="btn btn-sm btn-outline-primary"><i class="fas fa-external-link-alt"></i> View Post</a>
-                            </div>
-                        </div>
-                    `;
-                });
-                document.querySelectorAll('.delete-comment-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const commentId = this.closest('.comment-card').getAttribute('data-id');
-                        demoSession.comments = demoSession.comments.filter(c => c.id !== commentId);
-                        loadDemoComments();
-                    });
-                });
-            }
-
-            // Load users for demo session (admin only)
-            function loadDemoUsers() {
-                if (demoSession.user.role !== 'admin') return;
-                usersTableBody.innerHTML = '';
-                demoSession.users.forEach(user => {
-                    usersTableBody.innerHTML += `
-                        <tr>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <img src="${user.avatar || 'https://via.placeholder.com/40'}" alt="${user.name}" class="rounded-circle me-2" width="40" height="40">
-                                    ${user.name}
-                                </div>
-                            </td>
-                            <td>${user.email}</td>
-                            <td><span class="badge ${getRoleBadgeClass(user.role)}">${user.role}</span></td>
-                            <td>${user.createdAt.toLocaleDateString ? user.createdAt.toLocaleDateString() : new Date().toLocaleDateString()}</td>
-                            <td>
-                                <button class="btn btn-sm btn-outline-primary edit-user-btn"><i class="fas fa-edit"></i></button>
-                                <button class="btn btn-sm btn-outline-danger delete-user-btn"><i class="fas fa-trash"></i></button>
-                            </td>
-                        </tr>
-                    `;
-                });
-                // Add event listeners for edit/delete
-                document.querySelectorAll('.edit-user-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        alert('Edit user feature (demo only).');
-                    });
-                });
-                document.querySelectorAll('.delete-user-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        alert('Delete user feature (demo only).');
-                    });
-                });
-            }
-
-            // New post form submission (demo)
-            newPostForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                if (!demoSession) return;
-                const title = document.getElementById('post-title').value;
-                const excerpt = document.getElementById('post-excerpt').value;
-                const image = document.getElementById('post-image').value;
-                const content = document.getElementById('post-editor').innerHTML;
-                const status = document.getElementById('post-status').value;
-                const newPost = {
-                    id: (Math.random() + 1).toString(36).substring(2, 10),
-                    title,
-                    excerpt,
-                    content,
-                    image,
-                    status,
-                    authorId: demoSession.user.email,
-                    authorName: demoSession.user.name,
-                    createdAt: new Date()
-                };
-                demoSession.posts.unshift(newPost);
-                newPostForm.reset();
-                document.getElementById('post-editor').innerHTML = '';
-                loadDemoPosts();
-                // Switch back to posts tab
-                const postsTab = document.querySelector('[data-bs-target="#posts-tab"]');
-                if (postsTab) {
-                    new bootstrap.Tab(postsTab).show();
-                }
-            });
-
-            // Clear post form (demo)
-            document.getElementById('clear-post-btn')?.addEventListener('click', () => {
-                if (confirm('Are you sure you want to clear the form? All unsaved changes will be lost.')) {
-                    newPostForm.reset();
-                    document.getElementById('post-editor').innerHTML = '';
-                }
-            });
-
-            // Settings form submission (demo)
-            settingsForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                if (!demoSession) return;
-                const name = document.getElementById('settings-name').value;
-                const email = document.getElementById('settings-email').value;
-                const avatar = document.getElementById('settings-avatar').value;
-                const bio = document.getElementById('settings-bio').value;
-                demoSession.user.name = name;
-                demoSession.user.email = email;
-                demoSession.user.avatar = avatar;
-                demoSession.user.bio = bio;
-                userName.textContent = name;
-                userAvatar.src = avatar || 'https://via.placeholder.com/60';
-                showAuthMessage('Profile updated successfully.', 'success');
-            });
-
-            // --- Ensure Author Application Modal opens reliably and all demo features work ---
-
-            // Remove any duplicate or conflicting event listeners for #open-author-app-link
-            const openAuthorAppLink = document.getElementById('open-author-app-link');
-            const authorAppForm = document.getElementById('author-application-form');
-            const authorAppMessage = document.getElementById('author-app-message');
-            const uploadAuthorPictureBtn = document.getElementById('upload-author-picture-btn');
-            const authorPictureInput = document.getElementById('author-picture');
-            const authorMessageInput = document.getElementById('author-message');
-            const authorMessageCount = document.getElementById('author-message-count');
-
-            let authorApplicationModal;
-            function ensureAuthorModal() {
-                if (!authorApplicationModal) {
-                    const modalEl = document.getElementById('authorApplicationModal');
-                    if (modalEl) {
-                        authorApplicationModal = bootstrap.Modal.getOrCreateInstance(modalEl);
+                // Accepted author: draft only, can view drafts
+                else if (role === 'accepted_author') {
+                    if (post.status === 'draft') {
+                        actions = `<button class="btn btn-sm btn-outline-primary edit-post-btn"><i class="fas fa-edit"></i> Edit</button>`;
                     }
                 }
-            }
-
-            // Remove all previous click listeners before adding a new one to avoid duplicates
-            openAuthorAppLink.onclick = null;
-            openAuthorAppLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                ensureAuthorModal();
-                if (authorAppForm) authorAppForm.reset();
-                if (authorAppMessage) authorAppMessage.innerHTML = '';
-                if (authorMessageCount) authorMessageCount.textContent = '0 / 200 words';
-                if (authorApplicationModal) authorApplicationModal.show();
-            });
-
-            // Dummy upload for author picture (demo)
-            uploadAuthorPictureBtn.onclick = null;
-            uploadAuthorPictureBtn.addEventListener('click', function() {
-                authorPictureInput.value = "https://via.placeholder.com/100";
-                authorAppMessage.innerHTML = '<div class="alert alert-success">Image uploaded successfully! (Demo)</div>';
-            });
-
-            // Word count for author message (demo)
-            authorMessageInput.oninput = null;
-            authorMessageInput.addEventListener('input', function() {
-                const words = this.value.trim().split(/\s+/).filter(Boolean);
-                authorMessageCount.textContent = `${words.length} / 200 words`;
-                if (words.length < 200) {
-                    authorMessageCount.classList.add('text-danger');
-                } else {
-                    authorMessageCount.classList.remove('text-danger');
+                // Approved author: draft, save, publish
+                else if (role === 'approved_author') {
+                    actions = `
+                        <button class="btn btn-sm btn-outline-primary edit-post-btn"><i class="fas fa-edit"></i> Edit</button>
+                        <button class="btn btn-sm btn-outline-success publish-post-btn">Publish</button>
+                    `;
                 }
+                postsList.innerHTML += `
+                    <div class="post-card" data-id="${doc.id}">
+                        <h4 class="post-title">${post.title}</h4>
+                        <div class="post-meta">
+                            <span class="post-status ${getStatusClass(post.status)}">${formatStatus(post.status)}</span>
+                            <span>${postDate.toLocaleDateString()}</span>
+                        </div>
+                        <p>${post.excerpt || post.content.substring(0, 150) + '...'}</p>
+                        <div class="post-actions">
+                            ${actions}
+                        </div>
+                    </div>
+                `;
             });
+            document.querySelectorAll('.edit-post-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const postId = this.closest('.post-card').getAttribute('data-id');
+                    editPost(postId);
+                });
+            });
+            document.querySelectorAll('.delete-post-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const postId = this.closest('.post-card').getAttribute('data-id');
+                    deletePost(postId);
+                });
+            });
+        })
+        .catch(error => {
+            postsList.innerHTML = `<div class="alert alert-danger">Error loading posts. Please try again later.</div>`;
+        });
+}
 
-            // Submit author application (demo)
-            authorAppForm.onsubmit = null;
-            authorAppForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const name = document.getElementById('author-name').value.trim();
-                const phone = document.getElementById('author-phone').value.trim();
-                const votingArea = document.getElementById('author-voting-area').value;
-                const picture = authorPictureInput.value.trim();
-                const message = authorMessageInput.value.trim();
-                const words = message.split(/\s+/).filter(Boolean);
-                const privacyChecked = document.getElementById('author-privacy-check').checked;
+// Load comments based on role
+function loadComments(role) {
+    let query = db.collection('comments').orderBy('createdAt', 'desc').limit(20);
+    query.get()
+        .then(querySnapshot => {
+            commentsList.innerHTML = '';
+            if (querySnapshot.empty) {
+                commentsList.innerHTML = `<div class="alert alert-info">No comments found.</div>`;
+                return;
+            }
+            querySnapshot.forEach(doc => {
+                const comment = doc.data();
+                const commentDate = comment.createdAt?.toDate ? comment.createdAt.toDate() : new Date();
+                let actions = '';
+                // Admin: delete, hide/unhide, reply
+                if (role === 'admin') {
+                    actions = `
+                        <button class="btn btn-sm btn-outline-danger delete-comment-btn"><i class="fas fa-trash"></i> Delete</button>
+                        <button class="btn btn-sm btn-outline-warning hide-comment-btn">Hide</button>
+                        <button class="btn btn-sm btn-outline-success unhide-comment-btn">Unhide</button>
+                        <button class="btn btn-sm btn-outline-primary reply-comment-btn">Reply</button>
+                    `;
+                }
+                // Accepted author: report, hide
+                else if (role === 'accepted_author') {
+                    actions = `
+                        <button class="btn btn-sm btn-outline-warning hide-comment-btn">Hide</button>
+                        <button class="btn btn-sm btn-outline-danger report-comment-btn">Report</button>
+                        <button class="btn btn-sm btn-outline-primary message-admin-btn">Message Admin</button>
+                    `;
+                }
+                // Approved author: respond to reported comments
+                else if (role === 'approved_author') {
+                    actions = `
+                        <button class="btn btn-sm btn-outline-success respond-comment-btn">Respond</button>
+                    `;
+                }
+                commentsList.innerHTML += `
+                    <div class="comment-card" data-id="${doc.id}">
+                        <div class="comment-author">${comment.authorName}</div>
+                        <div class="comment-date">${commentDate.toLocaleDateString()}</div>
+                        <p>${comment.content}</p>
+                        <div class="comment-actions">
+                            ${actions}
+                        </div>
+                    </div>
+                `;
+            });
+            document.querySelectorAll('.delete-comment-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const commentId = this.closest('.comment-card').getAttribute('data-id');
+                    deleteComment(commentId);
+                });
+            });
+        })
+        .catch(error => {
+            commentsList.innerHTML = `<div class="alert alert-danger">Error loading comments. Please try again later.</div>`;
+        });
+}
 
-                if (words.length < 200) {
-                    authorAppMessage.innerHTML = '<div class="alert alert-danger">Your message must be at least 200 words.</div>';
+// New post form
+newPostForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const user = auth.currentUser;
+    if (!user) return;
+    const title = document.getElementById('post-title').value;
+    const excerpt = document.getElementById('post-excerpt').value;
+    const image = document.getElementById('post-image').value;
+    const content = document.getElementById('post-editor').innerHTML;
+    const status = document.getElementById('post-status').value;
+    db.collection('posts').add({
+        title,
+        excerpt,
+        content,
+        image: image || null,
+        status,
+        authorId: user.uid,
+        authorName: user.displayName || 'Anonymous',
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    })
+    .then(() => {
+        alert('Post saved successfully!');
+        newPostForm.reset();
+        document.getElementById('post-editor').innerHTML = '';
+        loadUserPosts(user.uid);
+        const postsTab = document.querySelector('[data-bs-target="#posts-tab"]');
+        if (postsTab) {
+            new bootstrap.Tab(postsTab).show();
+        }
+    })
+    .catch(error => {
+        alert('Error saving post. Please try again.');
+    });
+});
+
+// Clear post form
+document.getElementById('clear-post-btn')?.addEventListener('click', () => {
+    if (confirm('Are you sure you want to clear the form? All unsaved changes will be lost.')) {
+        newPostForm.reset();
+        document.getElementById('post-editor').innerHTML = '';
+    }
+});
+
+// Settings form
+settingsForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const user = auth.currentUser;
+    if (!user) return;
+    const name = document.getElementById('settings-name').value;
+    const email = document.getElementById('settings-email').value;
+    const avatar = document.getElementById('settings-avatar').value;
+    const bio = document.getElementById('settings-bio').value;
+    const currentPassword = document.getElementById('current-password').value;
+    const newPassword = document.getElementById('new-password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
+    const userData = {
+        name,
+        email,
+        avatar: avatar || null,
+        bio: bio || null,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    };
+    db.collection('users').doc(user.uid).update(userData)
+        .then(() => {
+            if (email !== user.email) {
+                user.updateEmail(email)
+                    .then(() => {
+                        showAuthMessage('Email updated successfully.', 'success');
+                    })
+                    .catch(error => {
+                        showAuthMessage('Error updating email: ' + error.message, 'danger');
+                    });
+            }
+            user.updateProfile({
+                displayName: name,
+                photoURL: avatar || null
+            }).catch(() => {});
+            if (currentPassword && newPassword && confirmPassword) {
+                if (newPassword !== confirmPassword) {
+                    showAuthMessage('New passwords do not match.', 'danger');
                     return;
                 }
-                if (!picture) {
-                    authorAppMessage.innerHTML = '<div class="alert alert-danger">Please upload a profile picture.</div>';
-                    return;
-                }
-                if (!privacyChecked) {
-                    authorAppMessage.innerHTML = '<div class="alert alert-danger">You must accept the privacy agreement to proceed.</div>';
-                    return;
-                }
-                if (!votingArea) {
-                    authorAppMessage.innerHTML = '<div class="alert alert-danger">Please select your voting area.</div>';
-                    return;
-                }
-                authorAppMessage.innerHTML = '<div class="alert alert-success">Application submitted! (Demo only, no backend)</div>';
-                authorAppForm.reset();
-                authorMessageCount.textContent = '0 / 200 words';
-                setTimeout(() => {
-                    if (authorApplicationModal) authorApplicationModal.hide();
-                }, 2000);
-            });
+                const credential = firebase.auth.EmailAuthProvider.credential(user.email, currentPassword);
+                user.reauthenticateWithCredential(credential)
+                    .then(() => {
+                        return user.updatePassword(newPassword);
+                    })
+                    .then(() => {
+                        showAuthMessage('Password updated successfully.', 'success');
+                        settingsForm.reset();
+                    })
+                    .catch(error => {
+                        showAuthMessage('Error updating password: ' + error.message, 'danger');
+                    });
+            } else {
+                showAuthMessage('Profile updated successfully.', 'success');
+            }
+        })
+        .catch(error => {
+            showAuthMessage('Error updating profile: ' + error.message, 'danger');
+        });
+});
 
-            // Utility functions
-            function showAuthMessage(message, type = 'info') {
-                authMessage.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
-                setTimeout(() => { authMessage.innerHTML = ''; }, 5000);
-            }
-            function getStatusClass(status) {
-                if (status === 'published') return 'badge-success';
-                if (status === 'draft') return 'badge-warning';
-                if (status === 'pending') return 'badge-info';
-                return '';
-            }
-            function formatStatus(status) {
-                if (status === 'published') return 'Published';
-                if (status === 'draft') return 'Draft';
-                if (status === 'pending') return 'Pending Review';
-                return status;
-            }
-            function getRoleBadgeClass(role) {
-                if (role === 'admin') return 'badge-admin';
-                if (role === 'author') return 'badge-author';
-                return 'badge-user';
-            }
+// Cloudinary Avatar upload button logic
+document.getElementById('upload-avatar-btn').addEventListener('click', function() {
+    cloudinary.openUploadWidget({
+        cloudName: cloudName,
+        uploadPreset: uploadPreset,
+        sources: ['local', 'url', 'camera'],
+        cropping: true,
+        multiple: false,
+        folder: 'avatars',
+        maxFileSize: 2000000,
+        resourceType: 'image'
+    }, (error, result) => {
+        if (!error && result && result.event === "success") {
+            document.getElementById('settings-avatar').value = result.info.secure_url;
+            showAuthMessage('Image uploaded successfully!', 'success');
+        } else if (error) {
+            showAuthMessage('Cloudinary upload error: ' + error.message, 'danger');
+        }
+    });
+});
 
-            // Remove/disable Firebase auth state check for demo mode
-            // Comment out or remove this block:
-            /*
-            auth.onAuthStateChanged(user => {
-                if (user) {
-                    // User is signed in
-                    authContainer.style.display = 'none';
-                    dashboardContainer.style.display = 'block';
-                    // ...existing code...
-                } else {
-                    // User is signed out
-                    authContainer.style.display = 'flex';
-                    dashboardContainer.style.display = 'none';
-                }
-            });
-            */
+// Author Application Modal logic
+const openAuthorAppLink = document.getElementById('open-author-app-link');
+let authorApplicationModal;
+document.addEventListener('DOMContentLoaded', function() {
+    const modalEl = document.getElementById('authorApplicationModal');
+    if (modalEl) {
+        authorApplicationModal = new bootstrap.Modal(modalEl);
+    }
+});
+const authorAppForm = document.getElementById('author-application-form');
+const authorAppMessage = document.getElementById('author-app-message');
+const uploadAuthorPictureBtn = document.getElementById('upload-author-picture-btn');
+const authorPictureInput = document.getElementById('author-picture');
+const authorNameInput = document.getElementById('author-name');
+const authorIdInput = document.getElementById('author-id'); // Add this field in your HTML
+const authorDobInput = document.getElementById('author-dob'); // Add this field in your HTML
+const authorPhoneInput = document.getElementById('author-phone');
+const authorMessageInput = document.getElementById('author-message');
+const authorMessageCount = document.getElementById('author-message-count');
+const authorPrivacyCheck = document.getElementById('author-privacy-check');
+
+openAuthorAppLink.addEventListener('click', function(e) {
+    e.preventDefault();
+    authorAppForm.reset();
+    authorAppMessage.innerHTML = '';
+    authorMessageCount.textContent = '0 / 200 words';
+    if (!authorApplicationModal) {
+        authorApplicationModal = new bootstrap.Modal(document.getElementById('authorApplicationModal'));
+    }
+    authorApplicationModal.show();
+});
+
+uploadAuthorPictureBtn.addEventListener('click', function() {
+    cloudinary.openUploadWidget({
+        cloudName: cloudName,
+        uploadPreset: uploadPreset,
+        sources: ['local', 'url', 'camera'],
+        cropping: true,
+        multiple: false,
+        folder: 'author_applications',
+        maxFileSize: 2000000,
+        resourceType: 'image'
+    }, (error, result) => {
+        if (!error && result && result.event === "success") {
+            authorPictureInput.value = result.info.secure_url;
+            authorAppMessage.innerHTML = '<div class="alert alert-success">Image uploaded successfully!</div>';
+        } else if (error) {
+            authorAppMessage.innerHTML = '<div class="alert alert-danger">Cloudinary upload error: ' + error.message + '</div>';
+        }
+    });
+});
+
+authorMessageInput.addEventListener('input', function() {
+    const words = this.value.trim().split(/\s+/).filter(Boolean);
+    authorMessageCount.textContent = `${words.length} / 200 words`;
+    if (words.length < 200) {
+        authorMessageCount.classList.add('text-danger');
+    } else {
+        authorMessageCount.classList.remove('text-danger');
+    }
+});
+
+authorAppForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = authorNameInput.value.trim();
+    const idNumber = authorIdInput ? authorIdInput.value.trim() : '';
+    const dob = authorDobInput ? authorDobInput.value.trim() : '';
+    const phone = authorPhoneInput.value.trim();
+    const picture = authorPictureInput.value.trim();
+    const message = authorMessageInput.value.trim();
+    const words = message.split(/\s+/).filter(Boolean);
+    const privacyChecked = authorPrivacyCheck.checked;
+
+    // Validation
+    if (!name || !idNumber || !dob || !phone || !picture || !message) {
+        authorAppMessage.innerHTML = '<div class="alert alert-danger">All fields are required.</div>';
+        return;
+    }
+    if (words.length < 200) {
+        authorAppMessage.innerHTML = '<div class="alert alert-danger">Your message must be at least 200 words.</div>';
+        return;
+    }
+    if (!privacyChecked) {
+        authorAppMessage.innerHTML = '<div class="alert alert-danger">You must accept the privacy agreement to proceed.</div>';
+        return;
+    }
+    // Check for insults/vague language (simple filter)
+    const bannedWords = ['insult', 'vague', 'badword1', 'badword2'];
+    if (bannedWords.some(w => message.toLowerCase().includes(w))) {
+        authorAppMessage.innerHTML = '<div class="alert alert-danger">Your message contains inappropriate language.</div>';
+        return;
+    }
+
+    db.collection('authorApplications').add({
+        name,
+        idNumber,
+        dob,
+        phone,
+        picture,
+        message,
+        status: 'pending',
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    })
+    .then(() => {
+        authorAppMessage.innerHTML = '<div class="alert alert-success">Application submitted! You will be notified after review.</div>';
+        authorAppForm.reset();
+        authorMessageCount.textContent = '0 / 200 words';
+        setTimeout(() => {
+            if (authorApplicationModal) authorApplicationModal.hide();
+        }, 2000);
+    })
+    .catch(error => {
+        authorAppMessage.innerHTML = '<div class="alert alert-danger">Error submitting application: ' + error.message + '</div>';
+    });
+});
+
+// --- Dashboard: Per-user role features and post stats ---
+
+// When creating/updating a post, initialize or update views/likes/comments counters
+function createOrUpdatePostStats(postId) {
+    const statsRef = firebase.database().ref('postStats/' + postId);
+    statsRef.once('value').then(snapshot => {
+        if (!snapshot.exists()) {
+            statsRef.set({ views: 0, likes: 0, comments: 0 });
+        }
+    });
+}
+
+// Example: Increment view count when a post is viewed
+function incrementPostView(postId) {
+    const statsRef = firebase.database().ref('postStats/' + postId + '/views');
+    statsRef.transaction(current => (current || 0) + 1);
+}
+
+// Example: Increment like count
+function incrementPostLike(postId) {
+    const statsRef = firebase.database().ref('postStats/' + postId + '/likes');
+    statsRef.transaction(current => (current || 0) + 1);
+}
+
+// Example: Increment comment count
+function incrementPostComment(postId) {
+    const statsRef = firebase.database().ref('postStats/' + postId + '/comments');
+    statsRef.transaction(current => (current || 0) + 1);
+}
+
+// To display stats globally (e.g., on dashboard)
+function getPostStats(postId, callback) {
+    firebase.database().ref('postStats/' + postId).on('value', snapshot => {
+        callback(snapshot.val() || { views: 0, likes: 0, comments: 0 });
+    });
+}
+
+// Example usage in post rendering (add to your post rendering logic)
+function renderPostWithStats(postId, postData) {
+    getPostStats(postId, stats => {
+        // Render postData and stats.views, stats.likes, stats.comments
+        // ...your rendering code...
+    });
+}
+
+// ...existing code...
         </script>
 </body>
 </html>
