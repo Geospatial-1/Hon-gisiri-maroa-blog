@@ -6,9 +6,9 @@
     <title>Login | Hon. Gisiri Maroa Community</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
+    <!-- Font Awesome (CDN) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
+    <!-- Google Fonts (CDN) -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -19,464 +19,307 @@
             --dark-color: #212529;
             --danger-color: #dc3545;
         }
-        body { font-family: 'Poppins', sans-serif; background-color: #f5f7fa; color: var(--dark-color);}
-        .auth-container { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px;}
-        .auth-card { width: 100%; max-width: 500px; background: white; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); overflow: hidden;}
-        .auth-header { background: linear-gradient(135deg, var(--primary-color) 0%, #303f9f 100%); color: white; padding: 30px; text-align: center;}
-        .auth-header h2 { font-family: 'Playfair Display', serif; font-weight: 700; margin-bottom: 10px;}
-        .auth-header p { opacity: 0.9; margin-bottom: 0;}
-        .auth-body { padding: 30px;}
-        .form-control { height: 50px; border-radius: 8px; padding-left: 15px; border: 1px solid #e0e0e0;}
-        .form-control:focus { border-color: var(--primary-color); box-shadow: 0 0 0 0.25rem rgba(26, 35, 126, 0.25);}
-        .btn-primary { background-color: var(--primary-color); border: none; height: 50px; font-weight: 600; border-radius: 8px; transition: all 0.3s;}
-        .btn-primary:hover { background-color: #303f9f; transform: translateY(-2px);}
-        .auth-footer { text-align: center; padding: 20px; background-color: var(--light-color); border-top: 1px solid #e0e0e0;}
-        .auth-footer a { color: var(--primary-color); font-weight: 500; text-decoration: none;}
-        .auth-footer a:hover { text-decoration: underline;}
-        .divider { display: flex; align-items: center; margin: 20px 0;}
-        .divider::before, .divider::after { content: ""; flex: 1; border-bottom: 1px solid #e0e0e0;}
-        .divider-text { padding: 0 10px; color: #6c757d; font-size: 0.9rem;}
-        .social-login { display: flex; justify-content: center; gap: 15px; margin-bottom: 20px;}
-        .social-btn { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; transition: all 0.3s;}
-        .social-btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);}
-        .facebook { background-color: #3b5998;}
-        .google { background-color: #db4437;}
-        .twitter { background-color: #1da1f2;}
-        .alert { border-radius: 8px;}
-        /* Dashboard styles */
-        .dashboard-container {
-            display: none;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        .dashboard-header {
-            background: linear-gradient(135deg, var(--primary-color) 0%, #303f9f 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .user-info {
-            display: flex;
-            align-items: center;
-        }
-        
-        .user-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid white;
-            margin-right: 15px;
-        }
-        
-        .user-name {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .user-role {
-            background-color: var(--secondary-color);
-            color: var(--primary-color);
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            display: inline-block;
-        }
-        
-        .logout-btn {
-            background-color: var(--danger-color);
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-        
-        .logout-btn:hover {
-            background-color: #c82333;
-            transform: translateY(-2px);
-        }
-        
-        .dashboard-nav {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            padding: 15px;
-            margin-bottom: 30px;
-        }
-        
-        .nav-pills .nav-link {
-            color: var(--dark-color);
-            font-weight: 500;
-            border-radius: 8px;
-            margin-bottom: 5px;
-            transition: all 0.3s;
-        }
-        
-        .nav-pills .nav-link.active {
-            background-color: var(--primary-color);
-            color: white;
-        }
-        
-        .nav-pills .nav-link:hover:not(.active) {
-            background-color: rgba(26, 35, 126, 0.1);
-        }
-        
-        .dashboard-content {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            padding: 25px;
-            margin-bottom: 30px;
-        }
-        
-        .content-title {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--light-color);
-        }
-        
-        .post-card {
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-            transition: all 0.3s;
-        }
-        
-        .post-card:hover {
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transform: translateY(-3px);
-        }
-        
-        .post-title {
-            font-weight: 600;
-            color: var(--primary-color);
-            margin-bottom: 10px;
-        }
-        
-        .post-meta {
-            font-size: 0.85rem;
-            color: #6c757d;
-            margin-bottom: 15px;
-        }
-        
-        .post-status {
-            display: inline-block;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            margin-right: 10px;
-        }
-        
-        .status-published {
-            background-color: #d4edda;
-            color: #155724;
-        }
-        
-        .status-draft {
-            background-color: #fff3cd;
-            color: #856404;
-        }
-        
-        .status-pending {
-            background-color: #cce5ff;
-            color: #004085;
-        }
-        
-        .post-actions .btn {
-            margin-right: 10px;
-            font-size: 0.85rem;
-            padding: 5px 12px;
-        }
-        
-        .table-responsive {
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        
-        .table {
-            margin-bottom: 0;
-        }
-        
-        .table th {
-            background-color: var(--primary-color);
-            color: white;
-            font-weight: 500;
-        }
-        
-        .table td, .table th {
-            vertical-align: middle;
-            padding: 12px 15px;
-        }
-        
-        .badge {
-            font-weight: 500;
-            padding: 5px 10px;
-        }
-        
-        .badge-admin {
-            background-color: var(--primary-color);
-        }
-        
-        .badge-author {
-            background-color: var(--accent-color);
-        }
-        
-        .badge-user {
-            background-color: #6c757d;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-label {
-            font-weight: 500;
-            margin-bottom: 8px;
-        }
-        
-        .editor-container {
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 15px;
-            min-height: 300px;
-            margin-bottom: 20px;
-        }
-        
-        .comment-card {
-            border-left: 3px solid var(--primary-color);
-            padding-left: 15px;
-            margin-bottom: 15px;
-        }
-        
-        .comment-author {
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-        
-        .comment-date {
-            font-size: 0.8rem;
-            color: #6c757d;
-        }
-        
-        .comment-actions {
-            margin-top: 10px;
-        }
-        
-        .comment-actions .btn {
-            padding: 3px 8px;
-            font-size: 0.8rem;
-            margin-right: 5px;
-        }
-        
-        /* Author Application Modal Custom Styles */
-        #authorApplicationModal .modal-content {
-            border-radius: 20px;
-            border: none;
-            box-shadow: 0 8px 32px rgba(67,160,71,0.18);
-            background: #f8fff8;
+        body {
             font-family: 'Poppins', sans-serif;
-            padding: 0.5rem 0.5rem 0 0.5rem;
+            background-color: #f5f7fa;
+            color: var(--dark-color);
         }
-        #authorApplicationModal .modal-header {
-            background: linear-gradient(90deg, #43a047 0%, #1a237e 100%);
-            color: #fff;
-            border-top-left-radius: 20px;
-            border-top-right-radius: 20px;
-            border-bottom: none;
-            padding-bottom: 1rem;
-            box-shadow: 0 2px 8px rgba(67,160,71,0.08);
+        .navbar {
+            font-size: 1.15rem;
+            background: linear-gradient(90deg, var(--primary-color) 0%, #303f9f 100%);
         }
-        #authorApplicationModal .modal-title {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            font-size: 1.7rem;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-        }
-        #authorApplicationModal .modal-title i {
-            color: #ffc107;
-            font-size: 1.5rem;
-        }
-        #authorApplicationModal .admin-message {
-            background: #e8f5e9;
-            border-left: 6px solid #43a047;
-            border-radius: 12px;
-            padding: 1.2rem 1.5rem 1.2rem 2.5rem;
-            margin-bottom: 1.5rem;
-            font-size: 1.08rem;
-            color: #2e7d32;
-            font-style: italic;
-            position: relative;
-            box-shadow: 0 2px 8px rgba(67,160,71,0.06);
-        }
-        #authorApplicationModal .admin-message:before {
-            content: "“";
-            font-size: 2.5rem;
-            color: #43a047;
-            position: absolute;
-            left: 12px;
-            top: 0;
-            line-height: 1;
-        }
-        #authorApplicationModal .admin-message:after {
-            content: "”";
-            font-size: 2.5rem;
-            color: #43a047;
-            position: absolute;
-            right: 10px;
-            bottom: 0;
-            line-height: 1;
-        }
-        #authorApplicationModal .form-label {
-            color: #1a237e;
+        .navbar-brand, .navbar-nav .nav-link {
+            color: #fff !important;
             font-weight: 600;
             letter-spacing: 0.5px;
-            margin-bottom: 0.2rem;
         }
-        #authorApplicationModal .form-control, 
-        #authorApplicationModal textarea, 
-        #authorApplicationModal select {
-            border-radius: 10px;
-            border: 1.5px solid #c8e6c9;
-            background: #f8fff8;
-            font-size: 1rem;
-            transition: border-color 0.2s;
+        .navbar-nav .nav-link.active, .navbar-nav .nav-link:hover {
+            color: var(--secondary-color) !important;
         }
-        #authorApplicationModal .form-control:focus, 
-        #authorApplicationModal textarea:focus, 
-        #authorApplicationModal select:focus {
-            border-color: #43a047;
-            box-shadow: 0 0 0 0.15rem rgba(67,160,71,0.15);
+        .feature-post {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.07);
+            padding: 2.5rem 2rem;
+            margin-bottom: 2rem;
         }
-        #authorApplicationModal .input-group .btn {
-            border-radius: 10px;
-            background: #43a047;
+        .feature-post-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        .feature-post-meta {
+            color: #888;
+            font-size: 1.1rem;
+            margin-bottom: 1.2rem;
+        }
+        .feature-post-content {
+            font-size: 1.25rem;
+            line-height: 1.7;
+            color: #222;
+        }
+        .events-card, .weekly-review-card {
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            padding: 1.5rem 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        .events-card h5, .weekly-review-card h5 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        .recent-posts-card {
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            padding: 1.2rem 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .recent-posts-card h5 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        .recent-post-link {
+            font-size: 1.05rem;
+            color: var(--primary-color);
+            font-weight: 500;
+            display: block;
+            margin-bottom: 0.7rem;
+            text-decoration: none;
+        }
+        .recent-post-link:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+        .comments-thread-card {
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            padding: 1.2rem 1rem;
+            margin-bottom: 1.5rem;
+            max-height: 350px;
+            overflow: hidden;
+            position: relative;
+        }
+        .comments-thread-list {
+            max-height: 300px;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            padding-right: 10px;
+        }
+        .comment-thread {
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid #eee;
+        }
+        .comment-author {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.05rem;
+        }
+        .comment-date {
+            font-size: 0.95rem;
+            color: #888;
+        }
+        .comment-content {
+            font-size: 1.1rem;
+            margin-top: 0.2rem;
+        }
+        .comment-reply {
+            margin-left: 1.5rem;
+            border-left: 2px solid var(--accent-color);
+            padding-left: 1rem;
+            margin-top: 0.5rem;
+        }
+        .btn-login {
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 0.5rem 1.5rem;
+            background: var(--primary-color);
             color: #fff;
             border: none;
-            font-weight: 500;
             transition: background 0.2s;
         }
-        #authorApplicationModal .input-group .btn:hover {
-            background: #388e3c;
+        .btn-login:hover {
+            background: #303f9f;
+            color: #fff;
         }
-        #authorApplicationModal .modal-footer {
-            border-top: none;
-            padding-top: 0;
-        }
-        #authorApplicationModal .btn-primary {
-            background: linear-gradient(90deg, #43a047 0%, #1a237e 100%);
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            padding: 0.7rem 2.2rem;
+        .footer {
+            background: var(--primary-color);
+            color: #fff;
+            padding: 2rem 0 1rem 0;
+            text-align: center;
             font-size: 1.1rem;
-            letter-spacing: 1px;
-            transition: background 0.2s;
-            box-shadow: 0 2px 8px rgba(67,160,71,0.08);
+            margin-top: 3rem;
         }
-        #authorApplicationModal .btn-primary:hover {
-            background: linear-gradient(90deg, #388e3c 0%, #3949ab 100%);
+        @media (max-width: 991px) {
+            .feature-post { padding: 1.5rem 1rem; }
+            .feature-post-title { font-size: 1.5rem; }
         }
-        #authorApplicationModal .form-text {
-            font-size: 0.98rem;
-            color: #388e3c;
-        }
-        #authorApplicationModal .text-danger {
-            color: #c62828 !important;
-        }
-        #authorApplicationModal .form-check-label {
-            font-weight: 600;
-            color: #1a237e;
-            font-size: 1rem;
-        }
-        #authorApplicationModal .form-check-label strong {
-            color: #43a047;
-            font-weight: 700;
-        }
-        #authorApplicationModal .form-check-input:checked {
-            background-color: #43a047;
-            border-color: #43a047;
-        }
-        @media (max-width: 600px) {
-            #authorApplicationModal .modal-dialog {
-                max-width: 98vw;
-                margin: 0.5rem;
-            }
-            #authorApplicationModal .modal-content {
-                padding: 0.5rem;
-            }
-            #authorApplicationModal .modal-title {
-                font-size: 1.2rem;
-            }
+        @media (max-width: 767px) {
+            .feature-post { padding: 1rem 0.5rem; }
+            .feature-post-title { font-size: 1.2rem; }
+            .dashboard-header, .dashboard-nav, .dashboard-content { padding: 1rem; }
         }
     </style>
 </head>
 <body>
-    <!-- Auth Container (shown by default) -->
-    <div class="auth-container" id="auth-container">
-        <div class="auth-card">
-            <div class="auth-header">
-                <h2>Welcome Back</h2>
-                <p>Login to access the community dashboard</p>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Hon. Gisiri Maroa Community</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Events</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Weekly Review</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                    <li class="nav-item"><button class="btn btn-login ms-lg-3" id="loginBtnNav">Login</button></li>
+                </ul>
             </div>
-            <div class="auth-body">
-                <div id="auth-message"></div>
-                <form id="login-form">
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email Address</label>
-                        <input type="email" class="form-control" id="email" required>
+        </div>
+    </nav>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay d-none">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Landing Page Main Content -->
+    <div class="container py-4">
+        <div class="row">
+            <!-- Main Column -->
+            <div class="col-lg-8 mb-4">
+                <!-- Feature Post -->
+                <div class="feature-post" id="feature-post">
+                    <!-- JS will inject the feature post here -->
+                </div>
+                <!-- Weekly Review -->
+                <div class="weekly-review-card" id="weekly-review-card">
+                    <h5>Weekly Review</h5>
+                    <div id="weekly-review-content">
+                        <!-- JS will inject weekly review here -->
                     </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" required>
-                    </div>
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="remember">
-                        <label class="form-check-label" for="remember">Remember me</label>
-                        <a href="reset-password.html" class="float-end">Forgot password?</a>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
-                    <div class="divider">
-                        <span class="divider-text">OR</span>
-                    </div>
-                    <div class="social-login">
-                        <a href="#" class="social-btn facebook" title="Login with Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-btn google" title="Login with Google"><i class="fab fa-google"></i></a>
-                        <a href="#" class="social-btn twitter" title="Login with Twitter"><i class="fab fa-twitter"></i></a>
-                    </div>
-                </form>
+                </div>
             </div>
-            <div class="auth-footer">
-                Don't have an account? <a href="register.html">Register here</a>
-                <br>
-                <a href="#" id="open-author-app-link" class="text-primary fw-bold mt-2 d-inline-block">Apply to be an Author</a>
+            <!-- Sidebar Column -->
+            <div class="col-lg-4">
+                <!-- Recent Posts -->
+                <div class="recent-posts-card">
+                    <h5>Recent Posts</h5>
+                    <div id="recent-posts-list">
+                        <!-- JS will inject recent posts here -->
+                    </div>
+                </div>
+                <!-- Comments Thread -->
+                <div class="comments-thread-card">
+                    <h5>Latest Comments</h5>
+                    <div class="comments-thread-list" id="comments-thread-list">
+                        <!-- JS will inject comments here -->
+                    </div>
+                </div>
+                <!-- Upcoming Events -->
+                <div class="events-card mb-4" id="events-card">
+                    <h5>Upcoming Events</h5>
+                    <ul class="list-unstyled mb-0" id="events-list">
+                        <!-- JS will inject events here -->
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
+
+    <!-- Auth Modal (Login/Register) -->
+    <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content auth-card">
+                <div class="auth-header">
+                    <h2 id="authModalLabel">Welcome Back</h2>
+                    <p>Login or Register to access the dashboard</p>
+                </div>
+                <div class="auth-body">
+                    <div id="auth-message"></div>
+                    <ul class="nav nav-tabs" id="authTabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="login-tab" data-bs-toggle="tab" href="#login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="register-tab" data-bs-toggle="tab" href="#register">Register</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content p-3" id="authTabsContent">
+                        <div class="tab-pane fade show active" id="login">
+                            <form id="login-form">
+                                <div class="mb-3">
+                                    <label for="login-email" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="login-email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="login-password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="login-password" required>
+                                </div>
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="remember">
+                                    <label class="form-check-label" for="remember">Remember me</label>
+                                    <a href="reset-password.html" class="float-end">Forgot password?</a>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
+                                <div class="divider">
+                                    <span class="divider-text">OR</span>
+                                </div>
+                                <div class="social-login">
+                                    <a href="#" class="social-btn facebook" title="Quick Comment"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="#" class="social-btn google" title="Quick Comment"><i class="fab fa-google"></i></a>
+                                    <a href="#" class="social-btn twitter" title="Quick Comment"><i class="fab fa-twitter"></i></a>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="register">
+                            <form id="register-form">
+                                <div class="mb-3">
+                                    <label for="register-email" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="register-email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="register-password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="register-password" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="register-confirm-password" class="form-label">Confirm Password</label>
+                                    <input type="password" class="form-control" id="register-confirm-password" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 mb-3">Register</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="auth-footer">
+                    <a href="#" id="open-author-app-link" class="text-primary fw-bold mt-2 d-inline-block">Apply to be an Author</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Dashboard Container (hidden by default) -->
-    <div class="dashboard-container" id="dashboard-container">
+    <div class="dashboard-container" id="dashboard-container" style="display:none;">
         <div class="dashboard-header">
             <div class="user-info">
                 <img src="https://via.placeholder.com/60" alt="User Avatar" class="user-avatar" id="user-avatar">
                 <div>
                     <div class="user-name" id="user-name">Loading...</div>
                     <span class="user-role" id="user-role">Loading...</span>
+                    <div class="badge-container" id="user-badges"></div>
                 </div>
             </div>
             <button class="logout-btn" id="logout-btn">
@@ -486,7 +329,7 @@
         <div class="dashboard-nav">
             <ul class="nav nav-pills" id="dashboard-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#" data-bs-toggle="pill" data-bs-target="#posts-tab">My Posts</a>
+                    <a class="nav-link active" href="#" data-bs-toggle="pill" data-bs-target="#posts-tab">Community Posts</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#" data-bs-toggle="pill" data-bs-target="#new-post-tab">New Post</a>
@@ -503,247 +346,133 @@
             </ul>
         </div>
         <div class="tab-content dashboard-content" id="dashboard-tab-content">
-            <!-- My Posts Tab -->
+            <!-- Community Posts Tab -->
             <div class="tab-pane fade show active" id="posts-tab">
-                <h3 class="content-title">My Posts</h3>
+                <h3 class="content-title">Community Posts</h3>
                 <div id="posts-list">
                     <div class="text-center py-5">
                         <div class="spinner-border text-primary" role="status">
                             <span class="visually-hidden">Loading...</span>
                         </div>
-                        <p class="mt-3">Loading your posts...</p>
+                        <p class="mt-3">Loading published posts...</p>
                     </div>
                 </div>
             </div>
             <!-- New Post Tab -->
             <div class="tab-pane fade" id="new-post-tab">
-                <h3 class="content-title">Create New Post</h3>
-                <form id="new-post-form">
-                    <div class="form-group">
-                        <label for="post-title" class="form-label">Post Title</label>
-                        <input type="text" class="form-control" id="post-title" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="post-excerpt" class="form-label">Excerpt (Short Description)</label>
-                        <textarea class="form-control" id="post-excerpt" rows="3"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="post-image" class="form-label">Featured Image URL</label>
-                        <input type="url" class="form-control" id="post-image">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Post Content</label>
-                        <div class="editor-container" id="post-editor" contenteditable="true"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="post-status" class="form-label">Post Status</label>
-                        <select class="form-select" id="post-status">
-                            <option value="draft">Save as Draft</option>
-                            <option value="published">Publish Now</option>
-                        </select>
-                    </div>
-                    <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-outline-secondary me-2" id="clear-post-btn">Clear</button>
-                        <button type="submit" class="btn btn-primary">Save Post</button>
-                    </div>
-                </form>
+                <!-- ...existing code for new post form... -->
             </div>
             <!-- Comments Tab -->
             <div class="tab-pane fade" id="comments-tab">
-                <h3 class="content-title">Recent Comments</h3>
-                <div id="comments-list">
-                    <div class="text-center py-5">
-                        <div class="spinner-border text-primary" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                        <p class="mt-3">Loading comments...</p>
-                    </div>
-                </div>
+                <!-- ...existing code for comments... -->
             </div>
             <!-- Users Tab (Admin Only) -->
             <div class="tab-pane fade" id="users-tab">
-                <h3 class="content-title">User Management</h3>
-                <div class="table-responsive">
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                                <th>Joined</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="users-table-body">
-                            <tr>
-                                <td colspan="5" class="text-center py-5">
-                                    <div class="spinner-border text-primary" role="status">
-                                        <span class="visually-hidden">Loading...</span>
-                                    </div>
-                                    <p class="mt-3">Loading users...</p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <!-- ...existing code for user management... -->
             </div>
             <!-- Settings Tab -->
             <div class="tab-pane fade" id="settings-tab">
-                <h3 class="content-title">Account Settings</h3>
-                <form id="settings-form">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="settings-name" class="form-label">Full Name</label>
-                                <input type="text" class="form-control" id="settings-name" required>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="settings-email" class="form-label">Email Address</label>
-                                <input type="email" class="form-control" id="settings-email" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="settings-avatar" class="form-label">Profile Picture URL</label>
-                        <div class="input-group">
-                            <input type="url" class="form-control" id="settings-avatar">
-                            <button type="button" class="btn btn-outline-secondary" id="upload-avatar-btn">Upload</button>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="settings-bio" class="form-label">Bio</label>
-                        <textarea class="form-control" id="settings-bio" rows="3"></textarea>
-                    </div>
-                    <h5 class="mt-4 mb-3">Change Password</h5>
-                    <div class="form-group">
-                        <label for="current-password" class="form-label">Current Password</label>
-                        <input type="password" class="form-control" id="current-password">
-                    </div>
-                    <div class="form-group">
-                        <label for="new-password" class="form-label">New Password</label>
-                        <input type="password" class="form-control" id="new-password">
-                    </div>
-                    <div class="form-group">
-                        <label for="confirm-password" class="form-label">Confirm New Password</label>
-                        <input type="password" class="form-control" id="confirm-password">
-                    </div>
-                    <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
-                    </div>
-                </form>
+                <!-- ...existing code for account settings... -->
             </div>
-        </div>
-        <!-- Add Author Application Modal -->
-        <div class="modal fade" id="authorApplicationModal" tabindex="-1" aria-labelledby="authorApplicationModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-              <form id="author-application-form" autocomplete="off">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="authorApplicationModalLabel">
-                    <i class="fas fa-leaf me-2"></i>Apply to Become an Author
-                  </h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <div class="admin-message mb-4">
-                    Thank you for your interest to write for us. All authors must undergo a mandatory training to ensure they are compliant with our community standards. Once your application has been processed you will get a message alert on your WhatsApp for a training. Only after training is when your account will be created and login details shared for you to login to our platform.<br>
-                    <span class="d-block mt-2" style="font-style:normal;font-weight:600;">— Admin</span>
-                  </div>
-                  <div id="author-app-message"></div>
-                  <div class="row g-3">
-                    <div class="col-md-6">
-                      <label for="author-name" class="form-label">Full Name</label>
-                      <input type="text" class="form-control" id="author-name" required>
-                    </div>
-                    <div class="col-md-6">
-                      <label for="author-id" class="form-label">National ID Number</label>
-                      <input type="text" class="form-control" id="author-id" required>
-                    </div>
-                    <div class="col-md-6">
-                      <label for="author-dob" class="form-label">Date of Birth</label>
-                      <input type="date" class="form-control" id="author-dob" required>
-                    </div>
-                    <div class="col-md-6">
-                      <label for="author-phone" class="form-label">Phone Number (WhatsApp)</label>
-                      <input type="tel" class="form-control" id="author-phone" required>
-                    </div>
-                    <div class="col-md-6">
-                      <label for="author-voting-area" class="form-label">Voting Area</label>
-                      <select class="form-select" id="author-voting-area" required>
-                        <option value="" disabled selected>Select your voting area</option>
-                        <option value="">-- Select Area --</option>
-                            <option value="Bitorogwe">Bitorogwe</option>
-                            <option value="Chinato">Chinato</option>
-                            <option value="Gibarori">Gibarori</option>
-                            <option value="Itacho">Itacho</option>
-                            <option value="Kebare">Kebare</option>
-                            <option value="Kebarisia">Kebarisia</option>
-                            <option value="Kebaroti">Kebaroti</option>
-                            <option value="Kegonche">Kegonche</option>
-                            <option value="Kemakoba">Kemakoba</option>
-                            <option value="Kendege">Kendege</option>
-                            <option value="Kionyo">Kionyo</option>
-                            <option value="Komotobo">Komotobo</option>
-                            <option value="Kwiyegani">Kwiyegani</option>
-                            <option value="Maeta">Maeta</option>
-                            <option value="Mosaro">Mosaro</option>
-                            <option value="Musweto">Musweto</option>
-                            <option value="Ngibunyi">Ngibunyi</option>
-                            <option value="Nyabikongori">Nyabikongori</option>
-                            <option value="Nyabosongo">Nyabosongo</option>
-                            <option value="Nyaitara">Nyaitara</option>
-                            <option value="Nyametaburo/Komorama">Nyametaburo/Komorama</option>
-                            <option value="Nyamutiro">Nyamutiro</option>
-                            <option value="Nyaroha">Nyaroha</option>
-                            <option value="Remanyanki">Remanyanki</option>
-                            <option value="Sanchawa">Sanchawa</option>
-                            <option value="Senta">Senta</option>
-                            <option value="Tebesi">Tebesi</option>
-                      </select>
-                    </div>
-                    <div class="col-md-6">
-                      <label for="author-picture" class="form-label">Profile Picture</label>
-                      <div class="input-group">
-                        <input type="url" class="form-control" id="author-picture" placeholder="Image URL" readonly required>
-                        <button type="button" class="btn" id="upload-author-picture-btn"><i class="fas fa-upload"></i> Upload</button>
-                      </div>
-                    </div>
-                    <div class="col-12">
-                      <label for="author-message" class="form-label">Why do you want to become an author? <span class="fw-normal">(min 200 words)</span></label>
-                      <textarea class="form-control" id="author-message" rows="7" minlength="200" required style="resize:vertical"></textarea>
-                      <div class="form-text" id="author-message-count">0 / 200 words</div>
-                    </div>
-                    <div class="col-12">
-                      <div class="form-check mt-2 mb-1">
-                        <input class="form-check-input" type="checkbox" value="" id="author-privacy-check" required>
-                        <label class="form-check-label" for="author-privacy-check">
-                          <strong>I accept and agree</strong> to adhere to the <span style="color:#43a047;font-weight:700;">privacy of this forum</span> and that <strong>all passwords and login details shared with me will not be shared with anyone else. Use of insults and vague language is not allowed.</strong>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="modal-footer justify-content-center">
-                  <button type="submit" class="btn btn-primary px-5"><i class="fas fa-paper-plane me-2"></i>Submit Application</button>
-                </div>
-              </form>
-            </div>
-          </div>
         </div>
     </div>
-    <!-- Bootstrap 5 JS Bundle with Popper -->
+
+    <!-- Modals Container -->
+    <div id="modals-container">
+        <!-- Author Application Modal -->
+        <div class="modal fade" id="authorApplicationModal" tabindex="-1" aria-labelledby="authorApplicationModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <form id="author-application-form" autocomplete="off">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="authorApplicationModalLabel">
+                                <i class="fas fa-leaf me-2"></i>Apply to Become an Author
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="admin-message mb-4">
+                                Thank you for your interest to write for us. All authors must undergo a mandatory training to ensure they are compliant with our community standards. Once your application has been processed you will get a message alert on your WhatsApp for a training. Only after training is when your account will be created and login details shared for you to login to our platform.<br>
+                                <span class="d-block mt-2" style="font-style:normal;font-weight:600;">— Admin</span>
+                            </div>
+                            <div id="author-app-message"></div>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="author-name" class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" id="author-name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="author-id" class="form-label">National ID Number</label>
+                                    <input type="text" class="form-control" id="author-id" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="author-dob" class="form-label">Date of Birth</label>
+                                    <input type="date" class="form-control" id="author-dob" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="author-phone" class="form-label">Phone Number (WhatsApp)</label>
+                                    <input type="tel" class="form-control" id="author-phone" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="author-voting-area" class="form-label">Voting Area</label>
+                                    <select class="form-select" id="author-voting-area" required>
+                                        <option value="" disabled selected>Select your voting area</option>
+                                        <option value="Bitorogwe">Bitorogwe</option>
+                                        <option value="Chinato">Chinato</option>
+                                        <option value="Gibarori">Gibarori</option>
+                                        <!-- ...other areas... -->
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="author-picture" class="form-label">Profile Picture</label>
+                                    <div class="input-group">
+                                        <input type="url" class="form-control" id="author-picture" placeholder="Image URL" readonly required>
+                                        <button type="button" class="btn" id="upload-author-picture-btn"><i class="fas fa-upload"></i> Upload</button>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <label for="author-message" class="form-label">Why do you want to become an author? <span class="fw-normal">(min 200 words)</span></label>
+                                    <textarea class="form-control" id="author-message" rows="7" minlength="200" required style="resize:vertical"></textarea>
+                                    <div class="form-text" id="author-message-count">0 / 200 words</div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-check mt-2 mb-1">
+                                        <input class="form-check-input" type="checkbox" value="" id="author-privacy-check" required>
+                                        <label class="form-check-label" for="author-privacy-check">
+                                            <strong>I accept and agree</strong> to adhere to the <span style="color:#43a047;font-weight:700;">privacy of this forum</span> and that <strong>all passwords and login details shared with me will not be shared with anyone else. Use of insults and vague language is not allowed.</strong>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <button type="submit" class="btn btn-primary px-5"><i class="fas fa-paper-plane me-2"></i>Submit Application</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Add other modals here (discussion, reply, etc.) as needed -->
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            &copy; <span id="footer-year"></span> Hon. Gisiri Maroa Community. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle with Popper (CDN) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Firebase JS -->
+    <!-- Firebase JS (CDN) -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-    <!-- Cloudinary Widget JS -->
+    <!-- Cloudinary Widget JS (CDN) -->
     <script src="https://widget.cloudinary.com/v2.0/global/all.js"></script>
     <script>
-        // Firebase configuration for static hosting (GitHub Pages) with Realtime Database
+        // Firebase config and initialization
         const firebaseConfig = {
             apiKey: "AIzaSyCot4X6jMigcn1CLpewewivCXyaYwn0MBk",
             authDomain: "hon-gisiri-maroa-blog.firebaseapp.com",
@@ -757,538 +486,72 @@
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
-        // For post stats
         const rtdb = firebase.database();
 
-        // Cloudinary config
-        const cloudName = 'dp8ayotum';
-        const uploadPreset = 'hon-gisiri-maroa-blog';
-
-        // DOM Elements
-        const authContainer = document.getElementById('auth-container');
-        const dashboardContainer = document.getElementById('dashboard-container');
-        const loginForm = document.getElementById('login-form');
-        const authMessage = document.getElementById('auth-message');
-        const logoutBtn = document.getElementById('logout-btn');
-        const userName = document.getElementById('user-name');
-        const userRole = document.getElementById('user-role');
-        const userAvatar = document.getElementById('user-avatar');
-        const usersTabItem = document.getElementById('users-tab-item');
-        const postsList = document.getElementById('posts-list');
-        const commentsList = document.getElementById('comments-list');
-        const usersTableBody = document.getElementById('users-table-body');
-        const newPostForm = document.getElementById('new-post-form');
-        const settingsForm = document.getElementById('settings-form');
-
-        // Helper: Get user role based on username
-        function getUserRoleFromUsername(username) {
-            if (!username) return 'user';
-            if (username.toLowerCase().includes('admin')) return 'admin';
-            if (username.toLowerCase().includes('author_01')) return 'accepted_author';
-            if (username.toLowerCase().includes('author')) return 'approved_author';
-            return 'user';
+        // Show login/register modal on login-required actions
+        function showAuthModal() {
+            const modal = new bootstrap.Modal(document.getElementById('authModal'));
+            modal.show();
         }
 
-        // Auth state
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                authContainer.style.display = 'none';
-                dashboardContainer.style.display = 'block';
-                const role = getUserRoleFromUsername(user.displayName);
-                userName.textContent = user.displayName || 'User';
-                userRole.textContent = role.replace('_', ' ');
-                userAvatar.src = user.photoURL || 'https://via.placeholder.com/60';
-                if (role === 'admin') {
-                    usersTabItem.style.display = 'block';
-                } else {
-                    usersTabItem.style.display = 'none';
-                }
-                loadDashboardContent(user.uid, role);
-            } else {
-                authContainer.style.display = 'flex';
-                dashboardContainer.style.display = 'none';
-            }
-        });
-
-        // Login form
-        loginForm.addEventListener('submit', function(e) {
+        // Show author application modal
+        document.getElementById('open-author-app-link').onclick = function(e) {
             e.preventDefault();
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value.trim();
-            const remember = document.getElementById('remember').checked;
-            const persistence = remember ? 
-                firebase.auth.Auth.Persistence.LOCAL : 
-                firebase.auth.Auth.Persistence.SESSION;
-            auth.setPersistence(persistence)
-                .then(() => {
-                    return auth.signInWithEmailAndPassword(email, password);
-                })
-                .catch(error => {
-                    showAuthMessage(error.message, 'danger');
-                });
-        });
+            const modal = new bootstrap.Modal(document.getElementById('authorApplicationModal'));
+            modal.show();
+        };
 
-        // Logout
-        logoutBtn.addEventListener('click', () => {
-            auth.signOut()
-                .then(() => {
-                    showAuthMessage('You have been logged out successfully.', 'success');
-                })
-                .catch(error => {
-                    console.error('Logout error:', error);
-                });
-        });
-
-        // Load user data
-        function loadUserData(userId) {
-            db.collection('users').doc(userId).get()
-                .then(doc => {
-                    if (doc.exists) {
-                        const userData = doc.data();
-                        userName.textContent = userData.name || 'User';
-                        userRole.textContent = userData.role || 'user';
-                        userAvatar.src = userData.avatar || 'https://via.placeholder.com/60';
-                        if (userData.role === 'admin') {
-                            usersTabItem.style.display = 'block';
-                        } else {
-                            usersTabItem.style.display = 'none';
-                        }
-                        if (settingsForm) {
-                            document.getElementById('settings-name').value = userData.name || '';
-                            document.getElementById('settings-email').value = userData.email || '';
-                            document.getElementById('settings-avatar').value = userData.avatar || '';
-                            document.getElementById('settings-bio').value = userData.bio || '';
-                        }
-                    }
-                })
-                .catch(error => {
-                    console.error('Error loading user data:', error);
-                });
-        }
-
-        // Load dashboard content
-        function loadDashboardContent(userId, role) {
-            loadUserPosts(userId, role);
-            loadComments(role);
-            if (role === 'admin') loadUsers();
-        }
-
-        // Load users from Firebase Authentication and display in admin dashboard
-        function loadUsers() {
-            const user = auth.currentUser;
-            if (!user || getUserRoleFromUsername(user.displayName) !== 'admin') return;
-            usersTableBody.innerHTML = '';
-            const currentUser = auth.currentUser;
-            if (currentUser) {
-                const role = getUserRoleFromUsername(currentUser.displayName);
-                usersTableBody.innerHTML += `
-                    <tr data-id="${currentUser.uid}">
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <img src="${currentUser.photoURL || 'https://via.placeholder.com/40'}" alt="${currentUser.displayName}" class="rounded-circle me-2" width="40" height="40">
-                                ${currentUser.displayName}
-                            </div>
-                        </td>
-                        <td>${currentUser.email}</td>
-                        <td><span class="badge ${getRoleBadgeClass(role)}">${role}</span></td>
-                        <td>${currentUser.metadata.creationTime ? new Date(currentUser.metadata.creationTime).toLocaleDateString() : ''}</td>
-                        <td>
-                            <button class="btn btn-sm btn-outline-primary edit-user-btn"><i class="fas fa-edit"></i></button>
-                            <button class="btn btn-sm btn-outline-danger delete-user-btn"><i class="fas fa-trash"></i></button>
-                        </td>
-                    </tr>
-                `;
-            }
-        }
-
-        // Load user's posts
-        function loadUserPosts(userId, role) {
-            let query = db.collection('posts');
-            if (role === 'admin') {
-                query = query.orderBy('createdAt', 'desc');
-            } else {
-                query = query.where('authorId', '==', userId).orderBy('createdAt', 'desc');
-            }
-            query.get()
-                .then(querySnapshot => {
+        // Public posts: load all published posts for landing page
+        function loadPublicPosts() {
+            const postsList = document.getElementById('public-posts-list');
+            db.collection('posts').where('status', '==', 'published').orderBy('createdAt', 'desc').get()
+                .then(snapshot => {
                     postsList.innerHTML = '';
-                    if (querySnapshot.empty) {
-                        postsList.innerHTML = `<div class="alert alert-info">No posts found.</div>`;
+                    if (snapshot.empty) {
+                        postsList.innerHTML = '<div class="col-12 text-center"><div class="alert alert-info">No published posts yet.</div></div>';
                         return;
                     }
-                    querySnapshot.forEach(doc => {
+                    snapshot.forEach(doc => {
                         const post = doc.data();
-                        const postDate = post.createdAt?.toDate ? post.createdAt.toDate() : new Date();
-                        let actions = '';
-                        if (role === 'admin') {
-                            actions = `
-                                <button class="btn btn-sm btn-outline-primary edit-post-btn"><i class="fas fa-edit"></i> Edit</button>
-                                <button class="btn btn-sm btn-outline-danger delete-post-btn"><i class="fas fa-trash"></i> Delete</button>
-                                <button class="btn btn-sm btn-outline-secondary draft-post-btn">Draft</button>
-                                <button class="btn btn-sm btn-outline-success publish-post-btn">Publish</button>
-                            `;
-                        } else if (role === 'accepted_author') {
-                            if (post.status === 'draft') {
-                                actions = `<button class="btn btn-sm btn-outline-primary edit-post-btn"><i class="fas fa-edit"></i> Edit</button>`;
-                            }
-                        } else if (role === 'approved_author') {
-                            actions = `
-                                <button class="btn btn-sm btn-outline-primary edit-post-btn"><i class="fas fa-edit"></i> Edit</button>
-                                <button class="btn btn-sm btn-outline-success publish-post-btn">Publish</button>
-                            `;
-                        }
                         postsList.innerHTML += `
-                            <div class="post-card" data-id="${doc.id}">
-                                <h4 class="post-title">${post.title}</h4>
-                                <div class="post-meta">
-                                    <span class="post-status ${getStatusClass(post.status)}">${formatStatus(post.status)}</span>
-                                    <span>${postDate.toLocaleDateString()}</span>
-                                </div>
-                                <p>${post.excerpt || post.content.substring(0, 150) + '...'}</p>
-                                <div class="post-actions">
-                                    ${actions}
-                                </div>
-                            </div>
-                        `;
-                    });
-                    document.querySelectorAll('.edit-post-btn').forEach(btn => {
-                        btn.addEventListener('click', function() {
-                            const postId = this.closest('.post-card').getAttribute('data-id');
-                            editPost(postId);
-                        });
-                    });
-                    document.querySelectorAll('.delete-post-btn').forEach(btn => {
-                        btn.addEventListener('click', function() {
-                            const postId = this.closest('.post-card').getAttribute('data-id');
-                            deletePost(postId);
-                        });
-                    });
-                })
-                .catch(error => {
-                    postsList.innerHTML = `<div class="alert alert-danger">Error loading posts. Please try again later.</div>`;
-                });
-        }
-
-        // Load comments based on role
-        function loadComments(role) {
-            let query = db.collection('comments').orderBy('createdAt', 'desc').limit(20);
-            query.get()
-                .then(querySnapshot => {
-                    commentsList.innerHTML = '';
-                    if (querySnapshot.empty) {
-                        commentsList.innerHTML = `<div class="alert alert-info">No comments found.</div>`;
-                        return;
-                    }
-                    querySnapshot.forEach(doc => {
-                        const comment = doc.data();
-                        const commentDate = comment.createdAt?.toDate ? comment.createdAt.toDate() : new Date();
-                        let actions = '';
-                        if (role === 'admin') {
-                            actions = `
-                                <button class="btn btn-sm btn-outline-danger delete-comment-btn"><i class="fas fa-trash"></i> Delete</button>
-                                <button class="btn btn-sm btn-outline-warning hide-comment-btn">Hide</button>
-                                <button class="btn btn-sm btn-outline-success unhide-comment-btn">Unhide</button>
-                                <button class="btn btn-sm btn-outline-primary reply-comment-btn">Reply</button>
-                            `;
-                        } else if (role === 'accepted_author') {
-                            actions = `
-                                <button class="btn btn-sm btn-outline-warning hide-comment-btn">Hide</button>
-                                <button class="btn btn-sm btn-outline-danger report-comment-btn">Report</button>
-                                <button class="btn btn-sm btn-outline-primary message-admin-btn">Message Admin</button>
-                            `;
-                        } else if (role === 'approved_author') {
-                            actions = `
-                                <button class="btn btn-sm btn-outline-success respond-comment-btn">Respond</button>
-                            `;
-                        }
-                        commentsList.innerHTML += `
-                            <div class="comment-card" data-id="${doc.id}">
-                                <div class="comment-author">${comment.authorName}</div>
-                                <div class="comment-date">${commentDate.toLocaleDateString()}</div>
-                                <p>${comment.content}</p>
-                                <div class="comment-actions">
-                                    ${actions}
+                            <div class="col-md-6 col-lg-4">
+                                <div class="card h-100 shadow-sm">
+                                    <img src="${post.image || 'https://via.placeholder.com/400x200'}" class="card-img-top" alt="${post.title}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${post.title}</h5>
+                                        <p class="card-text">${post.excerpt || post.content.substring(0, 120) + '...'}</p>
+                                        <button class="btn btn-outline-primary btn-sm view-post-btn" data-id="${doc.id}">Read More</button>
+                                    </div>
+                                    <div class="card-footer text-muted small">
+                                        <span><i class="far fa-eye"></i> <span class="post-views" data-id="${doc.id}">0</span></span>
+                                        <span class="ms-3"><i class="far fa-thumbs-up"></i> <span class="post-likes" data-id="${doc.id}">0</span></span>
+                                    </div>
                                 </div>
                             </div>
                         `;
                     });
-                    document.querySelectorAll('.delete-comment-btn').forEach(btn => {
-                        btn.addEventListener('click', function() {
-                            const commentId = this.closest('.comment-card').getAttribute('data-id');
-                            deleteComment(commentId);
+                    // Attach view event
+                    document.querySelectorAll('.view-post-btn').forEach(btn => {
+                        btn.onclick = function() {
+                            const postId = this.getAttribute('data-id');
+                            incrementPostView(postId);
+                            // Optionally, show post modal or redirect to post page
+                        };
+                    });
+                    // Load stats
+                    snapshot.forEach(doc => {
+                        getPostStats(doc.id, stats => {
+                            document.querySelectorAll(`.post-views[data-id="${doc.id}"]`).forEach(el => el.textContent = stats.views || 0);
+                            document.querySelectorAll(`.post-likes[data-id="${doc.id}"]`).forEach(el => el.textContent = stats.likes || 0);
                         });
                     });
                 })
-                .catch(error => {
-                    commentsList.innerHTML = `<div class="alert alert-danger">Error loading comments. Please try again later.</div>`;
-                });
+                .catch(handleFirestoreIndexError);
         }
 
-        // New post form
-        newPostForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const user = auth.currentUser;
-            if (!user) return;
-            const title = document.getElementById('post-title').value;
-            const excerpt = document.getElementById('post-excerpt').value;
-            const image = document.getElementById('post-image').value;
-            const content = document.getElementById('post-editor').innerHTML;
-            const status = document.getElementById('post-status').value;
-            db.collection('posts').add({
-                title,
-                excerpt,
-                content,
-                image: image || null,
-                status,
-                authorId: user.uid,
-                authorName: user.displayName || 'Anonymous',
-                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-            })
-            .then((docRef) => {
-                alert('Post saved successfully!');
-                newPostForm.reset();
-                document.getElementById('post-editor').innerHTML = '';
-                createOrUpdatePostStats(docRef.id);
-                loadUserPosts(user.uid);
-                const postsTab = document.querySelector('[data-bs-target="#posts-tab"]');
-                if (postsTab) {
-                    new bootstrap.Tab(postsTab).show();
-                }
-            })
-            .catch(error => {
-                alert('Error saving post. Please try again.');
-            });
-        });
-
-        // Clear post form
-        document.getElementById('clear-post-btn')?.addEventListener('click', () => {
-            if (confirm('Are you sure you want to clear the form? All unsaved changes will be lost.')) {
-                newPostForm.reset();
-                document.getElementById('post-editor').innerHTML = '';
-            }
-        });
-
-        // Settings form
-        settingsForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const user = auth.currentUser;
-            if (!user) return;
-            const name = document.getElementById('settings-name').value;
-            const email = document.getElementById('settings-email').value;
-            const avatar = document.getElementById('settings-avatar').value;
-            const bio = document.getElementById('settings-bio').value;
-            const currentPassword = document.getElementById('current-password').value;
-            const newPassword = document.getElementById('new-password').value;
-            const confirmPassword = document.getElementById('confirm-password').value;
-            const userData = {
-                name,
-                email,
-                avatar: avatar || null,
-                bio: bio || null,
-                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-            };
-            db.collection('users').doc(user.uid).update(userData)
-                .then(() => {
-                    if (email !== user.email) {
-                        user.updateEmail(email)
-                            .then(() => {
-                                showAuthMessage('Email updated successfully.', 'success');
-                            })
-                            .catch(error => {
-                                showAuthMessage('Error updating email: ' + error.message, 'danger');
-                            });
-                    }
-                    user.updateProfile({
-                        displayName: name,
-                        photoURL: avatar || null
-                    }).catch(() => {});
-                    if (currentPassword && newPassword && confirmPassword) {
-                        if (newPassword !== confirmPassword) {
-                            showAuthMessage('New passwords do not match.', 'danger');
-                            return;
-                        }
-                        const credential = firebase.auth.EmailAuthProvider.credential(user.email, currentPassword);
-                        user.reauthenticateWithCredential(credential)
-                            .then(() => {
-                                return user.updatePassword(newPassword);
-                            })
-                            .then(() => {
-                                showAuthMessage('Password updated successfully.', 'success');
-                                settingsForm.reset();
-                            })
-                            .catch(error => {
-                                showAuthMessage('Error updating password: ' + error.message, 'danger');
-                            });
-                    } else {
-                        showAuthMessage('Profile updated successfully.', 'success');
-                    }
-                })
-                .catch(error => {
-                    showAuthMessage('Error updating profile: ' + error.message, 'danger');
-                });
-        });
-
-        // Cloudinary Avatar upload button logic
-        document.getElementById('upload-avatar-btn').addEventListener('click', function() {
-            cloudinary.openUploadWidget({
-                cloudName: cloudName,
-                uploadPreset: uploadPreset,
-                sources: ['local', 'url', 'camera'],
-                cropping: true,
-                multiple: false,
-                folder: 'avatars',
-                maxFileSize: 2000000,
-                resourceType: 'image'
-            }, (error, result) => {
-                if (!error && result && result.event === "success") {
-                    document.getElementById('settings-avatar').value = result.info.secure_url;
-                    showAuthMessage('Image uploaded successfully!', 'success');
-                } else if (error) {
-                    showAuthMessage('Cloudinary upload error: ' + error.message, 'danger');
-                }
-            });
-        });
-
-        // Author Application Modal logic
-        const openAuthorAppLink = document.getElementById('open-author-app-link');
-        let authorApplicationModal = null;
-        const authorAppForm = document.getElementById('author-application-form');
-        const authorAppMessage = document.getElementById('author-app-message');
-        const uploadAuthorPictureBtn = document.getElementById('upload-author-picture-btn');
-        const authorPictureInput = document.getElementById('author-picture');
-        const authorNameInput = document.getElementById('author-name');
-        const authorIdInput = document.getElementById('author-id');
-        const authorDobInput = document.getElementById('author-dob');
-        const authorPhoneInput = document.getElementById('author-phone');
-        const authorMessageInput = document.getElementById('author-message');
-        const authorMessageCount = document.getElementById('author-message-count');
-        const authorPrivacyCheck = document.getElementById('author-privacy-check');
-        const authorVotingAreaInput = document.getElementById('author-voting-area');
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const modalEl = document.getElementById('authorApplicationModal');
-            if (modalEl) {
-                authorApplicationModal = bootstrap.Modal.getOrCreateInstance(modalEl);
-            }
-            openAuthorAppLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                if (!authorApplicationModal) {
-                    const modalEl = document.getElementById('authorApplicationModal');
-                    if (modalEl) {
-                        authorApplicationModal = bootstrap.Modal.getOrCreateInstance(modalEl);
-                    }
-                }
-                if (authorAppForm) authorAppForm.reset();
-                if (authorAppMessage) authorAppMessage.innerHTML = '';
-                if (authorMessageCount) authorMessageCount.textContent = '0 / 200 words';
-                authorApplicationModal.show();
-            });
-        });
-
-        uploadAuthorPictureBtn.addEventListener('click', function() {
-            cloudinary.openUploadWidget({
-                cloudName: cloudName,
-                uploadPreset: uploadPreset,
-                sources: ['local', 'url', 'camera'],
-                cropping: true,
-                multiple: false,
-                folder: 'author_applications',
-                maxFileSize: 2000000,
-                resourceType: 'image'
-            }, (error, result) => {
-                if (!error && result && result.event === "success") {
-                    authorPictureInput.value = result.info.secure_url;
-                    authorAppMessage.innerHTML = '<div class="alert alert-success">Image uploaded successfully!</div>';
-                } else if (error) {
-                    authorAppMessage.innerHTML = '<div class="alert alert-danger">Cloudinary upload error: ' + error.message + '</div>';
-                }
-            });
-        });
-
-        authorMessageInput.addEventListener('input', function() {
-            const words = this.value.trim().split(/\s+/).filter(Boolean);
-            authorMessageCount.textContent = `${words.length} / 200 words`;
-            if (words.length < 200) {
-                authorMessageCount.classList.add('text-danger');
-            } else {
-                authorMessageCount.classList.remove('text-danger');
-            }
-        });
-
-        authorAppForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const name = authorNameInput.value.trim();
-            const idNumber = authorIdInput ? authorIdInput.value.trim() : '';
-            const dob = authorDobInput ? authorDobInput.value.trim() : '';
-            const phone = authorPhoneInput.value.trim();
-            const votingArea = authorVotingAreaInput ? authorVotingAreaInput.value : '';
-            const picture = authorPictureInput.value.trim();
-            const message = authorMessageInput.value.trim();
-            const words = message.split(/\s+/).filter(Boolean);
-            const privacyChecked = authorPrivacyCheck.checked;
-
-            if (!name || !idNumber || !dob || !phone || !votingArea || !picture || !message) {
-                authorAppMessage.innerHTML = '<div class="alert alert-danger">All fields are required.</div>';
-                return;
-            }
-            if (words.length < 200) {
-                authorAppMessage.innerHTML = '<div class="alert alert-danger">Your message must be at least 200 words.</div>';
-                return;
-            }
-            if (!privacyChecked) {
-                authorAppMessage.innerHTML = '<div class="alert alert-danger">You must accept the privacy agreement to proceed.</div>';
-                return;
-            }
-            const bannedWords = ['insult', 'vague', 'badword1', 'badword2'];
-            if (bannedWords.some(w => message.toLowerCase().includes(w))) {
-                authorAppMessage.innerHTML = '<div class="alert alert-danger">Your message contains inappropriate language.</div>';
-                return;
-            }
-
-            db.collection('authorApplications').add({
-                name,
-                idNumber,
-                dob,
-                phone,
-                votingArea,
-                picture,
-                message,
-                status: 'pending',
-                createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            })
-            .then(() => {
-                authorAppMessage.innerHTML = '<div class="alert alert-success">Application submitted! You will be notified after review.</div>';
-                authorAppForm.reset();
-                authorMessageCount.textContent = '0 / 200 words';
-                setTimeout(() => {
-                    if (authorApplicationModal) authorApplicationModal.hide();
-                }, 2000);
-            })
-            .catch(error => {
-                authorAppMessage.innerHTML = '<div class="alert alert-danger">Error submitting application: ' + error.message + '</div>';
-            });
-        });
-
-        // --- Dashboard: Per-user role features and post stats ---
-        function createOrUpdatePostStats(postId) {
-            const statsRef = rtdb.ref('postStats/' + postId);
-            statsRef.once('value').then(snapshot => {
-                if (!snapshot.exists()) {
-                    statsRef.set({ views: 0, likes: 0, comments: 0 });
-                }
-            });
-        }
+        // Post stats functions
         function incrementPostView(postId) {
             const statsRef = rtdb.ref('postStats/' + postId + '/views');
-            statsRef.transaction(current => (current || 0) + 1);
-        }
-        function incrementPostLike(postId) {
-            const statsRef = rtdb.ref('postStats/' + postId + '/likes');
-            statsRef.transaction(current => (current || 0) + 1);
-        }
-        function incrementPostComment(postId) {
-            const statsRef = rtdb.ref('postStats/' + postId + '/comments');
             statsRef.transaction(current => (current || 0) + 1);
         }
         function getPostStats(postId, callback) {
@@ -1296,78 +559,402 @@
                 callback(snapshot.val() || { views: 0, likes: 0, comments: 0 });
             });
         }
-        function renderPostWithStats(postId, postData) {
-            getPostStats(postId, stats => {
-                // Render postData and stats.views, stats.likes, stats.comments
-                // ...your rendering code...
+
+        // Auth logic (login, register, logout, etc.
+        document.getElementById('login-form').onsubmit = function(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value.trim();
+            auth.signInWithEmailAndPassword(email, password)
+                .then(() => {
+                    // Hide auth modal, show dashboard, hide landing
+                    bootstrap.Modal.getOrCreateInstance(document.getElementById('authModal')).hide();
+                    document.getElementById('dashboard-container').style.display = 'block';
+                    document.getElementById('public-posts-container')?.classList.add('d-none');
+                    // Optionally, load dashboard data here
+                    loadDashboard();
+                })
+                .catch(err => {
+                    document.getElementById('auth-message').innerHTML = `<div class="alert alert-danger">${err.message}</div>`;
+                });
+        };
+
+        // Register functionality
+        document.getElementById('register-form').onsubmit = function(e) {
+            e.preventDefault();
+            const email = document.getElementById('register-email').value.trim();
+            const password = document.getElementById('register-password').value.trim();
+            const confirm = document.getElementById('register-confirm-password').value.trim();
+            if (password !== confirm) {
+                document.getElementById('auth-message').innerHTML = `<div class="alert alert-danger">Passwords do not match.</div>`;
+                return;
+            }
+            auth.createUserWithEmailAndPassword(email, password)
+                .then(() => {
+                    document.getElementById('auth-message').innerHTML = `<div class="alert alert-success">Registration successful. Please login.</div>`;
+                    document.getElementById('login-tab').click();
+                })
+                .catch(err => {
+                    document.getElementById('auth-message').innerHTML = `<div class="alert alert-danger">${err.message}</div>`;
+                });
+        };
+
+        // Utility: get user role (expand as needed)
+        function getUserRole(user, callback) {
+            // Example: get from Firestore user profile, fallback to displayName
+            db.collection('users').doc(user.uid).get().then(doc => {
+                if (doc.exists && doc.data().role) {
+                    callback(doc.data().role);
+                } else if (user.displayName) {
+                    if (user.displayName.toLowerCase().includes("admin")) callback("admin");
+                    else if (user.displayName.toLowerCase().includes("author_01")) callback("author_01");
+                    else if (user.displayName.toLowerCase().includes("author")) callback("author");
+                    else callback("user");
+                } else {
+                    callback("user");
+                }
+            }).catch(() => callback("user"));
+        }
+
+        // On auth state change, show dashboard or landing
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                document.getElementById('dashboard-container').style.display = 'block';
+                document.getElementById('public-posts-container')?.classList.add('d-none');
+                getUserRole(user, role => {
+                    loadDashboard(role);
+                });
+            } else {
+                document.getElementById('dashboard-container').style.display = 'none';
+                document.getElementById('public-posts-container')?.classList.remove('d-none');
+            }
+        });
+
+        // Dashboard loader with user level
+        function loadDashboard(role) {
+            // Show user level in dashboard header
+            let roleLabel = "User";
+            if (role === "admin") roleLabel = "Admin";
+            else if (role === "author_01") roleLabel = "New Author";
+            else if (role === "author") roleLabel = "Approved Author";
+            document.getElementById('user-role').textContent = roleLabel;
+
+            // Show dashboard message for author levels
+            let dashboardMsg = "";
+            if (role === "author_01") {
+                dashboardMsg = `<div class="alert alert-warning mb-3">Kindly save your draft and it will be published soon by the editor.</div>`;
+            } else if (role === "author") {
+                dashboardMsg = `<div class="alert alert-info mb-3">Kindly review before publishing.</div>`;
+            } else if (role === "admin") {
+                dashboardMsg = `<div class="alert alert-success mb-3">Welcome, Admin. You have full access.</div>`;
+            }
+            const postsTab = document.querySelector("#dashboard-tab-content .tab-pane#posts-tab");
+            if (postsTab) {
+                postsTab.innerHTML = dashboardMsg + '<div id="posts-list"></div>';
+            }
+            loadDashboardPosts(role, auth.currentUser.uid);
+        }
+
+        // Load posts for dashboard with clickable, full mode, and actions
+        function loadDashboardPosts(role, userId) {
+            const postsList = document.getElementById('posts-list');
+            let query = db.collection('posts');
+            if (role === "admin") {
+                query = query.orderBy('createdAt', 'desc');
+            } else if (role === "author_01" || role === "author") {
+                query = query.where('authorId', '==', userId).orderBy('createdAt', 'desc');
+            } else {
+                query = query.where('status', '==', 'published').orderBy('createdAt', 'desc');
+            }
+            query.get().then(snapshot => {
+                postsList.innerHTML = '';
+                if (snapshot.empty) {
+                    postsList.innerHTML = '<div class="alert alert-info">No posts found.</div>';
+                    return;
+                }
+                // Collect all posts for navigation in full mode
+                const allPosts = [];
+                snapshot.forEach(doc => {
+                    const post = doc.data();
+                    const postId = doc.id;
+                    allPosts.push({ ...post, id: postId });
+                });
+                allPosts.forEach((post, idx) => {
+                    let actions = '';
+                    if (role === "admin") {
+                        actions = `
+                            <button class="btn btn-sm btn-outline-primary edit-post-btn" data-id="${post.id}"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="btn btn-sm btn-outline-danger delete-post-btn" data-id="${post.id}"><i class="fas fa-trash"></i> Delete</button>
+                            <button class="btn btn-sm btn-outline-success publish-post-btn" data-id="${post.id}">Publish</button>
+                        `;
+                    } else if (role === "author_01") {
+                        actions = `<button class="btn btn-sm btn-outline-primary edit-post-btn" data-id="${post.id}"><i class="fas fa-edit"></i> Edit</button>`;
+                    } else if (role === "author") {
+                        actions = `
+                            <button class="btn btn-sm btn-outline-primary edit-post-btn" data-id="${post.id}"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="btn btn-sm btn-outline-success publish-post-btn" data-id="${post.id}">Publish</button>
+                        `;
+                    }
+                    postsList.innerHTML += `
+                        <div class="post-card mb-3 d-flex align-items-center" data-id="${post.id}" style="cursor:pointer;">
+                            <img src="${post.image || 'https://via.placeholder.com/120x80'}" alt="${post.title}" class="rounded me-3" style="width:100px;height:70px;object-fit:cover;">
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a href="#" class="post-title-link" data-id="${post.id}" style="font-size:1.2rem;font-weight:600;color:var(--primary-color);text-decoration:underline;">${post.title}</a>
+                                </div>
+                                <div class="post-meta small text-muted mb-1">${post.createdAt && post.createdAt.toDate ? post.createdAt.toDate().toLocaleString() : ''}</div>
+                                <div class="mb-2">${post.excerpt || (post.content ? post.content.substring(0, 120) + '...' : '')}</div>
+                                <button class="btn btn-outline-primary btn-sm read-more-btn" data-id="${post.id}" data-idx="${idx}">Read More</button>
+                                ${actions}
+                            </div>
+                        </div>
+                    `;
+                });
+
+                // Read More button and post title open full mode
+                document.querySelectorAll('.read-more-btn, .post-title-link').forEach(el => {
+                    el.onclick = function(e) {
+                        e.preventDefault();
+                        const postId = this.getAttribute('data-id');
+                        const idx = parseInt(this.getAttribute('data-idx')) || allPosts.findIndex(p => p.id === postId);
+                        openFullPostModal(allPosts, idx);
+                    };
+                });
             });
         }
 
-        // Utility functions
-        function showAuthMessage(message, type = 'info') {
-            authMessage.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
-            setTimeout(() => { authMessage.innerHTML = ''; }, 5000);
+        // Full post modal (responsive, easy navigation, reader mode)
+        function openFullPostModal(allPosts, idx) {
+            const post = allPosts[idx];
+            if (!post) return;
+            let modalHtml = `
+            <div class="modal fade" id="fullPostModal" tabindex="-1" aria-labelledby="fullPostModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content" style="border-radius:1rem;">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="fullPostModalLabel">${post.title}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="${post.image || 'https://via.placeholder.com/800x350'}" class="img-fluid rounded mb-3 w-100" alt="${post.title}">
+                            <div class="mb-2 text-muted small">By ${post.authorName || 'Anonymous'} &middot; ${post.createdAt && post.createdAt.toDate ? post.createdAt.toDate().toLocaleString() : ''}</div>
+                            <div style="font-size:1.15rem;" id="full-post-content">${post.content}</div>
+                            <div class="mt-4 d-flex flex-wrap gap-2 justify-content-between align-items-center">
+                                <div>
+                                    <button class="btn btn-outline-secondary btn-sm comment-btn" data-id="${post.id}"><i class="far fa-comment"></i> Comment</button>
+                                </div>
+                                <div>
+                                    <button class="btn btn-outline-success btn-sm like-btn" data-id="${post.id}"><i class="far fa-thumbs-up"></i> Like</button>
+                                    <button class="btn btn-outline-danger btn-sm report-btn" data-id="${post.id}"><i class="fas fa-flag"></i> Report</button>
+                                    <div class="btn-group">
+                                        <button class="btn btn-outline-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown"><i class="fas fa-share"></i> Share</button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item share-fb" href="#" data-id="${post.id}"><i class="fab fa-facebook"></i> Facebook</a></li>
+                                            <li><a class="dropdown-item share-tw" href="#" data-id="${post.id}"><i class="fab fa-twitter"></i> Twitter</a></li>
+                                            <li><a class="dropdown-item share-wa" href="#" data-id="${post.id}"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+                                            <li><a class="dropdown-item share-email" href="#" data-id="${post.id}"><i class="fas fa-envelope"></i> Email</a></li>
+                                            <li><a class="dropdown-item share-copy" href="#" data-id="${post.id}"><i class="fas fa-link"></i> Copy Link</a></li>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 d-flex justify-content-between align-items-center">
+                                <button class="btn btn-outline-secondary prev-post-btn" ${idx === 0 ? 'disabled' : ''}><i class="fas fa-arrow-left"></i> Previous</button>
+                                <button class="btn btn-outline-dark reader-mode-btn"><i class="fas fa-book-open"></i> Reader Mode</button>
+                                <button class="btn btn-outline-secondary next-post-btn" ${idx === allPosts.length - 1 ? 'disabled' : ''}>Next <i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="readerModeOverlay" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:2000;background:#fff;overflow:auto;">
+                <div class="container py-4" style="max-width:700px;">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <button class="btn btn-outline-dark exit-reader-btn"><i class="fas fa-times"></i> Exit Reader Mode</button>
+                        <div>
+                            <button class="btn btn-outline-secondary prev-post-btn" ${idx === 0 ? 'disabled' : ''}><i class="fas fa-arrow-left"></i></button>
+                            <button class="btn btn-outline-secondary next-post-btn" ${idx === allPosts.length - 1 ? 'disabled' : ''}><i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                    <h2 style="font-family:'Playfair Display',serif;font-weight:800;">${post.title}</h2>
+                    <div class="mb-2 text-muted small">By ${post.authorName || 'Anonymous'} &middot; ${post.createdAt && post.createdAt.toDate ? post.createdAt.toDate().toLocaleString() : ''}</div>
+                    <img src="${post.image || 'https://via.placeholder.com/800x350'}" class="img-fluid rounded mb-3 w-100" alt="${post.title}">
+                    <div style="font-size:1.25rem;line-height:1.7;">${post.content}</div>
+                </div>
+                <button class="btn btn-dark position-fixed" style="top:20px;right:20px;z-index:2100;" id="exitReaderModeBtn"><i class="fas fa-times"></i> Exit</button>
+            </div>
+            `;
+            // Remove any existing modal/overlay
+            document.querySelectorAll('#fullPostModal, #readerModeOverlay').forEach(m => m.remove());
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+            const modal = new bootstrap.Modal(document.getElementById('fullPostModal'));
+            modal.show();
+            document.getElementById('fullPostModal').addEventListener('hidden.bs.modal', function() {
+                this.remove();
+                document.getElementById('readerModeOverlay')?.remove();
+            });
+
+            // Like, comment, report, share handlers (full mode only)
+            document.querySelectorAll('#fullPostModal .like-btn').forEach(btn => {
+                btn.onclick = function(e) {
+                    e.stopPropagation();
+                    incrementPostLike(post.id);
+                };
+            });
+            document.querySelectorAll('#fullPostModal .comment-btn').forEach(btn => {
+                btn.onclick = function(e) {
+                    e.stopPropagation();
+                    openCommentModal(post.id);
+                };
+            });
+            document.querySelectorAll('#fullPostModal .report-btn').forEach(btn => {
+                btn.onclick = function(e) {
+                    e.stopPropagation();
+                    alert('Report submitted for post: ' + post.id);
+                };
+            });
+            document.querySelectorAll('#fullPostModal .share-fb').forEach(btn => {
+                btn.onclick = function(e) {
+                    e.preventDefault(); e.stopPropagation();
+                    sharePost(post.id, 'facebook');
+                };
+            });
+            document.querySelectorAll('#fullPostModal .share-tw').forEach(btn => {
+                btn.onclick = function(e) {
+                    e.preventDefault(); e.stopPropagation();
+                    sharePost(post.id, 'twitter');
+                };
+            });
+            document.querySelectorAll('#fullPostModal .share-wa').forEach(btn => {
+                btn.onclick = function(e) {
+                    e.preventDefault(); e.stopPropagation();
+                    sharePost(post.id, 'whatsapp');
+                };
+            });
+            document.querySelectorAll('#fullPostModal .share-email').forEach(btn => {
+                btn.onclick = function(e) {
+                    e.preventDefault(); e.stopPropagation();
+                    sharePost(post.id, 'email');
+                };
+            });
+            document.querySelectorAll('#fullPostModal .share-copy').forEach(btn => {
+                btn.onclick = function(e) {
+                    e.preventDefault(); e.stopPropagation();
+                    sharePost(post.id, 'copy');
+                };
+            });
+
+            // Next/Prev navigation in full mode
+            document.querySelector('#fullPostModal .next-post-btn')?.addEventListener('click', function() {
+                modal.hide();
+                setTimeout(() => openFullPostModal(allPosts, idx + 1), 300);
+            });
+            document.querySelector('#fullPostModal .prev-post-btn')?.addEventListener('click', function() {
+                modal.hide();
+                setTimeout(() => openFullPostModal(allPosts, idx - 1), 300);
+            });
+
+            // Reader mode
+            document.querySelector('#fullPostModal .reader-mode-btn')?.addEventListener('click', function() {
+                document.getElementById('readerModeOverlay').style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            });
+            document.getElementById('exitReaderModeBtn').onclick = function() {
+                document.getElementById('readerModeOverlay').style.display = 'none';
+                document.body.style.overflow = '';
+            };
+            // Next/Prev in reader mode
+            document.querySelector('#readerModeOverlay .next-post-btn')?.addEventListener('click', function() {
+                document.getElementById('readerModeOverlay').style.display = 'none';
+                modal.hide();
+                setTimeout(() => openFullPostModal(allPosts, idx + 1), 300);
+            });
+            document.querySelector('#readerModeOverlay .prev-post-btn')?.addEventListener('click', function() {
+                document.getElementById('readerModeOverlay').style.display = 'none';
+                modal.hide();
+                setTimeout(() => openFullPostModal(allPosts, idx - 1), 300);
+            });
+            document.querySelector('#readerModeOverlay .exit-reader-btn')?.addEventListener('click', function() {
+                document.getElementById('readerModeOverlay').style.display = 'none';
+                document.body.style.overflow = '';
+            });
         }
-        function getStatusClass(status) {
-            if (status === 'published') return 'status-published';
-            if (status === 'draft') return 'status-draft';
-            if (status === 'pending') return 'status-pending';
-            return '';
+
+        // Like post (Realtime DB)
+        function incrementPostLike(postId) {
+            const statsRef = rtdb.ref('postStats/' + postId + '/likes');
+            statsRef.transaction(current => (current || 0) + 1);
         }
-        function formatStatus(status) {
-            if (status === 'published') return 'Published';
-            if (status === 'draft') return 'Draft';
-            if (status === 'pending') return 'Pending';
-            return status;
+
+        // Share post
+        function sharePost(postId, platform) {
+            db.collection('posts').doc(postId).get().then(doc => {
+                if (!doc.exists) return;
+                const post = doc.data();
+                const url = window.location.origin + '/post/' + postId;
+                const text = encodeURIComponent(post.title + ' - ' + url);
+                if (platform === 'facebook') {
+                    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+                } else if (platform === 'twitter') {
+                    window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
+                } else if (platform === 'whatsapp') {
+                    window.open(`https://wa.me/?text=${text}`, '_blank');
+                } else if (platform === 'email') {
+                    window.location.href = `mailto:?subject=${encodeURIComponent(post.title)}&body=${text}`;
+                } else if (platform === 'copy') {
+                    navigator.clipboard.writeText(url);
+                    alert('Link copied to clipboard!');
+                }
+            });
         }
-        function getRoleBadgeClass(role) {
-            if (role === 'admin') return 'badge-admin';
-            if (role === 'author') return 'badge-author';
-            return 'badge-user';
+
+        // Placeholder for comment modal
+        function openCommentModal(postId) {
+            alert('Comment feature coming soon for post: ' + postId);
         }
-        function editPost(postId) {
-            alert('Edit post feature coming soon. Post ID: ' + postId);
-        }
-        function deletePost(postId) {
-            if (confirm('Are you sure you want to delete this post?')) {
-                db.collection('posts').doc(postId).delete()
-                    .then(() => {
-                        alert('Post deleted.');
-                        const user = auth.currentUser;
-                        if (user) loadUserPosts(user.uid);
-                    })
-                    .catch(error => {
-                        alert('Error deleting post: ' + error.message);
+
+        // Load Feature Post (show on top in full view, select from draft)
+        function loadFeaturePost() {
+            // Select the first post with status 'draft' and isFeature: true, fallback to latest draft
+            db.collection('posts')
+                .where('status', '==', 'draft')
+                .orderBy('createdAt', 'desc')
+                .get()
+                .then(snapshot => {
+                    let featureDoc = null;
+                    snapshot.forEach(doc => {
+                        const post = doc.data();
+                        if (!featureDoc && post.isFeature) featureDoc = doc;
                     });
-            }
+                    if (!featureDoc && !snapshot.empty) featureDoc = snapshot.docs[0];
+                    const feature = document.getElementById('feature-post');
+                    if (!featureDoc) {
+                        feature.innerHTML = '<div class="alert alert-info">No feature post available.</div>';
+                        return;
+                    }
+                    const post = featureDoc.data();
+                    feature.innerHTML = `
+                        <div>
+                            <img src="${post.image || 'https://via.placeholder.com/800x350'}" class="img-fluid rounded mb-3" alt="${post.title}">
+                            <div class="feature-post-title">${post.title}</div>
+                            <div class="feature-post-meta">By ${post.authorName || 'Anonymous'} &middot; ${post.createdAt && post.createdAt.toDate ? post.createdAt.toDate().toLocaleDateString() : ''}</div>
+                            <div class="feature-post-content">${post.content}</div>
+                        </div>
+                    `;
+                });
         }
-        function editUser(userId) {
-            alert('Edit user feature coming soon. User ID: ' + userId);
-        }
-        function deleteUser(userId) {
-            if (confirm('Are you sure you want to delete this user?')) {
-                db.collection('users').doc(userId).delete()
-                    .then(() => {
-                        alert('User deleted.');
-                        loadUsers();
-                    })
-                    .catch(error => {
-                        alert('Error deleting user: ' + error.message);
-                    });
-            }
-        }
-        function deleteComment(commentId) {
-            if (confirm('Are you sure you want to delete this comment?')) {
-                db.collection('comments').doc(commentId).delete()
-                    .then(() => {
-                        alert('Comment deleted.');
-                        loadComments();
-                    })
-                    .catch(error => {
-                        alert('Error deleting comment: ' + error.message);
-                    });
-            }
-        }
+
+        // On page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadFeaturePost();
+            loadEvents();
+            loadWeeklyReview();
+            loadRecentPosts();
+            loadCommentsThread();
+        });
+
+        // Move events card to right column after comments
+        // In your HTML, move the events-card div after comments-thread-card in the sidebar column:
     </script>
 </body>
 </html>
