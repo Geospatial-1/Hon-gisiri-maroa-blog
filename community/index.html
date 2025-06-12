@@ -3,198 +3,1022 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discussions | Hon Gisiri Community</title>
-    <link rel="stylesheet" href="../css/community.css">
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-    <script src="../js/firebase-config.js"></script>
-    <script src="../js/community.js"></script>
+    <title>Login | Hon. Gisiri Maroa Community</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome (CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (CDN) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a237e;
+            --secondary-color: #ffc107;
+            --accent-color: #43a047;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --danger-color: #dc3545;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+        }
+        .navbar {
+            font-size: 1.15rem;
+            background: linear-gradient(90deg, var(--primary-color) 0%, #303f9f 100%);
+        }
+        .navbar-brand, .navbar-nav .nav-link {
+            color: #fff !important;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .navbar-nav .nav-link.active, .navbar-nav .nav-link:hover {
+            color: var(--secondary-color) !important;
+        }
+        .feature-post {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.07);
+            padding: 2.5rem 2rem;
+            margin-bottom: 2rem;
+        }
+        .feature-post-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        .feature-post-meta {
+            color: #888;
+            font-size: 1.1rem;
+            margin-bottom: 1.2rem;
+        }
+        .feature-post-content {
+            font-size: 1.25rem;
+            line-height: 1.7;
+            color: #222;
+        }
+        .events-card, .weekly-review-card {
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            padding: 1.5rem 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        .events-card h5, .weekly-review-card h5 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        .recent-posts-card {
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            padding: 1.2rem 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .recent-posts-card h5 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        .recent-post-link {
+            font-size: 1.05rem;
+            color: var(--primary-color);
+            font-weight: 500;
+            display: block;
+            margin-bottom: 0.7rem;
+            text-decoration: none;
+        }
+        .recent-post-link:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+        .comments-thread-card {
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            padding: 1.2rem 1rem;
+            margin-bottom: 1.5rem;
+            max-height: 350px;
+            overflow: hidden;
+            position: relative;
+        }
+        .comments-thread-list {
+            max-height: 300px;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            padding-right: 10px;
+        }
+        .comment-thread {
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid #eee;
+        }
+        .comment-author {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.05rem;
+        }
+        .comment-date {
+            font-size: 0.95rem;
+            color: #888;
+        }
+        .comment-content {
+            font-size: 1.1rem;
+            margin-top: 0.2rem;
+        }
+        .comment-reply {
+            margin-left: 1.5rem;
+            border-left: 2px solid var(--accent-color);
+            padding-left: 1rem;
+            margin-top: 0.5rem;
+        }
+        .btn-login {
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 0.5rem 1.5rem;
+            background: var(--primary-color);
+            color: #fff;
+            border: none;
+            transition: background 0.2s;
+        }
+        .btn-login:hover {
+            background: #303f9f;
+            color: #fff;
+        }
+        .footer {
+            background: var(--primary-color);
+            color: #fff;
+            padding: 2rem 0 1rem 0;
+            text-align: center;
+            font-size: 1.1rem;
+            margin-top: 3rem;
+        }
+        @media (max-width: 991px) {
+            .feature-post { padding: 1.5rem 1rem; }
+            .feature-post-title { font-size: 1.5rem; }
+        }
+        @media (max-width: 767px) {
+            .feature-post { padding: 1rem 0.5rem; }
+            .feature-post-title { font-size: 1.2rem; }
+            .dashboard-header, .dashboard-nav, .dashboard-content { padding: 1rem; }
+        }
+    </style>
 </head>
 <body>
-    <header class="community-header">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
-            <h1><a href="../index.html">Hon Gisiri</a> / <a href="index.html">Community</a> / Discussions</h1>
-            <nav>
-                <a href="index.html" class="active">Discussions</a>
-                <a href="events.html">Events</a>
-                <a href="weekly-focus.html">Weekly Focus</a>
-                <a href="auth/login.html" id="login-link">Login</a>
-                <a href="dashboard/index.html" id="dashboard-link" style="display:none;">Dashboard</a>
-            </nav>
+            <a class="navbar-brand" href="#">Hon. Gisiri Maroa Community</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Events</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Weekly Review</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                    <li class="nav-item"><button class="btn btn-login ms-lg-3" id="loginBtnNav">Login</button></li>
+                </ul>
+            </div>
         </div>
-    </header>
+    </nav>
 
-    <main class="container">
-        <section class="discussions-section">
-            <div class="discussions-header">
-                <h2>Community Discussions</h2>
-                <button id="new-topic-btn" class="new-topic-btn" style="display:none;">New Topic</button>
-            </div>
-            
-            <div class="discussion-categories">
-                <div class="category-card" data-category="general">
-                    <h3>General</h3>
-                    <p>General community discussions</p>
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay d-none">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Landing Page Main Content -->
+    <div class="container py-4">
+        <div class="row">
+            <!-- Main Column -->
+            <div class="col-lg-8 mb-4">
+                <!-- Feature Post -->
+                <div class="feature-post" id="feature-post">
+                    <!-- JS will inject the feature post here -->
                 </div>
-                <div class="category-card" data-category="announcements">
-                    <h3>Announcements</h3>
-                    <p>Official community announcements</p>
-                </div>
-                <div class="category-card" data-category="help">
-                    <h3>Help & Support</h3>
-                    <p>Ask for help or offer support</p>
-                </div>
-                <div class="category-card" data-category="ideas">
-                    <h3>Ideas & Suggestions</h3>
-                    <p>Share your ideas for the community</p>
+                <!-- Weekly Review -->
+                <div class="weekly-review-card" id="weekly-review-card">
+                    <h5>Weekly Review</h5>
+                    <div id="weekly-review-content">
+                        <!-- JS will inject weekly review here -->
+                    </div>
                 </div>
             </div>
-            
-            <div class="topics-list" id="topics-container">
-                <!-- Topics will be loaded here dynamically -->
-                <div class="loading-message">Loading discussions...</div>
+            <!-- Sidebar Column -->
+            <div class="col-lg-4">
+                <!-- Recent Posts -->
+                <div class="recent-posts-card">
+                    <h5>Recent Posts</h5>
+                    <div id="recent-posts-list">
+                        <!-- JS will inject recent posts here -->
+                    </div>
+                </div>
+                <!-- Comments Thread -->
+                <div class="comments-thread-card">
+                    <h5>Latest Comments</h5>
+                    <div class="comments-thread-list" id="comments-thread-list">
+                        <!-- JS will inject comments here -->
+                    </div>
+                </div>
+                <!-- Upcoming Events -->
+                <div class="events-card mb-4" id="events-card">
+                    <h5>Upcoming Events</h5>
+                    <ul class="list-unstyled mb-0" id="events-list">
+                        <!-- JS will inject events here -->
+                    </ul>
+                </div>
             </div>
-            
-            <div id="new-topic-modal" class="modal" style="display:none;">
+        </div>
+    </div>
+
+    <!-- Auth Modal (Login/Register) -->
+    <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content auth-card">
+                <div class="auth-header">
+                    <h2 id="authModalLabel">Welcome Back</h2>
+                    <p>Login or Register to access the dashboard</p>
+                </div>
+                <div class="auth-body">
+                    <div id="auth-message"></div>
+                    <ul class="nav nav-tabs" id="authTabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="login-tab" data-bs-toggle="tab" href="#login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="register-tab" data-bs-toggle="tab" href="#register">Register</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content p-3" id="authTabsContent">
+                        <div class="tab-pane fade show active" id="login">
+                            <form id="login-form">
+                                <div class="mb-3">
+                                    <label for="login-email" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="login-email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="login-password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="login-password" required>
+                                </div>
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="remember">
+                                    <label class="form-check-label" for="remember">Remember me</label>
+                                    <a href="reset-password.html" class="float-end">Forgot password?</a>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
+                                <div class="divider">
+                                    <span class="divider-text">OR</span>
+                                </div>
+                                <div class="social-login">
+                                    <a href="#" class="social-btn facebook" title="Quick Comment"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="#" class="social-btn google" title="Quick Comment"><i class="fab fa-google"></i></a>
+                                    <a href="#" class="social-btn twitter" title="Quick Comment"><i class="fab fa-twitter"></i></a>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="register">
+                            <form id="register-form">
+                                <div class="mb-3">
+                                    <label for="register-email" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="register-email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="register-password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="register-password" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="register-confirm-password" class="form-label">Confirm Password</label>
+                                    <input type="password" class="form-control" id="register-confirm-password" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 mb-3">Register</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="auth-footer">
+                    <a href="#" id="open-author-app-link" class="text-primary fw-bold mt-2 d-inline-block">Apply to be an Author</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Container (hidden by default) -->
+    <div class="dashboard-container" id="dashboard-container" style="display:none;">
+        <div class="dashboard-header">
+            <div class="user-info">
+                <img src="https://via.placeholder.com/60" alt="User Avatar" class="user-avatar" id="user-avatar">
+                <div>
+                    <div class="user-name" id="user-name">Loading...</div>
+                    <span class="user-role" id="user-role">Loading...</span>
+                    <div class="badge-container" id="user-badges"></div>
+                </div>
+            </div>
+            <button class="logout-btn" id="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+        <div class="dashboard-nav">
+            <ul class="nav nav-pills" id="dashboard-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" data-bs-toggle="pill" data-bs-target="#posts-tab">Community Posts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-bs-toggle="pill" data-bs-target="#new-post-tab">New Post</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-bs-toggle="pill" data-bs-target="#comments-tab">Comments</a>
+                </li>
+                <li class="nav-item" id="users-tab-item" style="display: none;">
+                    <a class="nav-link" href="#" data-bs-toggle="pill" data-bs-target="#users-tab">Users</a>
+                </li>
+                <li class="nav-item" id="settings-tab-item">
+                    <a class="nav-link" href="#" data-bs-toggle="pill" data-bs-target="#settings-tab">Settings</a>
+                </li>
+            </ul>
+        </div>
+        <div class="tab-content dashboard-content" id="dashboard-tab-content">
+            <!-- Community Posts Tab -->
+            <div class="tab-pane fade show active" id="posts-tab">
+                <h3 class="content-title">Community Posts</h3>
+                <div id="posts-list">
+                    <div class="text-center py-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-3">Loading published posts...</p>
+                    </div>
+                </div>
+            </div>
+            <!-- New Post Tab -->
+            <div class="tab-pane fade" id="new-post-tab">
+                <!-- ...existing code for new post form... -->
+            </div>
+            <!-- Comments Tab -->
+            <div class="tab-pane fade" id="comments-tab">
+                <!-- ...existing code for comments... -->
+            </div>
+            <!-- Users Tab (Admin Only) -->
+            <div class="tab-pane fade" id="users-tab">
+                <!-- ...existing code for user management... -->
+            </div>
+            <!-- Settings Tab -->
+            <div class="tab-pane fade" id="settings-tab">
+                <!-- ...existing code for account settings... -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals Container -->
+    <div id="modals-container">
+        <!-- Author Application Modal -->
+        <div class="modal fade" id="authorApplicationModal" tabindex="-1" aria-labelledby="authorApplicationModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
-                    <span class="close-btn">&times;</span>
-                    <h3>Create New Topic</h3>
-                    <form id="new-topic-form">
-                        <div class="form-group">
-                            <label for="topic-title">Title</label>
-                            <input type="text" id="topic-title" required>
+                    <form id="author-application-form" autocomplete="off">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="authorApplicationModalLabel">
+                                <i class="fas fa-leaf me-2"></i>Apply to Become an Author
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="form-group">
-                            <label for="topic-category">Category</label>
-                            <select id="topic-category" required>
-                                <option value="general">General</option>
-                                <option value="announcements">Announcements</option>
-                                <option value="help">Help & Support</option>
-                                <option value="ideas">Ideas & Suggestions</option>
-                            </select>
+                        <div class="modal-body">
+                            <div class="admin-message mb-4">
+                                Thank you for your interest to write for us. All authors must undergo a mandatory training to ensure they are compliant with our community standards. Once your application has been processed you will get a message alert on your WhatsApp for a training. Only after training is when your account will be created and login details shared for you to login to our platform.<br>
+                                <span class="d-block mt-2" style="font-style:normal;font-weight:600;">— Admin</span>
+                            </div>
+                            <div id="author-app-message"></div>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="author-name" class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" id="author-name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="author-id" class="form-label">National ID Number</label>
+                                    <input type="text" class="form-control" id="author-id" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="author-dob" class="form-label">Date of Birth</label>
+                                    <input type="date" class="form-control" id="author-dob" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="author-phone" class="form-label">Phone Number (WhatsApp)</label>
+                                    <input type="tel" class="form-control" id="author-phone" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="author-voting-area" class="form-label">Voting Area</label>
+                                    <select class="form-select" id="author-voting-area" required>
+                                        <option value="" disabled selected>Select your voting area</option>
+                                        <option value="Bitorogwe">Bitorogwe</option>
+                                        <option value="Chinato">Chinato</option>
+                                        <option value="Gibarori">Gibarori</option>
+                                        <!-- ...other areas... -->
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="author-picture" class="form-label">Profile Picture</label>
+                                    <div class="input-group">
+                                        <input type="url" class="form-control" id="author-picture" placeholder="Image URL" readonly required>
+                                        <button type="button" class="btn" id="upload-author-picture-btn"><i class="fas fa-upload"></i> Upload</button>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <label for="author-message" class="form-label">Why do you want to become an author? <span class="fw-normal">(min 200 words)</span></label>
+                                    <textarea class="form-control" id="author-message" rows="7" minlength="200" required style="resize:vertical"></textarea>
+                                    <div class="form-text" id="author-message-count">0 / 200 words</div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-check mt-2 mb-1">
+                                        <input class="form-check-input" type="checkbox" value="" id="author-privacy-check" required>
+                                        <label class="form-check-label" for="author-privacy-check">
+                                            <strong>I accept and agree</strong> to adhere to the <span style="color:#43a047;font-weight:700;">privacy of this forum</span> and that <strong>all passwords and login details shared with me will not be shared with anyone else. Use of insults and vague language is not allowed.</strong>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="topic-content">Content</label>
-                            <textarea id="topic-content" rows="6" required></textarea>
+                        <div class="modal-footer justify-content-center">
+                            <button type="submit" class="btn btn-primary px-5"><i class="fas fa-paper-plane me-2"></i>Submit Application</button>
                         </div>
-                        <button type="submit" class="submit-btn">Post Topic</button>
                     </form>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+        <!-- Add other modals here (discussion, reply, etc.) as needed -->
+    </div>
 
-    <footer class="community-footer">
+    <!-- Footer -->
+    <footer class="footer">
         <div class="container">
-            <p>&copy; 2023 Hon Gisiri Community. All rights reserved.</p>
-            <div class="footer-links">
-                <a href="../about.html">About Us</a>
-                <a href="../contact.html">Contact</a>
-                <a href="../privacy.html">Privacy Policy</a>
-            </div>
+            &copy; <span id="footer-year"></span> Hon. Gisiri Maroa Community. All rights reserved.
         </div>
     </footer>
 
+    <!-- Bootstrap 5 JS Bundle with Popper (CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Firebase JS (CDN) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <!-- Cloudinary Widget JS (CDN) -->
+    <script src="https://widget.cloudinary.com/v2.0/global/all.js"></script>
     <script>
-        // Auth state management
+        // Firebase config and initialization
+        const firebaseConfig = {
+            apiKey: "AIzaSyCot4X6jMigcn1CLpewewivCXyaYwn0MBk",
+            authDomain: "hon-gisiri-maroa-blog.firebaseapp.com",
+            databaseURL: "https://hon-gisiri-maroa-blog-default-rtdb.firebaseio.com",
+            projectId: "hon-gisiri-maroa-blog",
+            storageBucket: "hon-gisiri-maroa-blog.appspot.com",
+            messagingSenderId: "120502408737",
+            appId: "1:120502408737:web:6f56946bd1a6db24457560",
+            measurementId: "G-QQ5R7HG7Q5"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        const rtdb = firebase.database();
+
+        // Show login/register modal on login-required actions
+        document.getElementById('loginBtnNav').onclick = function() {
+            const modal = new bootstrap.Modal(document.getElementById('authModal'));
+            modal.show();
+            // Reset form and messages
+            document.getElementById('auth-message').innerHTML = '';
+            document.getElementById('login-form').reset();
+            document.getElementById('register-form').reset();
+            document.getElementById('login-tab').classList.add('active');
+            document.getElementById('register-tab').classList.remove('active');
+            document.getElementById('login').classList.add('show', 'active');
+            document.getElementById('register').classList.remove('show', 'active');
+        };
+
+        // Tab switching logic for login/register modal
+        document.getElementById('login-tab').onclick = function(e) {
+            e.preventDefault();
+            this.classList.add('active');
+            document.getElementById('register-tab').classList.remove('active');
+            document.getElementById('login').classList.add('show', 'active');
+            document.getElementById('register').classList.remove('show', 'active');
+            document.getElementById('auth-message').innerHTML = '';
+        };
+        document.getElementById('register-tab').onclick = function(e) {
+            e.preventDefault();
+            this.classList.add('active');
+            document.getElementById('login-tab').classList.remove('active');
+            document.getElementById('register').classList.add('show', 'active');
+            document.getElementById('login').classList.remove('show', 'active');
+            document.getElementById('auth-message').innerHTML = '';
+        };
+
+        // Login form handler
+        document.getElementById('login-form').onsubmit = function(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value.trim();
+            document.getElementById('auth-message').innerHTML = '';
+            auth.signInWithEmailAndPassword(email, password)
+                .then(() => {
+                    bootstrap.Modal.getOrCreateInstance(document.getElementById('authModal')).hide();
+                    // Optionally reload or update UI
+                    location.reload();
+                })
+                .catch(err => {
+                    document.getElementById('auth-message').innerHTML = `<div class="alert alert-danger">${err.message}</div>`;
+                });
+        };
+
+        // Register form handler
+        document.getElementById('register-form').onsubmit = function(e) {
+            e.preventDefault();
+            const email = document.getElementById('register-email').value.trim();
+            const password = document.getElementById('register-password').value.trim();
+            const confirm = document.getElementById('register-confirm-password').value.trim();
+            document.getElementById('auth-message').innerHTML = '';
+            if (password !== confirm) {
+                document.getElementById('auth-message').innerHTML = `<div class="alert alert-danger">Passwords do not match.</div>`;
+                return;
+            }
+            auth.createUserWithEmailAndPassword(email, password)
+                .then(() => {
+                    document.getElementById('auth-message').innerHTML = `<div class="alert alert-success">Registration successful. Please login.</div>`;
+                    document.getElementById('login-tab').click();
+                })
+                .catch(err => {
+                    document.getElementById('auth-message').innerHTML = `<div class="alert alert-danger">${err.message}</div>`;
+                });
+        };
+
+        // Show author application modal
+        document.getElementById('open-author-app-link').onclick = function(e) {
+            e.preventDefault();
+            const modal = new bootstrap.Modal(document.getElementById('authorApplicationModal'));
+            modal.show();
+        };
+
+        // Public posts: load all published posts for landing page
+        function loadPublicPosts() {
+            const postsList = document.getElementById('public-posts-list');
+            db.collection('posts').where('status', '==', 'published').orderBy('createdAt', 'desc').get()
+                .then(snapshot => {
+                    postsList.innerHTML = '';
+                    if (snapshot.empty) {
+                        postsList.innerHTML = '<div class="col-12 text-center"><div class="alert alert-info">No published posts yet.</div></div>';
+                        return;
+                    }
+                    snapshot.forEach(doc => {
+                        const post = doc.data();
+                        postsList.innerHTML += `
+                            <div class="col-md-6 col-lg-4">
+                                <div class="card h-100 shadow-sm">
+                                    <img src="${post.image || 'https://via.placeholder.com/400x200'}" class="card-img-top" alt="${post.title}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${post.title}</h5>
+                                        <p class="card-text">${post.excerpt || post.content.substring(0, 120) + '...'}</p>
+                                        <button class="btn btn-outline-primary btn-sm view-post-btn" data-id="${doc.id}">Read More</button>
+                                    </div>
+                                    <div class="card-footer text-muted small">
+                                        <span><i class="far fa-eye"></i> <span class="post-views" data-id="${doc.id}">0</span></span>
+                                        <span class="ms-3"><i class="far fa-thumbs-up"></i> <span class="post-likes" data-id="${doc.id}">0</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    // Attach view event
+                    document.querySelectorAll('.view-post-btn').forEach(btn => {
+                        btn.onclick = function() {
+                            const postId = this.getAttribute('data-id');
+                            incrementPostView(postId);
+                            // Optionally, show post modal or redirect to post page
+                        };
+                    });
+                    // Load stats
+                    snapshot.forEach(doc => {
+                        getPostStats(doc.id, stats => {
+                            document.querySelectorAll(`.post-views[data-id="${doc.id}"]`).forEach(el => el.textContent = stats.views || 0);
+                            document.querySelectorAll(`.post-likes[data-id="${doc.id}"]`).forEach(el => el.textContent = stats.likes || 0);
+                        });
+                    });
+                })
+                .catch(handleFirestoreIndexError);
+        }
+
+        // Post stats functions
+        function incrementPostView(postId) {
+            const statsRef = rtdb.ref('postStats/' + postId + '/views');
+            statsRef.transaction(current => (current || 0) + 1);
+        }
+        function getPostStats(postId, callback) {
+            rtdb.ref('postStats/' + postId).on('value', snapshot => {
+                callback(snapshot.val() || { views: 0, likes: 0, comments: 0 });
+            });
+        }
+
+        // Auth logic (login, register, logout, etc.
+        document.getElementById('login-form').onsubmit = function(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value.trim();
+            auth.signInWithEmailAndPassword(email, password)
+                .then(() => {
+                    // Hide auth modal, show dashboard, hide landing
+                    bootstrap.Modal.getOrCreateInstance(document.getElementById('authModal')).hide();
+                    document.getElementById('dashboard-container').style.display = 'block';
+                    document.getElementById('public-posts-container')?.classList.add('d-none');
+                    // Optionally, load dashboard data here
+                    loadDashboard();
+                })
+                .catch(err => {
+                    document.getElementById('auth-message').innerHTML = `<div class="alert alert-danger">${err.message}</div>`;
+                });
+        };
+
+        // Register functionality
+        document.getElementById('register-form').onsubmit = function(e) {
+            e.preventDefault();
+            const email = document.getElementById('register-email').value.trim();
+            const password = document.getElementById('register-password').value.trim();
+            const confirm = document.getElementById('register-confirm-password').value.trim();
+            if (password !== confirm) {
+                document.getElementById('auth-message').innerHTML = `<div class="alert alert-danger">Passwords do not match.</div>`;
+                return;
+            }
+            auth.createUserWithEmailAndPassword(email, password)
+                .then(() => {
+                    document.getElementById('auth-message').innerHTML = `<div class="alert alert-success">Registration successful. Please login.</div>`;
+                    document.getElementById('login-tab').click();
+                })
+                .catch(err => {
+                    document.getElementById('auth-message').innerHTML = `<div class="alert alert-danger">${err.message}</div>`;
+                });
+        };
+
+        // Utility: get user role (expand as needed)
+        function getUserRole(user, callback) {
+            // Example: get from Firestore user profile, fallback to displayName
+            db.collection('users').doc(user.uid).get().then(doc => {
+                if (doc.exists && doc.data().role) {
+                    callback(doc.data().role);
+                } else if (user.displayName) {
+                    if (user.displayName.toLowerCase().includes("admin")) callback("admin");
+                    else if (user.displayName.toLowerCase().includes("author_01")) callback("author_01");
+                    else if (user.displayName.toLowerCase().includes("author")) callback("author");
+                    else callback("user");
+                } else {
+                    callback("user");
+                }
+            }).catch(() => callback("user"));
+        }
+
+        // On auth state change, show dashboard or landing
         auth.onAuthStateChanged(user => {
             if (user) {
-                document.getElementById('login-link').style.display = 'none';
-                document.getElementById('dashboard-link').style.display = 'inline-block';
-                document.getElementById('new-topic-btn').style.display = 'block';
+                document.getElementById('dashboard-container').style.display = 'block';
+                document.getElementById('public-posts-container')?.classList.add('d-none');
+                getUserRole(user, role => {
+                    loadDashboard(role);
+                });
             } else {
-                document.getElementById('login-link').style.display = 'inline-block';
-                document.getElementById('dashboard-link').style.display = 'none';
-                document.getElementById('new-topic-btn').style.display = 'none';
+                document.getElementById('dashboard-container').style.display = 'none';
+                document.getElementById('public-posts-container')?.classList.remove('d-none');
             }
         });
 
-        // Load discussions
-        function loadDiscussions() {
-            db.collection("topics").orderBy("createdAt", "desc").limit(20).get()
-                .then(querySnapshot => {
-                    const container = document.getElementById('topics-container');
-                    container.innerHTML = '';
-                    
-                    if (querySnapshot.empty) {
-                        container.innerHTML = '<div class="empty-message">No discussions yet. Be the first to start one!</div>';
+        // Dashboard loader with user level
+        function loadDashboard(role) {
+            // Show user level in dashboard header
+            let roleLabel = "User";
+            if (role === "admin") roleLabel = "Admin";
+            else if (role === "author_01") roleLabel = "New Author";
+            else if (role === "author") roleLabel = "Approved Author";
+            document.getElementById('user-role').textContent = roleLabel;
+
+            // Show dashboard message for author levels
+            let dashboardMsg = "";
+            if (role === "author_01") {
+                dashboardMsg = `<div class="alert alert-warning mb-3">Kindly save your draft and it will be published soon by the editor.</div>`;
+            } else if (role === "author") {
+                dashboardMsg = `<div class="alert alert-info mb-3">Kindly review before publishing.</div>`;
+            } else if (role === "admin") {
+                dashboardMsg = `<div class="alert alert-success mb-3">Welcome, Admin. You have full access.</div>`;
+            }
+            const postsTab = document.querySelector("#dashboard-tab-content .tab-pane#posts-tab");
+            if (postsTab) {
+                postsTab.innerHTML = dashboardMsg + '<div id="posts-list"></div>';
+            }
+            loadDashboardPosts(role, auth.currentUser.uid);
+        }
+
+        // Load posts for dashboard with clickable, full mode, and actions
+        function loadDashboardPosts(role, userId) {
+            const postsList = document.getElementById('posts-list');
+            let query = db.collection('posts');
+            if (role === "admin") {
+                query = query.orderBy('createdAt', 'desc');
+            } else if (role === "author_01" || role === "author") {
+                query = query.where('authorId', '==', userId).orderBy('createdAt', 'desc');
+            } else {
+                query = query.where('status', '==', 'published').orderBy('createdAt', 'desc');
+            }
+            query.get().then(snapshot => {
+                postsList.innerHTML = '';
+                if (snapshot.empty) {
+                    postsList.innerHTML = '<div class="alert alert-info">No posts found.</div>';
+                    return;
+                }
+                // Collect all posts for navigation in full mode
+                const allPosts = [];
+                snapshot.forEach(doc => {
+                    const post = doc.data();
+                    const postId = doc.id;
+                    allPosts.push({ ...post, id: postId });
+                });
+                allPosts.forEach((post, idx) => {
+                    let actions = '';
+                    if (role === "admin") {
+                        actions = `
+                            <button class="btn btn-sm btn-outline-primary edit-post-btn" data-id="${post.id}"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="btn btn-sm btn-outline-danger delete-post-btn" data-id="${post.id}"><i class="fas fa-trash"></i> Delete</button>
+                            <button class="btn btn-sm btn-outline-success publish-post-btn" data-id="${post.id}">Publish</button>
+                        `;
+                    } else if (role === "author_01") {
+                        actions = `<button class="btn btn-sm btn-outline-primary edit-post-btn" data-id="${post.id}"><i class="fas fa-edit"></i> Edit</button>`;
+                    } else if (role === "author") {
+                        actions = `
+                            <button class="btn btn-sm btn-outline-primary edit-post-btn" data-id="${post.id}"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="btn btn-sm btn-outline-success publish-post-btn" data-id="${post.id}">Publish</button>
+                        `;
+                    }
+                    postsList.innerHTML += `
+                        <div class="post-card mb-3 d-flex align-items-center" data-id="${post.id}" style="cursor:pointer;">
+                            <img src="${post.image || 'https://via.placeholder.com/120x80'}" alt="${post.title}" class="rounded me-3" style="width:100px;height:70px;object-fit:cover;">
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a href="#" class="post-title-link" data-id="${post.id}" style="font-size:1.2rem;font-weight:600;color:var(--primary-color);text-decoration:underline;">${post.title}</a>
+                                </div>
+                                <div class="post-meta small text-muted mb-1">${post.createdAt && post.createdAt.toDate ? post.createdAt.toDate().toLocaleString() : ''}</div>
+                                <div class="mb-2">${post.excerpt || (post.content ? post.content.substring(0, 120) + '...' : '')}</div>
+                                <button class="btn btn-outline-primary btn-sm read-more-btn" data-id="${post.id}" data-idx="${idx}">Read More</button>
+                                ${actions}
+                            </div>
+                        </div>
+                    `;
+                });
+
+                // Read More button and post title open full mode
+                document.querySelectorAll('.read-more-btn, .post-title-link').forEach(el => {
+                    el.onclick = function(e) {
+                        e.preventDefault();
+                        const postId = this.getAttribute('data-id');
+                        const idx = parseInt(this.getAttribute('data-idx')) || allPosts.findIndex(p => p.id === postId);
+                        openFullPostModal(allPosts, idx);
+                    };
+                });
+            });
+        }
+
+        // Full post modal (responsive, easy navigation, reader mode)
+        function openFullPostModal(allPosts, idx) {
+            const post = allPosts[idx];
+            if (!post) return;
+            let modalHtml = `
+            <div class="modal fade" id="fullPostModal" tabindex="-1" aria-labelledby="fullPostModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content" style="border-radius:1rem;">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="fullPostModalLabel">${post.title}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="${post.image || 'https://via.placeholder.com/800x350'}" class="img-fluid rounded mb-3 w-100" alt="${post.title}">
+                            <div class="mb-2 text-muted small">By ${post.authorName || 'Anonymous'} &middot; ${post.createdAt && post.createdAt.toDate ? post.createdAt.toDate().toLocaleString() : ''}</div>
+                            <div style="font-size:1.15rem;" id="full-post-content">${post.content}</div>
+                            <div class="mt-4 d-flex flex-wrap gap-2 justify-content-between align-items-center">
+                                <div>
+                                    <button class="btn btn-outline-secondary btn-sm comment-btn" data-id="${post.id}"><i class="far fa-comment"></i> Comment</button>
+                                </div>
+                                <div>
+                                    <button class="btn btn-outline-success btn-sm like-btn" data-id="${post.id}"><i class="far fa-thumbs-up"></i> Like</button>
+                                    <button class="btn btn-outline-danger btn-sm report-btn" data-id="${post.id}"><i class="fas fa-flag"></i> Report</button>
+                                    <div class="btn-group">
+                                        <button class="btn btn-outline-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown"><i class="fas fa-share"></i> Share</button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item share-fb" href="#" data-id="${post.id}"><i class="fab fa-facebook"></i> Facebook</a></li>
+                                            <li><a class="dropdown-item share-tw" href="#" data-id="${post.id}"><i class="fab fa-twitter"></i> Twitter</a></li>
+                                            <li><a class="dropdown-item share-wa" href="#" data-id="${post.id}"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+                                            <li><a class="dropdown-item share-email" href="#" data-id="${post.id}"><i class="fas fa-envelope"></i> Email</a></li>
+                                            <li><a class="dropdown-item share-copy" href="#" data-id="${post.id}"><i class="fas fa-link"></i> Copy Link</a></li>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 d-flex justify-content-between align-items-center">
+                                <button class="btn btn-outline-secondary prev-post-btn" ${idx === 0 ? 'disabled' : ''}><i class="fas fa-arrow-left"></i> Previous</button>
+                                <button class="btn btn-outline-dark reader-mode-btn"><i class="fas fa-book-open"></i> Reader Mode</button>
+                                <button class="btn btn-outline-secondary next-post-btn" ${idx === allPosts.length - 1 ? 'disabled' : ''}>Next <i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="readerModeOverlay" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:2000;background:#fff;overflow:auto;">
+                <div class="container py-4" style="max-width:700px;">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <button class="btn btn-outline-dark exit-reader-btn"><i class="fas fa-times"></i> Exit Reader Mode</button>
+                        <div>
+                            <button class="btn btn-outline-secondary prev-post-btn" ${idx === 0 ? 'disabled' : ''}><i class="fas fa-arrow-left"></i></button>
+                            <button class="btn btn-outline-secondary next-post-btn" ${idx === allPosts.length - 1 ? 'disabled' : ''}><i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                    <h2 style="font-family:'Playfair Display',serif;font-weight:800;">${post.title}</h2>
+                    <div class="mb-2 text-muted small">By ${post.authorName || 'Anonymous'} &middot; ${post.createdAt && post.createdAt.toDate ? post.createdAt.toDate().toLocaleString() : ''}</div>
+                    <img src="${post.image || 'https://via.placeholder.com/800x350'}" class="img-fluid rounded mb-3 w-100" alt="${post.title}">
+                    <div style="font-size:1.25rem;line-height:1.7;">${post.content}</div>
+                </div>
+                <button class="btn btn-dark position-fixed" style="top:20px;right:20px;z-index:2100;" id="exitReaderModeBtn"><i class="fas fa-times"></i> Exit</button>
+            </div>
+            `;
+            // Remove any existing modal/overlay
+            document.querySelectorAll('#fullPostModal, #readerModeOverlay').forEach(m => m.remove());
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+            const modal = new bootstrap.Modal(document.getElementById('fullPostModal'));
+            modal.show();
+            document.getElementById('fullPostModal').addEventListener('hidden.bs.modal', function() {
+                this.remove();
+                document.getElementById('readerModeOverlay')?.remove();
+            });
+
+            // Like, comment, report, share handlers (full mode only)
+            document.querySelectorAll('#fullPostModal .like-btn').forEach(btn => {
+                btn.onclick = function(e) {
+                    e.stopPropagation();
+                    incrementPostLike(post.id);
+                };
+            });
+            document.querySelectorAll('#fullPostModal .comment-btn').forEach(btn => {
+                btn.onclick = function(e) {
+                    e.stopPropagation();
+                    openCommentModal(post.id);
+                };
+            });
+            document.querySelectorAll('#fullPostModal .report-btn').forEach(btn => {
+                btn.onclick = function(e) {
+                    e.stopPropagation();
+                    alert('Report submitted for post: ' + post.id);
+                };
+            });
+            document.querySelectorAll('#fullPostModal .share-fb').forEach(btn => {
+                btn.onclick = function(e) {
+                    e.preventDefault(); e.stopPropagation();
+                    sharePost(post.id, 'facebook');
+                };
+            });
+            document.querySelectorAll('#fullPostModal .share-tw').forEach(btn => {
+                btn.onclick = function(e) {
+                    e.preventDefault(); e.stopPropagation();
+                    sharePost(post.id, 'twitter');
+                };
+            });
+            document.querySelectorAll('#fullPostModal .share-wa').forEach(btn => {
+                btn.onclick = function(e) {
+                    e.preventDefault(); e.stopPropagation();
+                    sharePost(post.id, 'whatsapp');
+                };
+            });
+            document.querySelectorAll('#fullPostModal .share-email').forEach(btn => {
+                btn.onclick = function(e) {
+                    e.preventDefault(); e.stopPropagation();
+                    sharePost(post.id, 'email');
+                };
+            });
+            document.querySelectorAll('#fullPostModal .share-copy').forEach(btn => {
+                btn.onclick = function(e) {
+                    e.preventDefault(); e.stopPropagation();
+                    sharePost(post.id, 'copy');
+                };
+            });
+
+            // Next/Prev navigation in full mode
+            document.querySelector('#fullPostModal .next-post-btn')?.addEventListener('click', function() {
+                modal.hide();
+                setTimeout(() => openFullPostModal(allPosts, idx + 1), 300);
+            });
+            document.querySelector('#fullPostModal .prev-post-btn')?.addEventListener('click', function() {
+                modal.hide();
+                setTimeout(() => openFullPostModal(allPosts, idx - 1), 300);
+            });
+
+            // Reader mode
+            document.querySelector('#fullPostModal .reader-mode-btn')?.addEventListener('click', function() {
+                document.getElementById('readerModeOverlay').style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            });
+            document.getElementById('exitReaderModeBtn').onclick = function() {
+                document.getElementById('readerModeOverlay').style.display = 'none';
+                document.body.style.overflow = '';
+            };
+            // Next/Prev in reader mode
+            document.querySelector('#readerModeOverlay .next-post-btn')?.addEventListener('click', function() {
+                document.getElementById('readerModeOverlay').style.display = 'none';
+                modal.hide();
+                setTimeout(() => openFullPostModal(allPosts, idx + 1), 300);
+            });
+            document.querySelector('#readerModeOverlay .prev-post-btn')?.addEventListener('click', function() {
+                document.getElementById('readerModeOverlay').style.display = 'none';
+                modal.hide();
+                setTimeout(() => openFullPostModal(allPosts, idx - 1), 300);
+            });
+            document.querySelector('#readerModeOverlay .exit-reader-btn')?.addEventListener('click', function() {
+                document.getElementById('readerModeOverlay').style.display = 'none';
+                document.body.style.overflow = '';
+            });
+        }
+
+        // Like post (Realtime DB)
+        function incrementPostLike(postId) {
+            const statsRef = rtdb.ref('postStats/' + postId + '/likes');
+            statsRef.transaction(current => (current || 0) + 1);
+        }
+
+        // Share post
+        function sharePost(postId, platform) {
+            db.collection('posts').doc(postId).get().then(doc => {
+                if (!doc.exists) return;
+                const post = doc.data();
+                const url = window.location.origin + '/post/' + postId;
+                const text = encodeURIComponent(post.title + ' - ' + url);
+                if (platform === 'facebook') {
+                    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+                } else if (platform === 'twitter') {
+                    window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
+                } else if (platform === 'whatsapp') {
+                    window.open(`https://wa.me/?text=${text}`, '_blank');
+                } else if (platform === 'email') {
+                    window.location.href = `mailto:?subject=${encodeURIComponent(post.title)}&body=${text}`;
+                } else if (platform === 'copy') {
+                    navigator.clipboard.writeText(url);
+                    alert('Link copied to clipboard!');
+                }
+            });
+        }
+
+        // Placeholder for comment modal
+        function openCommentModal(postId) {
+            alert('Comment feature coming soon for post: ' + postId);
+        }
+
+        // Load Feature Post (show on top in full view, select from draft)
+        function loadFeaturePost() {
+            // Select the first post with status 'draft' and isFeature: true, fallback to latest draft
+            db.collection('posts')
+                .where('status', '==', 'draft')
+                .orderBy('createdAt', 'desc')
+                .get()
+                .then(snapshot => {
+                    let featureDoc = null;
+                    snapshot.forEach(doc => {
+                        const post = doc.data();
+                        if (!featureDoc && post.isFeature) featureDoc = doc;
+                    });
+                    if (!featureDoc && !snapshot.empty) featureDoc = snapshot.docs[0];
+                    const feature = document.getElementById('feature-post');
+                    if (!featureDoc) {
+                        feature.innerHTML = '<div class="alert alert-info">No feature post available.</div>';
                         return;
                     }
-                    
-                    querySnapshot.forEach(doc => {
-                        const topic = doc.data();
-                        const topicDate = topic.createdAt.toDate();
-                        
-                        const topicElement = document.createElement('div');
-                        topicElement.className = 'topic-card';
-                        topicElement.innerHTML = `
-                            <div class="topic-header">
-                                <h3><a href="topic.html?id=${doc.id}">${topic.title}</a></h3>
-                                <span class="topic-category ${topic.category}">${topic.category}</span>
-                            </div>
-                            <div class="topic-meta">
-                                <span class="topic-author">${topic.authorName}</span>
-                                <span class="topic-date">${topicDate.toLocaleDateString()}</span>
-                                <span class="topic-comments">${topic.commentCount || 0} comments</span>
-                            </div>
-                        `;
-                        container.appendChild(topicElement);
-                    });
-                })
-                .catch(error => {
-                    console.error("Error loading discussions: ", error);
-                    document.getElementById('topics-container').innerHTML = 
-                        '<div class="error-message">Error loading discussions. Please try again later.</div>';
+                    const post = featureDoc.data();
+                    feature.innerHTML = `
+                        <div>
+                            <img src="${post.image || 'https://via.placeholder.com/800x350'}" class="img-fluid rounded mb-3" alt="${post.title}">
+                            <div class="feature-post-title">${post.title}</div>
+                            <div class="feature-post-meta">By ${post.authorName || 'Anonymous'} &middot; ${post.createdAt && post.createdAt.toDate ? post.createdAt.toDate().toLocaleDateString() : ''}</div>
+                            <div class="feature-post-content">${post.content}</div>
+                        </div>
+                    `;
                 });
         }
 
-        // New topic modal
-        document.getElementById('new-topic-btn')?.addEventListener('click', () => {
-            document.getElementById('new-topic-modal').style.display = 'block';
+        // On page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadFeaturePost();
+            loadEvents();
+            loadWeeklyReview();
+            loadRecentPosts();
+            loadCommentsThread();
         });
 
-        document.querySelector('.close-btn')?.addEventListener('click', () => {
-            document.getElementById('new-topic-modal').style.display = 'none';
-        });
-
-        // Handle new topic submission
-        document.getElementById('new-topic-form')?.addEventListener('submit', e => {
-            e.preventDefault();
-            const user = auth.currentUser;
-            
-            if (!user) {
-                alert('Please login to create a topic');
-                return;
-            }
-            
-            const title = document.getElementById('topic-title').value;
-            const category = document.getElementById('topic-category').value;
-            const content = document.getElementById('topic-content').value;
-            
-            db.collection("topics").add({
-                title,
-                category,
-                content,
-                authorId: user.uid,
-                authorName: user.displayName || "Anonymous",
-                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                commentCount: 0,
-                views: 0
-            })
-            .then(() => {
-                document.getElementById('new-topic-form').reset();
-                document.getElementById('new-topic-modal').style.display = 'none';
-                loadDiscussions();
-            })
-            .catch(error => {
-                console.error("Error creating topic: ", error);
-                alert('Error creating topic. Please try again.');
-            });
-        });
-
-        // Load discussions when page loads
-        window.addEventListener('DOMContentLoaded', loadDiscussions);
+        // Move events card to right column after comments
+        // In your HTML, move the events-card div after comments-thread-card in the sidebar column:
     </script>
 </body>
 </html>
